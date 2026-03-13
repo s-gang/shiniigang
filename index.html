@@ -244,6 +244,30 @@ nav::after {
 
 /* ═══ GAME GRID ═══ */
 .game-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
+.game-year-divider {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 16px;
+  margin: 18px 0 4px;
+}
+.game-year-divider:first-child { margin-top: 0; }
+.game-year-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem; letter-spacing: 4px;
+  color: var(--bg);
+  background: linear-gradient(90deg, var(--cyan), #0099bb);
+  padding: 4px 16px 4px 12px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+  white-space: nowrap; font-weight: 700;
+}
+.game-year-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, rgba(0,212,255,0.4), transparent);
+}
+.game-year-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.52rem; color: rgba(0,212,255,0.4);
+  letter-spacing: 2px; white-space: nowrap;
+}
 .game-card {
   background:var(--card); border:1px solid var(--border);
   border-radius:10px; overflow:hidden;
@@ -728,240 +752,118 @@ footer::before {
     <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
   <div class="game-grid reveal">
-    <div class="game-card searchable" data-title="Elden Ring">
-      <img class="game-img" src="images/elden.jpg" alt="Elden Ring">
-      <div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Zelda Breath of the Wild">
-      <img class="game-img" src="images/zelda.jpg" alt="Zelda BOTW">
-      <div class="game-info"><span class="game-title">ZELDA BOTW</span><span class="game-badge">AVENTURE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Dark Pictures The Devil In Me">
-      <img class="game-img" src="images/devil.jpg" alt="The Devil In Me">
-      <div class="game-info"><span class="game-title">THE DEVIL IN ME</span><span class="game-badge">NARRATIF</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Dark Pictures House of Ashes">
-      <img class="game-img" src="images/ashes.jpg" alt="House of Ashes">
-      <div class="game-info"><span class="game-title">HOUSE OF ASHES</span><span class="game-badge">NARRATIF</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Dark Pictures Man of Medan">
-      <img class="game-img" src="images/medan.jpg" alt="Man of Medan">
-      <div class="game-info"><span class="game-title">MAN OF MEDAN</span><span class="game-badge">NARRATIF</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Dark Pictures Little Hope">
-      <img class="game-img" src="images/littlehope.jpg" alt="Little Hope">
-      <div class="game-info"><span class="game-title">LITTLE HOPE</span><span class="game-badge">NARRATIF</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Until Dawn">
-      <img class="game-img" src="images/untildawn.jpg" alt="Until Dawn">
-      <div class="game-info"><span class="game-title">UNTIL DAWN</span><span class="game-badge">NARRATIF</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Zelda Skyward Sword">
-      <img class="game-img" src="images/skywardsword.jpg" alt="Zelda Skyward Sword" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">ZELDA SKYWARD SWORD</span><span class="game-badge">AVENTURE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Sekiro Shadows Die Twice">
-      <img class="game-img" src="images/sekiro.jpg" alt="Sekiro Shadows Die Twice" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">SEKIRO SHADOWS DIE TWICE</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Victory Road">
-      <img class="game-img" src="images/victoryroad.jpg" alt="Victory Road" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">VICTORY ROAD</span><span class="game-badge">SPORT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Outlast 1">
-      <img class="game-img" src="images/outlast1.jpg" alt="Outlast 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">OUTLAST 1</span><span class="game-badge">HORREUR</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Dokkan Battle">
-      <img class="game-img" src="images/dokkan.jpg" alt="Dokkan Battle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DOKKAN BATTLE</span><span class="game-badge">MOBILE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Bleach Brave Souls">
-      <img class="game-img" src="images/bleachbravesouls.jpg" alt="Bleach Brave Souls" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">BLEACH BRAVE SOULS</span><span class="game-badge">MOBILE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Naruto Storm 4">
-      <img class="game-img" src="images/narutostorm4.jpg" alt="Naruto Storm 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">NARUTO STORM 4</span><span class="game-badge">COMBAT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="DBZ Budokai Tenkaichi 3">
-      <img class="game-img" src="images/bt3.jpg" alt="DBZ Budokai Tenkaichi 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DBZ BUDOKAI TENKAICHI 3</span><span class="game-badge">COMBAT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="DBZ Kakarot">
-      <img class="game-img" src="images/dbzkakarot.jpg" alt="DBZ Kakarot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DBZ KAKAROT</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="DB Xenoverse 2">
-      <img class="game-img" src="images/xenoverse2.jpg" alt="DB Xenoverse 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DB XENOVERSE 2</span><span class="game-badge">COMBAT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Ghost of Tsushima">
-      <img class="game-img" src="images/ghostoftsushima.jpg" alt="Ghost of Tsushima" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">GHOST OF TSUSHIMA</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="God of War">
-      <img class="game-img" src="images/godofwar.jpg" alt="God of War" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">GOD OF WAR</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Resident Evil 7">
-      <img class="game-img" src="images/re7.jpg" alt="Resident Evil 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">RESIDENT EVIL 7</span><span class="game-badge">HORREUR</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Last of Us">
-      <img class="game-img" src="images/thelastofus1.jpg" alt="The Last of Us" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">THE LAST OF US</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="The Last of Us 2">
-      <img class="game-img" src="images/thelastofus2.jpg" alt="The Last of Us 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">THE LAST OF US 2</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Demon Slayer The Hinokami Chronicles">
-      <img class="game-img" src="images/demonslayergame.jpg" alt="Demon Slayer The Hinokami Chronicles" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DEMON SLAYER HINOKAMI</span><span class="game-badge">COMBAT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Remake">
-      <img class="game-img" src="images/ff7remake.jpg" alt="Final Fantasy VII Remake" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FF7 REMAKE</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Marvel's Spider-Man PS5">
-      <img class="game-img" src="images/spidermanps5.jpg" alt="Marvel's Spider-Man PS5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">SPIDER-MAN PS5</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Final Fantasy XVI">
-      <img class="game-img" src="images/ff16.jpg" alt="Final Fantasy XVI" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FINAL FANTASY XVI</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Resident Evil 8 Village">
-      <img class="game-img" src="images/re8.jpg" alt="Resident Evil 8 Village" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">RESIDENT EVIL 8 VILLAGE</span><span class="game-badge">HORREUR</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Pokémon Diamant Étincelant">
-      <img class="game-img" src="images/pokediamant.jpg" alt="Pokémon Diamant Étincelant" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">POKÉMON DIAMANT ÉTINCELANT</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Crisis Core">
-      <img class="game-img" src="images/ff7crisiscore.jpg" alt="Final Fantasy VII Crisis Core" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FF7 CRISIS CORE</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Rebirth">
-      <img class="game-img" src="images/ff7rebirth.jpg" alt="Final Fantasy VII Rebirth" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FF7 REBIRTH</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Mario Kart 8">
-      <img class="game-img" src="images/mariokart8.jpg" alt="Mario Kart 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">MARIO KART 8</span><span class="game-badge">COURSE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Rocket League">
-      <img class="game-img" src="images/rocketleague.jpg" alt="Rocket League" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">ROCKET LEAGUE</span><span class="game-badge">SPORT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Fall Guys">
-      <img class="game-img" src="images/fallguys.jpg" alt="Fall Guys" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FALL GUYS</span><span class="game-badge">PARTY</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Fortnite">
-      <img class="game-img" src="images/fortnite.jpg" alt="Fortnite" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FORTNITE</span><span class="game-badge">BATTLE ROYALE</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Getting Over It">
-      <img class="game-img" src="images/gettingovit.jpg" alt="Getting Over It" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">GETTING OVER IT</span><span class="game-badge">INDé</span></div>
-    </div>
-    <div class="game-card searchable" data-title="FIFA">
-      <img class="game-img" src="images/fifa.jpg" alt="FIFA" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">FIFA</span><span class="game-badge">SPORT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Qui veut gagner des millions">
-      <img class="game-img" src="images/qvgdm.jpg" alt="Qui veut gagner des millions" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">QUI VEUT GAGNER DES MILLIONS</span><span class="game-badge">QUIZ</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Alt F4">
-      <img class="game-img" src="images/altf4.jpg" alt="Alt F4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">ALT F4</span><span class="game-badge">INDé</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Dread Hunter">
-      <img class="game-img" src="images/dreadhunter.jpg" alt="Dread Hunter" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">DREAD HUNTER</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Tournoi de billes">
-      <img class="game-img" src="images/billes.jpg" alt="Tournoi de billes" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">TOURNOI DE BILLES</span><span class="game-badge">PARTY</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Super Mario Galaxy 2">
-      <img class="game-img" src="images/mariogalaxy2.jpg" alt="Super Mario Galaxy 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">SUPER MARIO GALAXY 2</span><span class="game-badge">PLATEFORME</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Pokopia">
-      <img class="game-img" src="images/pokopia.jpg" alt="Pokopia" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">POKOPIA</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="MHA All Justice">
-      <img class="game-img" src="images/mhaalljustice.jpg" alt="MHA All Justice" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">MHA ALL JUSTICE</span><span class="game-badge">COMBAT</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Clair Obscur Expedition 33">
-      <img class="game-img" src="images/clair.jpg" alt="Clair Obscur" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">CLAIR OBSCUR</span><span class="game-badge">RPG</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Batman Arkham Asylum">
-      <img class="game-img" src="images/asylum.jpg" alt="Batman Arkham Asylum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">BATMAN ARKHAM ASYLUM</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Batman Arkham City">
-      <img class="game-img" src="images/arkham.jpg" alt="Batman Arkham City" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">BATMAN ARKHAM CITY</span><span class="game-badge">ACTION</span></div>
-    </div>
-    <div class="game-card searchable" data-title="New Super Mario Bros U">
-      <img class="game-img" src="images/brosu.jpg" alt="New Super Mario Bros U" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">NEW SUPER MARIO BROS U</span><span class="game-badge">PLATEFORME</span></div>
-    </div>
-    <div class="game-card searchable" data-title="Mario Kart World">
-      <img class="game-img" src="images/mkworld.jpg" alt="Mario Kart World" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="game-img-placeholder" style="display:none">🎮</div>
-      <div class="game-info"><span class="game-title">MARIO KART WORLD</span><span class="game-badge">COURSE</span></div>
-    </div>
-
+    <div class="game-year-divider"><span class="game-year-label">— 2026 —</span><span class="game-year-line"></span><span class="game-year-count">8 JEUX</span></div>
+    <div class="game-card searchable" data-title="Zelda Breath of the Wild"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA BOTW</span><span class="game-badge">AVENTURE</span></div></div>
+    <div class="game-card searchable" data-title="Pokopia"><img class="game-img" src="images/pokopia.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKOPIA</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Dokkan Battle"><img class="game-img" src="images/dokkan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ DOKKAN BATTLE</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Super Mario Galaxy 2"><img class="game-img" src="images/mariogalaxy2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER MARIO GALAXY 2</span><span class="game-badge">PLATEFORME</span></div></div>
+    <div class="game-card searchable" data-title="Super Mario Galaxy"><img class="game-img" src="images/mariogalaxy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER MARIO GALAXY</span><span class="game-badge">PLATEFORME</span></div></div>
+    <div class="game-card searchable" data-title="EA Sports FC 25"><img class="game-img" src="images/ea25.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA SPORTS FC 25</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="Sekiro Shadows Die Twice"><img class="game-img" src="images/sekiro.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SEKIRO SHADOWS DIE TWICE</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="MHA All Justice"><img class="game-img" src="images/mhaalljustice.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MHA ALL JUSTICE</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2025 —</span><span class="game-year-line"></span><span class="game-year-count">16 JEUX</span></div>
+    <div class="game-card searchable" data-title="Mario Kart World"><img class="game-img" src="images/mkworld.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MARIO KART WORLD</span><span class="game-badge">COURSE</span></div></div>
+    <div class="game-card searchable" data-title="Outlast 1"><img class="game-img" src="images/outlast1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">OUTLAST</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Victory Road"><img class="game-img" src="images/victoryroad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">INAZUMA ELEVEN VICTORY ROAD</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="Doomsday Last Survivors"><img class="game-img" src="images/doomsday.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DOOMSDAY LAST SURVIVORS</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Detroit Become Human"><img class="game-img" src="images/detroit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DETROIT BECOME HUMAN</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="Batman Arkham Asylum"><img class="game-img" src="images/asylum.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BATMAN ARKHAM ASYLUM</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Batman Arkham City"><img class="game-img" src="images/arkham.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BATMAN ARKHAM CITY</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Little Nightmares 2"><img class="game-img" src="images/little2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE NIGHTMARES II</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Little Nightmares"><img class="game-img" src="images/little1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE NIGHTMARES</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Monster Hunter Wilds"><img class="game-img" src="images/monsterhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MONSTER HUNTER WILDS</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Red Dead Redemption 2"><img class="game-img" src="images/reddead.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RED DEAD REDEMPTION II</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Heavy Rain"><img class="game-img" src="images/heavy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HEAVY RAIN</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="The Dark Pictures The Devil In Me"><img class="game-img" src="images/devil.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE DEVIL IN ME</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="Clair Obscur Expedition 33"><img class="game-img" src="images/clair.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">CLAIR OBSCUR</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Bleach Rebirth of Souls"><img class="game-img" src="images/bleachrebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLEACH REBIRTH OF SOULS</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="DB Xenoverse 2"><img class="game-img" src="images/xenoverse2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DB XENOVERSE 2</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2024 —</span><span class="game-year-line"></span><span class="game-year-count">14 JEUX</span></div>
+    <div class="game-card searchable" data-title="The Dark Pictures House of Ashes"><img class="game-img" src="images/ashes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HOUSE OF ASHES</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="The Dark Pictures Man of Medan"><img class="game-img" src="images/medan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MAN OF MEDAN</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="The Dark Pictures Little Hope"><img class="game-img" src="images/littlehope.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE HOPE</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="Dofus"><img class="game-img" src="images/dofus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DOFUS</span><span class="game-badge">MMO</span></div></div>
+    <div class="game-card searchable" data-title="Until Dawn"><img class="game-img" src="images/untildawn.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">UNTIL DAWN</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="Bleach Brave Souls"><img class="game-img" src="images/bleachbravesouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLEACH BRAVE SOULS</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Elden Ring"><img class="game-img" src="images/elden.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Pokémon Noir 2"><img class="game-img" src="images/pokenoir2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON NOIR 2</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Pokémon Blanc 2"><img class="game-img" src="images/pokeblanc2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON BLANC 2</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Final Fantasy VII Rebirth"><img class="game-img" src="images/ff7rebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FF7 REBIRTH</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="AFK Journey"><img class="game-img" src="images/afkj.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AFK JOURNEY</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Garry's Mod"><img class="game-img" src="images/garrys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GARRY'S MOD</span><span class="game-badge">SANDBOX</span></div></div>
+    <div class="game-card searchable" data-title="Tekken 8"><img class="game-img" src="images/tekken8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">TEKKEN 8</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="Final Fantasy VII Crisis Core"><img class="game-img" src="images/ff7crisiscore.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">CRISIS CORE FF7 REUNION</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2023 —</span><span class="game-year-line"></span><span class="game-year-count">14 JEUX</span></div>
+    <div class="game-card searchable" data-title="Pokémon Omega Ruby"><img class="game-img" src="images/pokeruby.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON OMEGA RUBY</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Black Clover Mobile"><img class="game-img" src="images/bcmobile.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLACK CLOVER MOBILE</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Waven"><img class="game-img" src="images/waven.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">WAVEN</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Lycans"><img class="game-img" src="images/lycans.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LYCANS</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Spider-Man 2"><img class="game-img" src="images/spider2jeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SPIDER-MAN 2</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Spider-Man Miles Morales"><img class="game-img" src="images/spidermilesjeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SPIDER-MAN MILES MORALES</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Final Fantasy VII Remake"><img class="game-img" src="images/ff7remake.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FF7 REMAKE</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Final Fantasy XVI"><img class="game-img" src="images/ff16.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FINAL FANTASY XVI</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Zelda Tears of the Kingdom"><img class="game-img" src="images/totk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA TOTK</span><span class="game-badge">AVENTURE</span></div></div>
+    <div class="game-card searchable" data-title="Zelda Skyward Sword"><img class="game-img" src="images/skywardsword.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA SKYWARD SWORD</span><span class="game-badge">AVENTURE</span></div></div>
+    <div class="game-card searchable" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ KAKAROT</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Monster Hunter Rise"><img class="game-img" src="images/monsterrise.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MONSTER HUNTER RISE</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Hogwarts Legacy"><img class="game-img" src="images/hogwarts.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HOGWARTS LEGACY</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="New Super Mario Bros U"><img class="game-img" src="images/brosu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">NEW SUPER MARIO BROS U</span><span class="game-badge">PLATEFORME</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2022 —</span><span class="game-year-line"></span><span class="game-year-count">15 JEUX</span></div>
+    <div class="game-card searchable" data-title="Pokémon Violet"><img class="game-img" src="images/pokescarletviolet.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON ÉCARLATE/VIOLET</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RISE OF KINGDOMS</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="God of War Ragnarok"><img class="game-img" src="images/gowragna.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GOD OF WAR RAGNARÖK</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="FIFA 22"><img class="game-img" src="images/fifa22.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 22</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="MultiVersus"><img class="game-img" src="images/multiversus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MULTIVERSUS</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="The Quarry"><img class="game-img" src="images/thequarry.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE QUARRY</span><span class="game-badge">NARRATIF</span></div></div>
+    <div class="game-card searchable" data-title="Inazuma Eleven GO Strikers 2013"><img class="game-img" src="images/inazuma2013.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">INAZUMA ELEVEN GO STRIKERS</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="Super Smash Bros Ultimate"><img class="game-img" src="images/smashbros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER SMASH BROS ULTIMATE</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="Poppy Playtime"><img class="game-img" src="images/poppy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POPPY PLAYTIME</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Pokémon X"><img class="game-img" src="images/pokex.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON X</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Pokémon Legends Arceus"><img class="game-img" src="images/arceus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON LEGENDS ARCEUS</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Yu-Gi-Oh Master Duel"><img class="game-img" src="images/masterduel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">YU-GI-OH MASTER DUEL</span><span class="game-badge">CARTE</span></div></div>
+    <div class="game-card searchable" data-title="Lost Ark"><img class="game-img" src="images/lostark.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LOST ARK</span><span class="game-badge">MMO</span></div></div>
+    <div class="game-card searchable" data-title="Gartic Phone"><img class="game-img" src="images/gartic.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GARTIC PHONE</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Demon Slayer The Hinokami Chronicles"><img class="game-img" src="images/demonslayergame.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DEMON SLAYER HINOKAMI</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2021 —</span><span class="game-year-line"></span><span class="game-year-count">16 JEUX</span></div>
+    <div class="game-card searchable" data-title="Pokémon Diamant Étincelant"><img class="game-img" src="images/pokediamant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON DIAMANT ÉTINCELANT</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="DBZ Budokai Tenkaichi 3"><img class="game-img" src="images/bt3.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ BUDOKAI TENKAICHI 3</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="Resident Evil 8 Village"><img class="game-img" src="images/re8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RESIDENT EVIL VILLAGE</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Knight Squad 2"><img class="game-img" src="images/knightsquad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">KNIGHT SQUAD 2</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Alt F4"><img class="game-img" src="images/altf4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ALT F4</span><span class="game-badge">INDé</span></div></div>
+    <div class="game-card searchable" data-title="Getting Over It"><img class="game-img" src="images/gettingovit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GETTING OVER IT</span><span class="game-badge">INDé</span></div></div>
+    <div class="game-card searchable" data-title="Dread Hunger"><img class="game-img" src="images/dreadhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DREAD HUNGER</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="FIFA 21"><img class="game-img" src="images/fifa21.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 21</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="Resident Evil 7"><img class="game-img" src="images/re7.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RESIDENT EVIL 7</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="Ghost of Tsushima"><img class="game-img" src="images/ghostoftsushima.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GHOST OF TSUSHIMA</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Rocket League"><img class="game-img" src="images/rocketleague.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ROCKET LEAGUE</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-card searchable" data-title="God of War"><img class="game-img" src="images/godofwar.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GOD OF WAR</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Among Us"><img class="game-img" src="images/amongus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AMONG US</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="The Last of Us"><img class="game-img" src="images/thelastofus1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE LAST OF US</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="The Last of Us 2"><img class="game-img" src="images/thelastofus2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE LAST OF US 2</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Qui veut gagner des millions"><img class="game-img" src="images/qvgdm.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">QUI VEUT GAGNER DES MILLIONS</span><span class="game-badge">QUIZ</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2020 —</span><span class="game-year-line"></span><span class="game-year-count">12 JEUX</span></div>
+    <div class="game-card searchable" data-title="Naruto Storm 4"><img class="game-img" src="images/narutostorm4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">NARUTO STORM 4</span><span class="game-badge">COMBAT</span></div></div>
+    <div class="game-card searchable" data-title="Assassin's Creed Valhalla"><img class="game-img" src="images/assasinsvalhalla.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ASSASSIN'S CREED VALHALLA</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Genshin Impact"><img class="game-img" src="images/genshin.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GENSHIN IMPACT</span><span class="game-badge">RPG</span></div></div>
+    <div class="game-card searchable" data-title="Astro's Playroom"><img class="game-img" src="images/astros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ASTRO'S PLAYROOM</span><span class="game-badge">PLATEFORME</span></div></div>
+    <div class="game-card searchable" data-title="Fairy Tail Hero's Journey"><img class="game-img" src="images/fairytailherosjourney.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FAIRY TAIL HERO'S JOURNEY</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Pummel Party"><img class="game-img" src="images/pummel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">PUMMEL PARTY</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Deceit"><img class="game-img" src="images/deceit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DECEIT</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="GTA V"><img class="game-img" src="images/gtav.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GTA V</span><span class="game-badge">ACTION</span></div></div>
+    <div class="game-card searchable" data-title="Skribbl.io"><img class="game-img" src="images/skribblio.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SKRIBBL.IO</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="7 Deadly Sins Grand Cross"><img class="game-img" src="images/7dscross.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">7 DEADLY SINS GRAND CROSS</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-card searchable" data-title="Outlast 2"><img class="game-img" src="images/outlast2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">OUTLAST 2</span><span class="game-badge">HORREUR</span></div></div>
+    <div class="game-card searchable" data-title="FIFA 20"><img class="game-img" src="images/fifa20.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 20</span><span class="game-badge">SPORT</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— 2019 —</span><span class="game-year-line"></span><span class="game-year-count">1 JEU</span></div>
+    <div class="game-card searchable" data-title="Saint Seiya Awakening"><img class="game-img" src="images/saintseiyaawak.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SAINT SEIYA AWAKENING</span><span class="game-badge">MOBILE</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">— HORS SAISON —</span><span class="game-year-line"></span><span class="game-year-count">7 JEUX</span></div>
+    <div class="game-card searchable" data-title="Mario Kart 8 Deluxe"><img class="game-img" src="images/mk8deluxe.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MARIO KART 8 DELUXE</span><span class="game-badge">COURSE</span></div></div>
+    <div class="game-card searchable" data-title="Fortnite"><img class="game-img" src="images/fortnite.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FORTNITE</span><span class="game-badge">BATTLE ROYALE</span></div></div>
+    <div class="game-card searchable" data-title="Valorant"><img class="game-img" src="images/valorant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">VALORANT</span><span class="game-badge">FPS</span></div></div>
+    <div class="game-card searchable" data-title="League of Legends"><img class="game-img" src="images/lol.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LEAGUE OF LEGENDS</span><span class="game-badge">MOBA</span></div></div>
+    <div class="game-card searchable" data-title="Fall Guys"><img class="game-img" src="images/fallguys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FALL GUYS</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Tournoi de billes"><img class="game-img" src="images/billes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">TOURNOI DE BILLES</span><span class="game-badge">PARTY</span></div></div>
+    <div class="game-card searchable" data-title="Roblox"><img class="game-img" src="images/roblox.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ROBLOX</span><span class="game-badge">SANDBOX</span></div></div>
   </div>
 
   <!-- ANIMÉS -->
@@ -1350,26 +1252,46 @@ document.querySelectorAll('.cinema-filter').forEach(btn => {
 // GLOBAL SEARCH
 document.getElementById('globalSearch').addEventListener('input', function() {
   const q = this.value.toLowerCase().trim();
+
+  // Éléments de chrome à masquer pendant la recherche
+  const chrome = document.querySelectorAll(
+    '.section-header, .game-year-divider, .cat-title, .filters, .section-tag, #animeNoResults'
+  );
+
   if (!q) {
+    // Reset complet
     document.querySelectorAll('.searchable').forEach(el => el.style.display = '');
     document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => g.style.display = '');
+    chrome.forEach(el => el.style.display = '');
     document.getElementById('animeNoResults').style.display = 'none';
-    
     return;
   }
+
+  // Masquer tout le chrome de navigation pendant la recherche
+  chrome.forEach(el => el.style.display = 'none');
+
+  // Filtrer les cartes
   document.querySelectorAll('.searchable').forEach(el => {
-    el.style.display = (el.dataset.title || el.textContent).toLowerCase().includes(q) ? '' : 'none';
+    const match = (el.dataset.title || el.textContent).toLowerCase().includes(q);
+    el.style.display = match ? '' : 'none';
   });
+
+  // Gérer les cat-group cinéma (garder visible si au moins une carte match)
   document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => {
-    g.style.display = [...g.querySelectorAll('.list-item')].some(i => i.style.display !== 'none') ? '' : 'none';
+    const hasVisible = [...g.querySelectorAll('.list-item')].some(i => i.style.display !== 'none');
+    g.style.display = hasVisible ? '' : 'none';
+    // Mais masquer le titre du groupe quand même
+    const title = g.querySelector('.cat-title');
+    if (title) title.style.display = 'none';
   });
+
   document.querySelectorAll('.cinema-filter').forEach(b => b.classList.remove('active'));
   const allBtn = document.querySelector('.cinema-filter[data-filter="all"]');
   if (allBtn) allBtn.classList.add('active');
 });
 
 // COUNTS
-document.getElementById('countGames').textContent  = '48';
+document.getElementById('countGames').textContent  = '103';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
@@ -1606,22 +1528,110 @@ const FAKE_DATA = {
   "100 Metters sport":               { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   "K-pop Demon Hunters":             { note: null, date: 'Déc 2025',  status: 'termine', comment: 'À venir' },
   // JEUX
-  "Elden Ring":                            { note: null, date: 'Fév 2024',  status: 'termine', comment: 'À venir' },
-  "Zelda Breath of the Wild":              { note: null, date: 'Switch 1: Août 2020 — Switch 2: Fév 2026', status: 'termine', comment: 'À venir' },
-  "Clair Obscur Expedition 33":            { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
-  "Super Mario Galaxy 2":                  { note: null, date: 'Fév 2026',  status: 'termine', comment: 'À venir' },
-  "Super Mario Galaxy":                    { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
-  "New Super Mario Bros U":                { note: null, date: 'Jan 2023',  status: 'termine', comment: 'À venir' },
-  "Batman Arkham Asylum":                  { note: null, date: 'Juin 2025', status: 'termine', comment: 'À venir' },
-  "Batman Arkham City":                    { note: null, date: 'Juil 2025', status: 'termine', comment: 'À venir' },
-  "Super Smash Bros Ultimate":             { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
-  "The Dark Pictures The Devil In Me":     { note: null, date: 'Jan 2025',  status: 'termine', comment: 'À venir' },
-  "The Dark Pictures Man of Medan":        { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
-  "The Dark Pictures House of Ashes":      { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
-  "The Dark Pictures Little Hope":         { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
-  "Until Dawn":                            { note: null, date: 'Nov 2024',  status: 'termine', comment: 'À venir' },
-  "Zelda Skyward Sword":                   { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
-  "Zelda Tears of the Kingdom":            { note: null, date: 'Mai 2023',  status: 'termine', comment: 'À venir' },
+  "Zelda Breath of the Wild":                    { note: null, date: 'Switch 1 : Août 2020 — Switch 2 : Mars 2026', status: 'termine', comment: 'À venir' },
+  "Pokopia":                                     { note: null, date: 'Mars 2026',  status: 'termine', comment: 'À venir' },
+  "Dokkan Battle":                               { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
+  "Super Mario Galaxy 2":                        { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
+  "Super Mario Galaxy":                          { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
+  "Mario Kart 8 Deluxe":                         { note: null, date: null,         status: 'termine', comment: 'À venir' },
+  "EA Sports FC 25":                             { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
+  "Mario Kart World":                            { note: null, date: 'Jan 2026',   status: 'termine', comment: 'À venir' },
+  "Outlast 1":                                   { note: null, date: 'Jan 2026',   status: 'termine', comment: 'À venir' },
+  "Fortnite":                                    { note: null, date: null,   status: 'termine', comment: 'À venir' },
+  "Victory Road":                                { note: null, date: 'Déc 2025',   status: 'termine', comment: 'À venir' },
+  "Valorant":                                    { note: null, date: null,   status: 'termine', comment: 'À venir' },
+  "Doomsday Last Survivors":                     { note: null, date: 'Nov 2025',   status: 'termine', comment: 'À venir' },
+  "Detroit Become Human":                        { note: null, date: 'Août 2025',  status: 'termine', comment: 'À venir' },
+  "Batman Arkham Asylum":                        { note: null, date: 'Juin 2025',  status: 'termine', comment: 'À venir' },
+  "Batman Arkham City":                          { note: null, date: 'Juil 2025',  status: 'termine', comment: 'À venir' },
+  "Little Nightmares 2":                         { note: null, date: 'Mai 2025',   status: 'termine', comment: 'À venir' },
+  "Little Nightmares":                           { note: null, date: 'Mai 2025',   status: 'termine', comment: 'À venir' },
+  "Monster Hunter Wilds":                        { note: null, date: 'Mars 2025',  status: 'termine', comment: 'À venir' },
+  "League of Legends":                           { note: null, date: null,  status: 'termine', comment: 'À venir' },
+  "Roblox":                                      { note: null, date: null,  status: 'termine', comment: 'À venir' },
+  "Red Dead Redemption 2":                       { note: null, date: 'Fév 2025',   status: 'termine', comment: 'À venir' },
+  "Heavy Rain":                                  { note: null, date: 'Jan 2025',   status: 'termine', comment: 'À venir' },
+  "The Dark Pictures The Devil In Me":           { note: null, date: 'Jan 2025',   status: 'termine', comment: 'À venir' },
+  "The Dark Pictures House of Ashes":            { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
+  "The Dark Pictures Man of Medan":              { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
+  "Dofus":                                       { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
+  "Until Dawn":                                  { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
+  "Bleach Brave Souls":                          { note: null, date: 'Sept 2024',  status: 'termine', comment: 'À venir' },
+  "Elden Ring":                                  { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
+  "Pokémon Noir 2":                              { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
+  "Pokémon Blanc 2":                             { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
+  "Final Fantasy VII Rebirth":                   { note: null, date: 'Mai 2024',   status: 'termine', comment: 'À venir' },
+  "AFK Journey":                                 { note: null, date: 'Mai 2024',   status: 'termine', comment: 'À venir' },
+  "Garry's Mod":                                 { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
+  "Tekken 8":                                    { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
+  "Final Fantasy VII Crisis Core":               { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
+  "Pokémon Omega Ruby":                          { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
+  "Black Clover Mobile":                         { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
+  "Waven":                                       { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
+  "Lycans":                                      { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
+  "Spider-Man 2":                                { note: null, date: 'Oct 2023',   status: 'termine', comment: 'À venir' },
+  "Spider-Man Miles Morales":                    { note: null, date: 'Juil 2023',  status: 'termine', comment: 'À venir' },
+  "Final Fantasy VII Remake":                    { note: null, date: 'Juin 2023',  status: 'termine', comment: 'À venir' },
+  "Zelda Tears of the Kingdom":                  { note: null, date: 'Mai 2023',   status: 'termine', comment: 'À venir' },
+  "Zelda Skyward Sword":                         { note: null, date: 'Mai 2023',   status: 'termine', comment: 'À venir' },
+  "DBZ Kakarot":                                 { note: null, date: 'Avr 2023',   status: 'termine', comment: 'À venir' },
+  "Monster Hunter Rise":                         { note: null, date: 'Avr 2023',   status: 'termine', comment: 'À venir' },
+  "Hogwarts Legacy":                             { note: null, date: 'Fév 2023',   status: 'termine', comment: 'À venir' },
+  "New Super Mario Bros U":                      { note: null, date: 'Fév 2023',   status: 'termine', comment: 'À venir' },
+  "Mario Kart 8":                                { note: null, date: 'Jan 2023',   status: 'termine', comment: 'À venir' },
+  "Pokémon Violet":                              { note: null, date: 'Déc 2022',   status: 'termine', comment: 'À venir' },
+  "Rise of Kingdoms":                            { note: null, date: 'Déc 2022',   status: 'termine', comment: 'À venir' },
+  "God of War Ragnarok":                         { note: null, date: 'Nov 2022',   status: 'termine', comment: 'À venir' },
+  "FIFA 22":                                     { note: null, date: 'Oct 2022',   status: 'termine', comment: 'À venir' },
+  "Fall Guys":                                   { note: null, date: null,  status: 'termine', comment: 'À venir' },
+  "MultiVersus":                                 { note: null, date: 'Août 2022',  status: 'termine', comment: 'À venir' },
+  "The Quarry":                                  { note: null, date: 'Juil 2022',  status: 'termine', comment: 'À venir' },
+  "Inazuma Eleven GO Strikers 2013":             { note: null, date: 'Juil 2022',  status: 'termine', comment: 'À venir' },
+  "Super Smash Bros Ultimate":                   { note: null, date: 'Mai 2022',   status: 'termine', comment: 'À venir' },
+  "Poppy Playtime":                              { note: null, date: 'Mai 2022',   status: 'termine', comment: 'À venir' },
+  "Pokémon X":                                   { note: null, date: 'Avr 2022',   status: 'termine', comment: 'À venir' },
+  "Pokémon Legends Arceus":                      { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
+  "Yu-Gi-Oh Master Duel":                        { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
+  "Lost Ark":                                    { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
+  "Gartic Phone":                                { note: null, date: 'Jan 2022',   status: 'termine', comment: 'À venir' },
+  "Pokémon Diamant Étincelant":                  { note: null, date: 'Déc 2021',   status: 'termine', comment: 'À venir' },
+  "DBZ Budokai Tenkaichi 3":                     { note: null, date: 'Oct 2021',   status: 'termine', comment: 'À venir' },
+  "Alt F4":                                      { note: null, date: 'Sept 2021',  status: 'termine', comment: 'À venir' },
+  "Resident Evil 8 Village":                     { note: null, date: 'Août 2021',  status: 'termine', comment: 'À venir' },
+  "Knight Squad 2":                              { note: null, date: 'Juil 2021',  status: 'termine', comment: 'À venir' },
+  "FIFA 21":                                     { note: null, date: 'Juin 2021',  status: 'termine', comment: 'À venir' },
+  "Resident Evil 7":                             { note: null, date: 'Juin 2021',  status: 'termine', comment: 'À venir' },
+  "Ghost of Tsushima":                           { note: null, date: 'Mai 2021',   status: 'termine', comment: 'À venir' },
+  "Rocket League":                               { note: null, date: 'Mai 2021',   status: 'termine', comment: 'À venir' },
+  "God of War":                                  { note: null, date: 'Mars 2021',  status: 'termine', comment: 'À venir' },
+  "Among Us":                                    { note: null, date: 'Fév 2021',   status: 'termine', comment: 'À venir' },
+  "Naruto Storm 4":                              { note: null, date: 'Déc 2020',   status: 'termine', comment: 'À venir' },
+  "Assassin's Creed Valhalla":                   { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
+  "Genshin Impact":                              { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
+  "Astro's Playroom":                            { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
+  "Fairy Tail Hero's Journey":                   { note: null, date: 'Juil 2020',  status: 'termine', comment: 'À venir' },
+  "Pummel Party":                                { note: null, date: 'Juin 2020',  status: 'termine', comment: 'À venir' },
+  "Deceit":                                      { note: null, date: 'Juin 2020',  status: 'termine', comment: 'À venir' },
+  "GTA V":                                       { note: null, date: 'Mai 2020',   status: 'termine', comment: 'À venir' },
+  "Skribbl.io":                                  { note: null, date: 'Mai 2020',   status: 'termine', comment: 'À venir' },
+  "7 Deadly Sins Grand Cross":                   { note: null, date: 'Avr 2020',   status: 'termine', comment: 'À venir' },
+  "Outlast 2":                                   { note: null, date: 'Avr 2020',   status: 'termine', comment: 'À venir' },
+  "FIFA 20":                                     { note: null, date: 'Fév 2020',   status: 'termine', comment: 'À venir' },
+  "Saint Seiya Awakening":                       { note: null, date: 'Oct 2019',   status: 'termine', comment: 'À venir' },
+  "Clair Obscur Expedition 33":                  { note: null, date: 'Août 2025',  status: 'termine', comment: 'À venir' },
+  "MHA All Justice":                             { note: null, date: 'Fév 2026',         status: 'termine', comment: 'À venir' },
+  "Tournoi de billes":                           { note: null, date: null,         status: 'termine', comment: 'À venir' },
+  "Qui veut gagner des millions":                { note: null, date: 'Mars 2021',         status: 'termine', comment: 'À venir' },
+  "Getting Over It":                             { note: null, date: 'Nov 2021',         status: 'termine', comment: 'À venir' },
+  "Dread Hunger":                                { note: null, date: 'Août 2021',         status: 'termine', comment: 'À venir' },
+  "The Dark Pictures Little Hope":               { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
+  "DB Xenoverse 2":                              { note: null, date: 'Sept 2025',         status: 'termine', comment: 'À venir' },
+  "Demon Slayer The Hinokami Chronicles":        { note: null, date: 'Mars 2022',         status: 'termine', comment: 'À venir' },
+  "Final Fantasy XVI":                           { note: null, date: 'Juil 2023',         status: 'termine', comment: 'À venir' },
+  "The Last of Us":                              { note: null, date: 'Mars 2021',         status: 'termine', comment: 'À venir' },
+  "The Last of Us 2":                            { note: null, date: 'Mai 2021',         status: 'termine', comment: 'À venir' },
+  "Sekiro Shadows Die Twice":                    { note: null, date: 'Jan 2026',         status: 'termine', comment: 'À venir' },
+  "Bleach Rebirth of Souls":                     { note: null, date: 'Mars 2025',         status: 'termine', comment: 'À venir' },
   // SÉRIES
   "100% Physique S1":                { note: null, date: 'Fév 2023',  status: 'termine', comment: 'À venir' },
   "100% Physique S2":                { note: null, date: 'Mars 2024', status: 'termine', comment: 'À venir' },
@@ -1945,7 +1955,7 @@ document.querySelectorAll('.list-item, .game-card').forEach(item => {
 
 
 // ═══ COMPTEURS ═══
-document.getElementById('countGames').textContent  = '48';
+document.getElementById('countGames').textContent  = '103';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
