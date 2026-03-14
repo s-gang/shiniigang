@@ -43,6 +43,18 @@
   src: url('sheikah/HandwrittenSheikahRunes-Regular.ttf') format('truetype');
   font-display: swap;
 }
+
+<style>
+
+</style>
+<style>
+@keyframes silverLine {
+  0%   { left:0;                       transform:scaleX(1); }
+  49%  { left:var(--silver-end, 200px); transform:scaleX(1); }
+  51%  { left:var(--silver-end, 200px); transform:scaleX(-1); }
+  100% { left:0;                       transform:scaleX(-1); }
+}
+</style>
 </style>
 
 <style>
@@ -357,8 +369,12 @@ nav::after {
   text-shadow: 0 0 8px rgba(255,255,255,0.25);
 }
 .reliques-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px;
-  max-width: 340px;
+  display: grid;
+  grid-template-columns: repeat(2, 140px);
+  gap: 14px;
+  width: 294px;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .game-card.rarity-origin {
@@ -1004,7 +1020,7 @@ footer::before {
 
   <!-- JEUX -->
   <div class="section-header reveal" id="jeux">
-    <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
+    <h2>Musée Shinitendo</h2><div class="section-line" style="position:relative;"><img src="floaters/silvergif.gif" alt="" id="silverWalker" style="position:absolute; bottom:0; left:0; height:70px; width:auto; image-rendering:pixelated; z-index:10; animation:silverLine 18s linear infinite;"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
   <div class="reliques-section reveal">
     <div class="reliques-header">
@@ -1933,6 +1949,24 @@ document.getElementById('globalSearch').addEventListener('input', function() {
   const anyVisible = [...document.querySelectorAll('.searchable')].some(el => el.style.display !== 'none');
   noResults.style.display = anyVisible ? 'none' : 'block';
 });
+
+// Silver end position
+(function(){
+  function setSilverEnd() {
+    const line = document.querySelector('.section-line');
+    const silver = document.getElementById('silverWalker');
+    if (!line || !silver) return;
+    const lineRect = line.getBoundingClientRect();
+    const lineW = lineRect.width;
+    const silverW = silver.getBoundingClientRect().width || 50;
+    // Stop 60px before the end of the line (before "Jeux Vidéo" tag)
+    const end = lineW * 0.75;
+    line.style.setProperty('--silver-end', Math.max(0, end) + 'px');
+  }
+  window.addEventListener('load', setSilverEnd);
+  window.addEventListener('resize', setSilverEnd);
+  setTimeout(setSilverEnd, 100);
+})();
 
 // COUNTS
 document.getElementById('countGames').textContent  = '159';
