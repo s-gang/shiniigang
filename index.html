@@ -58,6 +58,14 @@ body {
   font-family: 'Rajdhani', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
 }
 
 /* ═══ BACKGROUND IMAGE ═══ */
@@ -806,14 +814,74 @@ footer::before {
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width:768px) {
-  nav { padding:0 20px; }
+  /* NAV */
+  nav { padding:0 16px; height:52px; }
   .nav-links { display:none; }
-  .container { padding:0 20px 80px; }
-  .hero { padding:70px 20px 60px; }
-  .hero-stats { gap:28px; }
-  .game-grid  { grid-template-columns:1fr; }
-  .section-header h2 { font-size:1.8rem; }
+  .nav-logo { font-size:1.1rem; letter-spacing:3px; }
+  .nav-logo img { height:24px; }
+
+  /* HERO */
+  .hero { padding:50px 20px 40px; }
+  .hero h1 { font-size:clamp(2.2rem,12vw,3.5rem); }
+  .hero-eyebrow { font-size:0.55rem; letter-spacing:4px; margin-bottom:14px; }
+  .hero-sub { font-size:0.85rem; letter-spacing:2px; margin-top:16px; }
+  .hero-stats { gap:20px; flex-wrap:wrap; justify-content:center; }
+  .stat-num { font-size:2.2rem; }
+  .stat-label { font-size:0.5rem; letter-spacing:2px; }
+
+  /* SEARCH */
+  .global-search { margin-bottom:40px; padding:0 16px; }
+  #globalSearch { font-size:0.75rem; padding:12px 14px 12px 44px; }
+
+  /* CONTAINER */
+  .container { padding:0 16px 80px; }
+
+  /* SECTION HEADERS */
+  .section-header { margin:50px 0 20px; gap:12px; }
+  .section-header h2 { font-size:1.6rem; letter-spacing:3px; }
+  .section-tag { font-size:0.5rem; padding:4px 8px; }
+
+  /* GRILLES */
+  .game-grid { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; }
+  .list-grid  { grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; }
+  .reliques-grid { grid-template-columns:repeat(2,1fr); gap:10px; max-width:100%; }
+
+  /* CARTES */
+  .game-title { font-size:0.62rem; }
+  .game-info { padding:18px 8px 6px; }
+
+  /* YEAR DIVIDERS */
+  .game-year-label { font-size:0.6rem; padding:3px 14px 3px 8px; }
+  .game-year-count { font-size:0.46rem; }
+
+  /* FILTERS */
+  .filters { gap:6px; }
+  .filter-btn { font-size:0.55rem; padding:5px 10px; letter-spacing:1px; }
+
+  /* FLIP CARD */
+  .flip-scene { width:280px; height:400px; }
+  .flip-back-title { font-size:1.3rem; }
+  .flip-back-content { padding:16px 14px 14px; gap:8px; }
+
+  /* FOOTER */
+  footer { padding:24px 16px; }
+  .footer-links { gap:10px; }
+  .footer-link { font-size:0.55rem; padding:8px 12px; gap:6px; }
+  .footer-link svg { width:14px; height:14px; }
+
+  /* RELIQUES */
+  .reliques-title { font-size:0.78rem; letter-spacing:4px; padding:6px 22px; }
 }
+
+@media (max-width:480px) {
+  .game-grid { grid-template-columns:repeat(3,1fr); gap:8px; }
+  .list-grid  { grid-template-columns:repeat(3,1fr); gap:8px; }
+  .hero-stats { gap:14px; }
+  .stat-num { font-size:1.8rem; }
+  .footer-links { flex-direction:column; align-items:center; }
+  .flip-scene { width:240px; height:345px; }
+}
+
 
 /* ═══ TITRE ANIMÉ ═══ */
 .hero h1 .word-shinii { display:block; }
