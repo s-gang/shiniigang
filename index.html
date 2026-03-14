@@ -739,18 +739,18 @@ footer::before {
 /* Gradients selon le type */
 .flip-back.type-jeu     { background: linear-gradient(145deg, #050518, #0a0a2a, #0d1535); }
 .flip-back.type-anime   { background: linear-gradient(145deg, #0f0518, #1a0528, #2a0a35); }
-.flip-back.type-film    { background: linear-gradient(145deg, #0a0505, #1a0a05, #200f08); }
-.flip-back.type-serie   { background: linear-gradient(145deg, #051005, #0a1f0a, #0d2510); }
+.flip-back.type-film    { background: linear-gradient(145deg, #0d0305, #1a0508, #250810); }
+.flip-back.type-serie   { background: linear-gradient(145deg, #040810, #080f1e, #0c1428); }
 
 .flip-back.type-jeu   .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #00d4ff 0%, transparent 70%); }
 .flip-back.type-anime .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #7c3aed 0%, transparent 70%); }
-.flip-back.type-film  .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #ff6b1a 0%, transparent 70%); }
-.flip-back.type-serie .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #22c55e 0%, transparent 70%); }
+.flip-back.type-film  .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #cc1133 0%, transparent 70%); }
+.flip-back.type-serie .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #2a6bcc 0%, transparent 70%); }
 
 .flip-back.type-jeu   .flip-back-status.termine { border-color: rgba(0,212,255,0.4); }
 .flip-back.type-anime .flip-back-comment { border-left-color: #7c3aed; }
-.flip-back.type-film  .flip-back-comment { border-left-color: #ff6b1a; }
-.flip-back.type-serie .flip-back-comment { border-left-color: #22c55e; }
+.flip-back.type-film  .flip-back-comment { border-left-color: #cc1133; }
+.flip-back.type-serie .flip-back-comment { border-left-color: #2a6bcc; }
 
 /* Particules flip */
 .flip-particle {
@@ -1724,6 +1724,39 @@ footer::before {
   let isPressed = false;
 
   scene.addEventListener('mousedown', e => { e.preventDefault(); isPressed = true; });
+
+  // Touch support pour mobile
+  scene.addEventListener('touchstart', e => {
+    isPressed = true;
+  }, { passive: true });
+
+  scene.addEventListener('touchmove', e => {
+    if (!card.classList.contains('entering')) return;
+    if (!isPressed) return;
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = scene.getBoundingClientRect();
+    const x  = touch.clientX - rect.left;
+    const y  = touch.clientY - rect.top;
+    const cx = rect.width  / 2;
+    const cy = rect.height / 2;
+    const dx = (x - cx) / cx;
+    const dy = (y - cy) / cy;
+    const rotX = -dy * MAX_TILT;
+    const rotY =  dx * MAX_TILT;
+    const isFlipped = card.classList.contains('flipped');
+    const baseRot   = isFlipped ? 180 : 0;
+    card.style.transition = 'transform 0.08s ease';
+    card.style.transform  = `rotateY(${baseRot + rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+  }, { passive: false });
+
+  scene.addEventListener('touchend', () => {
+    isPressed = false;
+    const isFlipped = card.classList.contains('flipped');
+    const baseRot   = isFlipped ? 180 : 0;
+    card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+  }, { passive: true });
   window.addEventListener('mouseup',  () => {
     if (!isPressed) return;
     isPressed = false;
