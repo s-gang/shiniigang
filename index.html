@@ -296,6 +296,49 @@ nav::after {
 .game-card:hover::after  { opacity:1; transform:translateX(100%); }
 /* ═══ RARETÉS ═══ */
 
+/* ── ORIGIN : édition suprême — rouge sang pulsant ── */
+.game-card.rarity-origin {
+  border-color: rgba(220,20,60,0.7);
+  box-shadow: 0 0 0 1px rgba(220,20,60,0.3), 0 0 20px rgba(220,20,60,0.25), 0 0 50px rgba(180,0,30,0.12);
+  animation: auraPulseOrigin 2.2s ease-in-out infinite;
+}
+@keyframes auraPulseOrigin {
+  0%,100% {
+    box-shadow: 0 0 0 1px rgba(220,20,60,0.3), 0 0 18px rgba(220,20,60,0.3), 0 0 50px rgba(180,0,30,0.15),
+                inset 0 0 30px rgba(220,20,60,0.04);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(220,20,60,0.6), 0 0 35px rgba(220,20,60,0.55), 0 0 80px rgba(180,0,30,0.3),
+                inset 0 0 40px rgba(220,20,60,0.08);
+  }
+}
+.game-card.rarity-origin::before {
+  border-top-color: crimson;
+  opacity: 1;
+  width: 0; height: 0;
+  border-top: 28px solid crimson;
+  border-left: 28px solid transparent;
+}
+.game-card.rarity-origin .game-badge {
+  color: #ff6b7a;
+  background: rgba(220,20,60,0.15);
+  border-color: rgba(220,20,60,0.5);
+  text-shadow: 0 0 10px rgba(220,20,60,0.8);
+  letter-spacing: 3px;
+}
+.game-card.rarity-origin:hover {
+  border-color: rgba(220,20,60,1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 0 2px rgba(220,20,60,0.8),
+              0 0 60px rgba(220,20,60,0.5), 0 0 100px rgba(180,0,30,0.3) !important;
+  animation: none;
+}
+.game-card.rarity-origin::after {
+  background: linear-gradient(105deg, transparent 35%, rgba(220,20,60,0.25) 50%, transparent 65%);
+}
+.game-card.rarity-origin .game-img {
+  filter: brightness(1.08) saturate(1.2) contrast(1.05);
+}
+
 /* ── LEGENDARY : aura dorée pulsante ── */
 .game-card.rarity-legendary {
   border-color: rgba(255,215,0,0.5);
@@ -368,29 +411,30 @@ nav::after {
   box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(180,180,200,0.18);
 }
 
-/* ── HORROR : lueur rouge sang ── */
+/* ── HORROR : lueur violet sombre ── */
 .game-card.rarity-horror {
-  border-color: rgba(255,45,59,0.4);
-  box-shadow: 0 0 0 1px rgba(255,45,59,0.15), 0 0 16px rgba(255,45,59,0.12);
+  border-color: rgba(120,0,180,0.5);
+  box-shadow: 0 0 0 1px rgba(120,0,180,0.2), 0 0 16px rgba(90,0,150,0.15);
   animation: auraPulseHorror 2.2s ease-in-out infinite;
 }
 @keyframes auraPulseHorror {
-  0%,100% { box-shadow: 0 0 0 1px rgba(255,45,59,0.15), 0 0 10px rgba(255,45,59,0.12); }
-  50%      { box-shadow: 0 0 0 1px rgba(255,45,59,0.4),  0 0 22px rgba(255,45,59,0.28); }
+  0%,100% { box-shadow: 0 0 0 1px rgba(120,0,180,0.2), 0 0 12px rgba(90,0,150,0.15); }
+  50%      { box-shadow: 0 0 0 1px rgba(150,0,220,0.5), 0 0 28px rgba(120,0,180,0.35); }
 }
-.game-card.rarity-horror::before { border-top-color: var(--red); }
+.game-card.rarity-horror::before { border-top-color: #8b00cc; }
 .game-card.rarity-horror .game-badge {
-  color: #ff6b7a;
-  background: rgba(255,45,59,0.1);
-  border-color: rgba(255,45,59,0.4);
+  color: #c77dff;
+  background: rgba(120,0,180,0.12);
+  border-color: rgba(140,0,200,0.45);
+  text-shadow: 0 0 8px rgba(150,0,220,0.6);
 }
 .game-card.rarity-horror:hover {
-  border-color: rgba(255,45,59,0.9);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,45,59,0.5), 0 0 40px rgba(255,45,59,0.3) !important;
+  border-color: rgba(150,0,220,0.9);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.85), 0 0 0 1px rgba(140,0,200,0.6), 0 0 45px rgba(120,0,180,0.4) !important;
   animation: none;
 }
 .game-card.rarity-horror::after {
-  background: linear-gradient(105deg, transparent 40%, rgba(255,45,59,0.18) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(130,0,200,0.2) 50%, transparent 60%);
 }
 
 /* ── COMMON : rien de spécial ── */
@@ -546,6 +590,8 @@ footer::before {
 .flip-scene {
   perspective: 1200px;
   width: 320px; height: 460px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 /* Reflet arc-en-ciel TCG sur la carte zoomée */
 .flip-overlay-shine {
@@ -920,19 +966,28 @@ footer::before {
     <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
   <div class="game-grid reveal">
-    <div class="game-year-divider"><span class="game-year-label">✦ SAISON 3 — 2024/2026</span><span class="game-year-line"></span><span class="game-year-count">51 JEUX</span></div>
+    <div class="game-year-divider"><span class="game-year-label">✦ SAISON 3 — 2024/2026</span><span class="game-year-line"></span><span class="game-year-count">58 JEUX</span></div>
+    <div class="game-card searchable rarity-rare" data-title="Dragon Ball Sparking Zero"><img class="game-img" src="images/dbsparkingzero.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dragon Ball Sparking Zero</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Beyond: Two Souls"><img class="game-img" src="images/beyondtwosouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Beyond: Two Souls</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="The Walking Dead: The Final Season"><img class="game-img" src="images/twdfinalseason.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Walking Dead: The Final Season</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="The Walking Dead: A New Frontier"><img class="game-img" src="images/twdnewfrontier.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Walking Dead: A New Frontier</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Batman: Arkham Knight"><img class="game-img" src="images/arkhamknight.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Batman: Arkham Knight</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Batman: Return to Arkham"><img class="game-img" src="images/returntoarkham.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Batman: Return to Arkham</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="MHA: The Strongest Hero"><img class="game-img" src="images/mhastrongest.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MHA: The Strongest Hero</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Spider-Man Remastered"><img class="game-img" src="images/spidermanremastered.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Spider-Man Remastered</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon HeartGold/SoulSilver"><img class="game-img" src="images/pokehgss.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon HeartGold/SoulSilver</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Zelda: Breath of the Wild"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Breath of the Wild</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Pokopia"><img class="game-img" src="images/pokopia.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokopia</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-card searchable rarity-legendary" data-title="DBZ Dokkan Battle"><img class="game-img" src="images/dokkan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Dokkan Battle</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Super Mario Galaxy 2"><img class="game-img" src="images/mariogalaxy2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Mario Galaxy 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokopia"><img class="game-img" src="images/pokopia.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokopia</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-origin" data-title="DBZ Dokkan Battle"><img class="game-img" src="images/dokkan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Dokkan Battle</span><span class="game-badge">★ ÉD. ORIGINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Super Mario Galaxy 2"><img class="game-img" src="images/mariogalaxy2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Mario Galaxy 2</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Super Mario Galaxy"><img class="game-img" src="images/mariogalaxy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Mario Galaxy</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Mario Kart 8 Deluxe"><img class="game-img" src="images/mk8deluxe.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Mario Kart 8 Deluxe</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="EA Sports FC 25"><img class="game-img" src="images/ea25.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA Sports FC 25</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Mario Kart World"><img class="game-img" src="images/mkworld.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Mario Kart World</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Outlast"><img class="game-img" src="images/outlast1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Outlast</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Fortnite"><img class="game-img" src="images/fortnite.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fortnite</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Fortnite"><img class="game-img" src="images/fortnite.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fortnite</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Inazuma Eleven Victory Road"><img class="game-img" src="images/victoryroad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Inazuma Eleven Victory Road</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="VALORANT"><img class="game-img" src="images/valorant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">VALORANT</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="VALORANT"><img class="game-img" src="images/valorant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">VALORANT</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Doomsday: Last Survivors"><img class="game-img" src="images/doomsday.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Doomsday: Last Survivors</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Detroit: Become Human"><img class="game-img" src="images/detroit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Detroit: Become Human</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Batman: Arkham Asylum"><img class="game-img" src="images/asylum.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Batman: Arkham Asylum</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
@@ -952,7 +1007,7 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="Until Dawn"><img class="game-img" src="images/untildawn.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Until Dawn</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="The Walking Dead"><img class="game-img" src="images/walkingdead.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Walking Dead</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Silent Hill 2"><img class="game-img" src="images/silenthill2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Silent Hill 2</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
-    <div class="game-card searchable rarity-legendary" data-title="Bleach: Brave Souls"><img class="game-img" src="images/bleachbravesouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Brave Souls</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-origin" data-title="Bleach: Brave Souls"><img class="game-img" src="images/bleachbravesouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Brave Souls</span><span class="game-badge">★ ÉD. ORIGINE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Black Myth: Wukong"><img class="game-img" src="images/wukong.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Black Myth: Wukong</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="ELDEN RING"><img class="game-img" src="images/elden.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Pokémon Noir 2"><img class="game-img" src="images/pokenoir2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Noir 2</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
@@ -970,8 +1025,16 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="Clair Obscur: Expedition 33"><img class="game-img" src="images/clair.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Clair Obscur: Expedition 33</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Bleach: Rebirth of Souls"><img class="game-img" src="images/bleachrebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Rebirth of Souls</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="DB Xenoverse 2"><img class="game-img" src="images/xenoverse2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DB Xenoverse 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">◆ SAISON 2 — 2022/2023</span><span class="game-year-line"></span><span class="game-year-count">44 JEUX</span></div>
-    <div class="game-card searchable rarity-legendary" data-title="Pokémon Omega Ruby"><img class="game-img" src="images/pokeruby.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Omega Ruby</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">◆ SAISON 2 — 2022/2023</span><span class="game-year-line"></span><span class="game-year-count">57 JEUX</span></div>
+    <div class="game-card searchable rarity-common" data-title="EA Sports FC 24"><img class="game-img" src="images/easfc24.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA Sports FC 24</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="FIFA 23"><img class="game-img" src="images/fifa23.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 23</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Dragon Ball Legends"><img class="game-img" src="images/dblegends.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dragon Ball Legends</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Marbles on Stream"><img class="game-img" src="images/marblesonstream.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Marbles on Stream</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Football Manager 2023"><img class="game-img" src="images/fm2023.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Football Manager 2023</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Naruto x Boruto: Storm Connections"><img class="game-img" src="images/narutostormconnections.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto x Boruto: Storm Connections</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Vissage"><img class="game-img" src="images/vissage.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Vissage</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Roller Champions"><img class="game-img" src="images/rollerchampions.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Roller Champions</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Pokémon Omega Ruby"><img class="game-img" src="images/pokeruby.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Omega Ruby</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Black Clover Mobile"><img class="game-img" src="images/bcmobile.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Black Clover Mobile</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Waven"><img class="game-img" src="images/waven.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Waven</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Lycans"><img class="game-img" src="images/lycans.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Lycans</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
@@ -983,9 +1046,9 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="FFVII Remake"><img class="game-img" src="images/ff7remake.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FFVII Remake</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Street Fighter 6"><img class="game-img" src="images/sf6.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Street Fighter 6</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Zelda: Tears of the Kingdom"><img class="game-img" src="images/totk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Tears of the Kingdom</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="Zelda: Skyward Sword"><img class="game-img" src="images/skywardsword.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Skyward Sword</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Zelda: Skyward Sword"><img class="game-img" src="images/skywardsword.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Skyward Sword</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Bramble: The Mountain King"><img class="game-img" src="images/bramble.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bramble: The Mountain King</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Kakarot</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Kakarot</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Monster Hunter Rise"><img class="game-img" src="images/monsterrise.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Monster Hunter Rise</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Resident Evil 4 Remake"><img class="game-img" src="images/re4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Resident Evil 4 Remake</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Sons of the Forest"><img class="game-img" src="images/sonsoftheforest.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Sons of the Forest</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
@@ -995,15 +1058,14 @@ footer::before {
     <div class="game-card searchable rarity-common" data-title="High on Life"><img class="game-img" src="images/high.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">High on Life</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="One Piece Odyssey"><img class="game-img" src="images/opodyssey.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">One Piece Odyssey</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Pokémon Écarlate/Violet"><img class="game-img" src="images/pokescarletviolet.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Écarlate/Violet</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Rise of Kingdoms</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Rise of Kingdoms</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="The Callisto Protocol"><img class="game-img" src="images/callisto.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Callisto Protocol</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="God of War Ragnarök"><img class="game-img" src="images/gowragna.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">God of War Ragnarök</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="FIFA 22"><img class="game-img" src="images/fifa22.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 22</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="Pokémon Blanc 2"><img class="game-img" src="images/pokeblanc2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Blanc 2</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Garry's Mod"><img class="game-img" src="images/garrys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Garry's Mod</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Blanc 2"><img class="game-img" src="images/pokeblanc2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Blanc 2</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Garry's Mod"><img class="game-img" src="images/garrys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Garry's Mod</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Final Fantasy XVI"><img class="game-img" src="images/ff16.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Final Fantasy XVI</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Cyberpunk 2077"><img class="game-img" src="images/cyberpunkk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Cyberpunk 2077</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
-    <div class="game-card searchable rarity-common" data-title="Tournoi de billes"><img class="game-img" src="images/billes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Tournoi de billes</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Fall Guys"><img class="game-img" src="images/fallguys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fall Guys</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="MultiVersus"><img class="game-img" src="images/multiversus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MultiVersus</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Stray"><img class="game-img" src="images/stray.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Stray</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
@@ -1020,7 +1082,18 @@ footer::before {
     <div class="game-card searchable rarity-common" data-title="Gartic Phone"><img class="game-img" src="images/gartic.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Gartic Phone</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="FNAF: Security Breach"><img class="game-img" src="images/fnaf.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FNAF: Security Breach</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Demon Slayer: Hinokami"><img class="game-img" src="images/demonslayergame.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Demon Slayer: Hinokami</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">● SAISON 1 — 2019/2021</span><span class="game-year-line"></span><span class="game-year-count">34 JEUX</span></div>
+    <div class="game-year-divider"><span class="game-year-label">● SAISON 1 — 2019/2021</span><span class="game-year-line"></span><span class="game-year-count">46 JEUX</span></div>
+    <div class="game-card searchable rarity-common" data-title="Naruto Storm 2"><img class="game-img" src="images/narutostorm2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto Storm 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Naruto Storm 3"><img class="game-img" src="images/narutostorm3.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto Storm 3</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Naruto: Ultimate Ninja Storm"><img class="game-img" src="images/narutoultimaninja.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto: Ultimate Ninja Storm</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Super Seducer 2"><img class="game-img" src="images/superseducer2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Seducer 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Resident Evil 4"><img class="game-img" src="images/re4original.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Resident Evil 4</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Call of Duty: Warzone"><img class="game-img" src="images/warzone.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Call of Duty: Warzone</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Raid: Shadow Legends"><img class="game-img" src="images/raidshowlegends.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Raid: Shadow Legends</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Dragon Ball Z: The Legend"><img class="game-img" src="images/dbzthelegend.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dragon Ball Z: The Legend</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Emerald"><img class="game-img" src="images/pokeemerald.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Emerald</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Captain Tsubasa Rise of Champions"><img class="game-img" src="images/captaintsubasa.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Captain Tsubasa Rise of Champions</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="One Piece Pirate Warriors 4"><img class="game-img" src="images/onepiecepw4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">One Piece Pirate Warriors 4</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Pokémon Diamant Étincelant"><img class="game-img" src="images/pokediamant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Diamant Étincelant</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="It Takes Two"><img class="game-img" src="images/ittakestwo.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">It Takes Two</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="DBZ Budokai Tenkaichi 3"><img class="game-img" src="images/bt3.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Budokai Tenkaichi 3</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
@@ -1040,9 +1113,9 @@ footer::before {
     <div class="game-card searchable rarity-common" data-title="Getting Over It"><img class="game-img" src="images/gettingovit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Getting Over It</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Dread Hunger"><img class="game-img" src="images/dreadhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dread Hunger</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Naruto Storm 4"><img class="game-img" src="images/narutostorm4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto Storm 4</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="Zelda: Breath of the Wild (2020)"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Breath of the Wild (2020)</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="AC Valhalla"><img class="game-img" src="images/assasinsvalhalla.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AC Valhalla</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
-    <div class="game-card searchable rarity-legendary" data-title="Genshin Impact"><img class="game-img" src="images/genshin.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Genshin Impact</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Zelda: Breath of the Wild (2020)"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Breath of the Wild (2020)</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="AC Valhalla"><img class="game-img" src="images/assasinsvalhalla.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AC Valhalla</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Genshin Impact"><img class="game-img" src="images/genshin.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Genshin Impact</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Astro's Playroom"><img class="game-img" src="images/astros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Astro's Playroom</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Phasmophobia"><img class="game-img" src="images/phasmo.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Phasmophobia</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Fairy Tail Hero's Journey"><img class="game-img" src="images/fairytailherosjourney.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fairy Tail Hero's Journey</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
@@ -1053,7 +1126,6 @@ footer::before {
     <div class="game-card searchable rarity-common" data-title="7 Deadly Sins Grand Cross"><img class="game-img" src="images/7dscross.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">7 Deadly Sins Grand Cross</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-horror" data-title="Outlast 2"><img class="game-img" src="images/outlast2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Outlast 2</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="FIFA 20"><img class="game-img" src="images/fifa20.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 20</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Kakarot</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-rare" data-title="Death Stranding"><img class="game-img" src="images/deathstranding.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Death Stranding</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Saint Seiya Awakening"><img class="game-img" src="images/saintseiyaawak.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Saint Seiya Awakening</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
   </div>
@@ -1505,25 +1577,72 @@ footer::before {
     return p;
   }
 
-  // Inject keyframe
+  // Inject keyframes
   const style = document.createElement('style');
   style.textContent = `
     @keyframes floatParticle {
       0%   { opacity: 0;   transform: translate(0, 0) scale(1); }
       20%  { opacity: 0.9; }
       80%  { opacity: 0.6; }
-      100% { opacity: 0;   transform: translate(var(--drift), -${60}px) scale(0.3); }
+      100% { opacity: 0;   transform: translate(var(--drift), -60px) scale(0.3); }
+    }
+    @keyframes emberFloat {
+      0%   { opacity: 0;   transform: translate(0, 0) scale(1) rotate(0deg); }
+      10%  { opacity: 1; }
+      50%  { opacity: 0.8; transform: translate(var(--ex), calc(var(--ey) * 0.5)) scale(0.85) rotate(var(--er)); }
+      85%  { opacity: 0.3; }
+      100% { opacity: 0;   transform: translate(var(--ex), var(--ey)) scale(0.3) rotate(calc(var(--er) * 2)); }
     }
   `;
   document.head.appendChild(style);
 
+  function createEmber() {
+    const p = document.createElement('div');
+    const size = 2 + Math.random() * 3.5;
+    const x = 5 + Math.random() * 90;
+    const duration = 1.8 + Math.random() * 2.5;
+    const delay = Math.random() * 3;
+    const ex = (Math.random() - 0.5) * 30;
+    const ey = -(30 + Math.random() * 50);
+    const er = (Math.random() - 0.5) * 180;
+    // Couleurs braises : rouge chaud, orange, blanc chaud
+    const palette = ['#ff2200','#ff5500','#ff8800','#ffaa00','#ffffff','#ff3300','#ffcc66'];
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    const isSquare = Math.random() > 0.6;
+
+    p.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${isSquare ? size * 0.6 : size}px;
+      background: ${color};
+      box-shadow: 0 0 ${size * 2}px ${color}, 0 0 ${size * 4}px rgba(255,80,0,0.6);
+      border-radius: ${isSquare ? '1px' : '50%'};
+      left: ${x}%;
+      bottom: ${5 + Math.random() * 20}%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      animation: emberFloat ${duration}s ${delay}s ease-out infinite;
+      --ex: ${ex}px;
+      --ey: ${ey}px;
+      --er: ${er}deg;
+    `;
+    return p;
+  }
+
   document.querySelectorAll('.game-card.rarity-legendary').forEach(card => {
-    // Spawn 5-7 particules permanentes par carte
     const count = 5 + Math.floor(Math.random() * 3);
-    for (let i = 0; i < count; i++) {
-      card.appendChild(createParticle(card));
-    }
+    for (let i = 0; i < count; i++) card.appendChild(createParticle(card));
   });
+
+  document.querySelectorAll('.game-card.rarity-origin').forEach(card => {
+    const count = 8 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < count; i++) card.appendChild(createEmber());
+  });
+
+  // Exposer pour openFlip
+  window.createParticle = createParticle;
+  window.createEmber    = createEmber;
 })();
 
 
@@ -1534,8 +1653,23 @@ footer::before {
   const shineF = document.getElementById('flipShineFront');
   const shineB = document.getElementById('flipShine');
 
+  let isPressed = false;
+
+  scene.addEventListener('mousedown', e => { e.preventDefault(); isPressed = true; });
+  window.addEventListener('mouseup',  () => {
+    if (!isPressed) return;
+    isPressed = false;
+    const isFlipped = card.classList.contains('flipped');
+    const baseRot   = isFlipped ? 180 : 0;
+    card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+    shineF.style.opacity  = '0';
+    shineB.style.opacity  = '0';
+  });
+
   scene.addEventListener('mousemove', e => {
     if (!card.classList.contains('entering')) return;
+    if (!isPressed) return;
     const rect = scene.getBoundingClientRect();
     const x  = e.clientX - rect.left;
     const y  = e.clientY - rect.top;
@@ -1553,6 +1687,7 @@ footer::before {
   });
 
   scene.addEventListener('mouseleave', () => {
+    isPressed = false;
     const isFlipped = card.classList.contains('flipped');
     const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
@@ -1678,7 +1813,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 });
 
 // COUNTS
-document.getElementById('countGames').textContent  = '133';
+document.getElementById('countGames').textContent  = '159';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
@@ -1939,7 +2074,34 @@ const FAKE_DATA = {
   "Demon Slayer: Hinokami":                { note: null, date: 'Mar 2022', status: 'termine', comment: 'À venir' },
   "Dofus":                                 { note: null, date: 'Déc 2024', status: 'termine', comment: 'À venir' },
   "Final Fantasy XVI":                     { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
-  "Dragon Ball Sparking Zero":             { note: null, date: 'Oct 2024', status: 'termine', comment: 'À venir' },
+  "Dragon Ball Sparking Zero":             { note: null, date: 'Oct 2024',  status: 'termine', comment: 'À venir' },
+  "Beyond: Two Souls":                     { note: null, date: 'Sep 2025',  status: 'termine', comment: 'À venir' },
+  "The Walking Dead: The Final Season":    { note: null, date: 'Mai 2025',  status: 'termine', comment: 'À venir' },
+  "The Walking Dead: A New Frontier":      { note: null, date: 'Avr 2025',  status: 'termine', comment: 'À venir' },
+  "Batman: Arkham Knight":                 { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
+  "Batman: Return to Arkham":              { note: null, date: 'Juin 2025', status: 'termine', comment: 'À venir' },
+  "MHA: The Strongest Hero":               { note: null, date: 'Mai 2021',  status: 'termine', comment: 'À venir' },
+  "Spider-Man Remastered":                 { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
+  "Pokémon HeartGold/SoulSilver":          { note: null, date: 'Mai 2023',  status: 'termine', comment: 'À venir' },
+  "EA Sports FC 24":                       { note: null, date: 'Oct 2023',  status: 'termine', comment: 'À venir' },
+  "FIFA 23":                               { note: null, date: 'Mar 2022',  status: 'termine', comment: 'À venir' },
+  "Dragon Ball Legends":                   { note: null, date: 'Déc 2021',  status: 'termine', comment: 'À venir' },
+  "Marbles on Stream":                     { note: null, date: 'Avr 2021',  status: 'termine', comment: 'À venir' },
+  "Football Manager 2023":                 { note: null, date: 'Jan 2023',  status: 'termine', comment: 'À venir' },
+  "Naruto x Boruto: Storm Connections":    { note: null, date: 'Nov 2023',  status: 'termine', comment: 'À venir' },
+  "Vissage":                               { note: null, date: 'Jan 2022',  status: 'termine', comment: 'À venir' },
+  "Roller Champions":                      { note: null, date: 'Fév 2021',  status: 'termine', comment: 'À venir' },
+  "Naruto Storm 2":                        { note: null, date: 'Déc 2020',  status: 'termine', comment: 'À venir' },
+  "Naruto Storm 3":                        { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
+  "Naruto: Ultimate Ninja Storm":          { note: null, date: 'Déc 2020',  status: 'termine', comment: 'À venir' },
+  "Super Seducer 2":                       { note: null, date: 'Juin 2021', status: 'termine', comment: 'À venir' },
+  "Resident Evil 4":                       { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
+  "Call of Duty: Warzone":                 { note: null, date: 'Mar 2020',  status: 'termine', comment: 'À venir' },
+  "Raid: Shadow Legends":                  { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
+  "Dragon Ball Z: The Legend":             { note: null, date: 'Déc 2020',  status: 'termine', comment: 'À venir' },
+  "Pokémon Emerald":                       { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
+  "Captain Tsubasa Rise of Champions":     { note: null, date: 'Sep 2020',  status: 'termine', comment: 'À venir' },
+  "One Piece Pirate Warriors 4":           { note: null, date: 'Avr 2020',  status: 'termine', comment: 'À venir' },
   "The Walking Dead":                      { note: null, date: 'Avr 2025', status: 'termine', comment: 'À venir' },
   "Naruto Storm 4":                        { note: null, date: 'Jan 2022', status: 'termine', comment: 'À venir' },
   "Clair Obscur: Expedition 33":           { note: null, date: 'Sep 2025', status: 'termine', comment: 'À venir' },
@@ -2058,7 +2220,6 @@ const FAKE_DATA = {
   "It Takes Two":                          { note: null, date: 'Déc 2021',   status: 'termine', comment: 'À venir' },
   "Metroid Dread":                         { note: null, date: 'Oct 2021',   status: 'termine', comment: 'À venir' },
   "Death Stranding":                       { note: null, date: 'Nov 2019',   status: 'termine', comment: 'À venir' },
-  "Tournoi de billes":                     { note: null, date: 'À venir',    status: 'termine', comment: 'À venir' },
   // SÉRIES
   "100% Physique S1":                { note: null, date: 'Fév 2023',  status: 'termine', comment: 'À venir' },
   "100% Physique S2":                { note: null, date: 'Mars 2024', status: 'termine', comment: 'À venir' },
@@ -2320,6 +2481,7 @@ function openFlip(item) {
 
   // Édition depuis la rareté
   const rarityMap = {
+    'rarity-origin':    '★ ÉDITION ORIGINE',
     'rarity-legendary': '✦ ÉDITION LÉGENDAIRE',
     'rarity-rare':      '◆ ÉDITION DIAMANT',
     'rarity-horror':    '☠ ÉDITION NIGHTMARE',
@@ -2328,6 +2490,7 @@ function openFlip(item) {
   const rarityClass = [...item.classList].find(cl => rarityMap[cl]);
   const editionLabel = rarityClass ? rarityMap[rarityClass] : type;
   const editionColors = {
+    'rarity-origin':    '#ff3355',
     'rarity-legendary': '#ffd700',
     'rarity-rare':      '#7dd8ff',
     'rarity-horror':    '#ff6b7a',
@@ -2336,7 +2499,7 @@ function openFlip(item) {
   const typeEl = document.getElementById('flipBackType');
   typeEl.textContent = editionLabel;
   typeEl.style.color = editionColors[rarityClass] || 'rgba(255,255,255,0.5)';
-  typeEl.style.textShadow = rarityClass === 'rarity-legendary' ? '0 0 10px rgba(255,215,0,0.6)' : 'none';
+  typeEl.style.textShadow = rarityClass === 'rarity-legendary' ? '0 0 10px rgba(255,215,0,0.6)' : rarityClass === 'rarity-origin' ? '0 0 10px rgba(220,20,60,0.8)' : 'none';
   document.getElementById('flipBackTitle').textContent = title.toUpperCase();
   document.getElementById('flipNote').textContent      = data.note ? data.note + '/10' : 'À venir';
   document.getElementById('flipDate').textContent      = data.date || '—';
@@ -2360,6 +2523,24 @@ function openFlip(item) {
   }
 
   currentParticleColors = particleColors;
+
+  // Particules sur la face avant de la flip card
+  const flipFront = document.getElementById('flipFront');
+  // Nettoyer les anciennes particules
+  flipFront.querySelectorAll('.flip-front-particle').forEach(p => p.remove());
+  if (rarityClass === 'rarity-legendary') {
+    for (let i = 0; i < 7; i++) {
+      const p = createParticle(null);
+      p.classList.add('flip-front-particle');
+      flipFront.appendChild(p);
+    }
+  } else if (rarityClass === 'rarity-origin') {
+    for (let i = 0; i < 10; i++) {
+      const e = createEmber();
+      e.classList.add('flip-front-particle');
+      flipFront.appendChild(e);
+    }
+  }
 
   // Ouvrir l'overlay — d'abord face avant visible, carte minuscule
   const overlay = document.getElementById('flipOverlay');
@@ -2417,7 +2598,7 @@ document.querySelectorAll('.list-item, .game-card').forEach(item => {
 
 
 // ═══ COMPTEURS ═══
-document.getElementById('countGames').textContent  = '133';
+document.getElementById('countGames').textContent  = '159';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
