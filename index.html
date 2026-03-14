@@ -91,8 +91,7 @@ body::after {
 /* ═══ NAV ═══ */
 nav {
   position: sticky; top:0; z-index:1000;
-  background: rgba(4,4,10,0.88);
-  backdrop-filter: blur(24px);
+  background: rgba(4,4,10,0.95);
   border-bottom: 1px solid rgba(0,212,255,0.12);
   padding: 0 40px;
   display: flex; align-items: center; justify-content: space-between;
@@ -243,7 +242,8 @@ nav::after {
 }
 
 /* ═══ GAME GRID ═══ */
-.game-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
+.game-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; }
+.list-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:14px; }
 .game-year-divider {
   grid-column: 1 / -1;
   display: flex; align-items: center; gap: 16px;
@@ -252,10 +252,10 @@ nav::after {
 .game-year-divider:first-child { margin-top: 0; }
 .game-year-label {
   font-family: 'Space Mono', monospace;
-  font-size: 0.75rem; letter-spacing: 4px;
+  font-size: 0.7rem; letter-spacing: 3px;
   color: var(--bg);
   background: linear-gradient(90deg, var(--cyan), #0099bb);
-  padding: 4px 16px 4px 12px;
+  padding: 4px 20px 4px 12px;
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
   white-space: nowrap; font-weight: 700;
 }
@@ -273,6 +273,7 @@ nav::after {
   border-radius:10px; overflow:hidden;
   transition:all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
   cursor:pointer; position:relative;
+  aspect-ratio: 2/3;
 }
 .game-card::before {
   content:''; position:absolute; top:0; right:0;
@@ -280,33 +281,149 @@ nav::after {
   border-top:20px solid var(--cyan); border-left:20px solid transparent;
   opacity:0.35; z-index:2; transition:opacity 0.3s;
 }
+.game-card::after {
+  content:''; position:absolute; inset:0; z-index:3;
+  background:linear-gradient(105deg, transparent 40%, rgba(0,212,255,0.12) 50%, transparent 60%);
+  opacity:0; transform:translateX(-100%);
+  transition:transform 0.5s ease, opacity 0.1s ease;
+  border-radius:10px;
+}
 .game-card:hover {
-  transform:translateY(-10px) scale(1.03);
   border-color:rgba(0,212,255,0.6);
   box-shadow:0 25px 50px rgba(0,0,0,0.7),0 0 0 1px rgba(0,212,255,0.3),0 0 40px rgba(0,212,255,0.2);
 }
 .game-card:hover::before { opacity:0.9; }
+.game-card:hover::after  { opacity:1; transform:translateX(100%); }
+/* ═══ RARETÉS ═══ */
+
+/* ── LEGENDARY : aura dorée pulsante ── */
+.game-card.rarity-legendary {
+  border-color: rgba(255,215,0,0.5);
+  box-shadow: 0 0 0 1px rgba(255,215,0,0.2), 0 0 20px rgba(255,185,0,0.2), 0 0 40px rgba(255,150,0,0.08);
+  animation: auraPulseGold 2.8s ease-in-out infinite;
+}
+@keyframes auraPulseGold {
+  0%,100% { box-shadow: 0 0 0 1px rgba(255,215,0,0.2), 0 0 18px rgba(255,185,0,0.25), 0 0 40px rgba(255,150,0,0.1); }
+  50%      { box-shadow: 0 0 0 1px rgba(255,215,0,0.5), 0 0 30px rgba(255,185,0,0.45), 0 0 60px rgba(255,150,0,0.2); }
+}
+.game-card.rarity-legendary::before {
+  border-top-color: var(--gold);
+  opacity: 0.8;
+}
+.game-card.rarity-legendary .game-badge {
+  color: #ffe566;
+  background: rgba(255,215,0,0.12);
+  border-color: rgba(255,215,0,0.4);
+  text-shadow: 0 0 8px rgba(255,215,0,0.6);
+}
+.game-card.rarity-legendary:hover {
+  border-color: rgba(255,215,0,0.9);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,215,0,0.6), 0 0 50px rgba(255,185,0,0.4), 0 0 80px rgba(255,150,0,0.2) !important;
+  animation: none;
+}
+.game-card.rarity-legendary::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(255,215,0,0.2) 50%, transparent 60%);
+}
+/* shimmer doré en continu sur legendary */
+.game-card.rarity-legendary .game-img {
+  filter: brightness(1.05) saturate(1.1);
+}
+
+/* ── RARE : lueur violette subtile ── */
+/* ── DIAMANT : lueur cyan-bleue ── */
+.game-card.rarity-rare {
+  border-color: rgba(0,180,255,0.3);
+  box-shadow: 0 0 0 1px rgba(0,180,255,0.1), 0 0 14px rgba(0,180,255,0.1);
+  animation: auraPulseDiamond 3.5s ease-in-out infinite;
+}
+@keyframes auraPulseDiamond {
+  0%,100% { box-shadow: 0 0 0 1px rgba(0,180,255,0.1), 0 0 10px rgba(0,180,255,0.1); }
+  50%      { box-shadow: 0 0 0 1px rgba(0,180,255,0.3), 0 0 22px rgba(0,180,255,0.22); }
+}
+.game-card.rarity-rare::before { border-top-color: #00b4ff; }
+.game-card.rarity-rare .game-badge {
+  color: #7dd8ff;
+  background: rgba(0,180,255,0.08);
+  border-color: rgba(0,180,255,0.3);
+}
+.game-card.rarity-rare:hover {
+  border-color: rgba(0,180,255,0.85);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,180,255,0.5), 0 0 40px rgba(0,180,255,0.28) !important;
+  animation: none;
+}
+.game-card.rarity-rare::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(0,180,255,0.14) 50%, transparent 60%);
+}
+
+/* ── PLATINE : sobre, argenté ── */
+.game-card.rarity-common { border-color: rgba(180,180,200,0.12); }
+.game-card.rarity-common .game-badge {
+  color: rgba(180,180,200,0.5);
+  background: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.07);
+  font-size: 0.44rem;
+}
+.game-card.rarity-common:hover {
+  border-color: rgba(180,180,200,0.35);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(180,180,200,0.18);
+}
+
+/* ── HORROR : lueur rouge sang ── */
+.game-card.rarity-horror {
+  border-color: rgba(255,45,59,0.4);
+  box-shadow: 0 0 0 1px rgba(255,45,59,0.15), 0 0 16px rgba(255,45,59,0.12);
+  animation: auraPulseHorror 2.2s ease-in-out infinite;
+}
+@keyframes auraPulseHorror {
+  0%,100% { box-shadow: 0 0 0 1px rgba(255,45,59,0.15), 0 0 10px rgba(255,45,59,0.12); }
+  50%      { box-shadow: 0 0 0 1px rgba(255,45,59,0.4),  0 0 22px rgba(255,45,59,0.28); }
+}
+.game-card.rarity-horror::before { border-top-color: var(--red); }
+.game-card.rarity-horror .game-badge {
+  color: #ff6b7a;
+  background: rgba(255,45,59,0.1);
+  border-color: rgba(255,45,59,0.4);
+}
+.game-card.rarity-horror:hover {
+  border-color: rgba(255,45,59,0.9);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,45,59,0.5), 0 0 40px rgba(255,45,59,0.3) !important;
+  animation: none;
+}
+.game-card.rarity-horror::after {
+  background: linear-gradient(105deg, transparent 40%, rgba(255,45,59,0.18) 50%, transparent 60%);
+}
+
+/* ── COMMON : rien de spécial ── */
+.game-card.rarity-common .game-badge {
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+}
+
+
 .game-img {
-  width:100%; height:130px; object-fit:cover; display:block;
+  width:100%; height:100%; object-fit:cover; display:block;
   background:var(--card2); transition:transform 0.4s;
+  position:absolute; inset:0;
 }
 .game-card:hover .game-img { transform:scale(1.04); }
 .game-img-placeholder {
-  width:100%; height:130px;
+  position:absolute; inset:0;
+  width:100%; height:100%;
   display:flex; align-items:center; justify-content:center;
   font-size:2.5rem;
   background:linear-gradient(135deg,var(--card2),#0d0d22);
 }
 .game-info {
-  padding:8px 10px; display:flex; justify-content:space-between; align-items:center;
-  background:linear-gradient(to right,var(--card),rgba(0,212,255,0.03));
+  position:absolute; bottom:0; left:0; right:0; z-index:3;
+  padding:28px 10px 8px;
+  background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
 }
-.game-title { font-weight:700; font-size:0.7rem; letter-spacing:0.5px; color:white; line-height:1.2; word-break:break-word; }
-.game-badge {
-  font-family:'Space Mono',monospace; font-size:0.52rem; color:var(--cyan);
-  background:rgba(0,212,255,0.08); border:1px solid rgba(0,212,255,0.2);
-  padding:3px 7px; border-radius:2px; letter-spacing:1px;
+.game-title {
+  font-weight:700; font-size:0.72rem; letter-spacing:0.5px;
+  color:white; line-height:1.3; word-break:break-word;
 }
+.game-badge { display: none; }
 
 /* ═══ LIST ITEMS ═══ */
 .cat-group { margin-bottom:32px; }
@@ -317,7 +434,7 @@ nav::after {
   text-shadow:0 0 12px var(--purple);
 }
 .cat-title::after { content:''; flex:1; height:1px; background:linear-gradient(to right,rgba(124,58,237,0.3),transparent); }
-.list-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; }
+.list-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:14px; }
 @media (max-width:768px) { .list-grid { grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); } }
 .list-item {
   background:var(--card); border:1px solid var(--border);
@@ -349,7 +466,6 @@ nav::after {
 }
 .list-item:hover {
   border-color:rgba(124,58,237,0.7);
-  transform:translateY(-10px) scale(1.05);
   box-shadow:0 20px 50px rgba(0,0,0,0.7), 0 0 0 1px rgba(124,58,237,0.4), 0 0 40px rgba(124,58,237,0.25);
 }
 .list-item:hover::before { opacity:0.6; }
@@ -417,142 +533,185 @@ footer::before {
 }
 
 
-/* ═══ MODAL ═══ */
-.modal-overlay {
-  position:fixed; inset:0; z-index:9000;
-  background:rgba(0,0,0,0.75);
-  backdrop-filter:blur(8px);
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; pointer-events:none;
-  transition:opacity 0.3s ease;
+/* ═══ FLIP CARD ═══ */
+.flip-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,0.88);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
 }
-.modal-overlay.open {
-  opacity:1; pointer-events:all;
-}
-.modal {
-  background:linear-gradient(135deg, #0d0d1f, #0a0a1a);
-  border:1px solid rgba(0,212,255,0.2);
-  border-radius:16px;
-  width:min(500px, 90vw);
-  box-shadow:0 0 0 1px rgba(0,212,255,0.08), 0 40px 80px rgba(0,0,0,0.8), 0 0 60px rgba(124,58,237,0.08);
-  transform:translateY(30px) scale(0.96);
-  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  overflow:hidden;
-  position:relative;
-}
-.modal-overlay.open .modal {
-  transform:translateY(0) scale(1);
-}
-.modal-glow {
-  position:absolute; top:-60px; left:50%; transform:translateX(-50%);
-  width:300px; height:200px; pointer-events:none;
-  background:radial-gradient(ellipse, rgba(0,212,255,0.07) 0%, transparent 70%);
-}
-.modal-header {
-  display:flex; align-items:center; gap:16px;
-  padding:22px 22px 0;
-}
-.modal-cover {
-  width:64px; height:64px; object-fit:cover;
-  border-radius:10px; border:1px solid rgba(0,212,255,0.2);
-  flex-shrink:0; background:var(--card2);
-}
-.modal-cover-placeholder {
-  width:64px; height:64px; border-radius:10px;
-  background:linear-gradient(135deg,var(--card2),#0d0d22);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.8rem; flex-shrink:0;
-  border:1px solid rgba(0,212,255,0.1);
-}
-.modal-title-block { flex:1; min-width:0; }
-.modal-title {
-  font-family:'Bebas Neue',sans-serif; font-size:1.5rem;
-  letter-spacing:3px; color:white; line-height:1.1;
-}
-.modal-type {
-  font-family:'Space Mono',monospace; font-size:0.55rem;
-  color:var(--cyan); letter-spacing:3px; text-transform:uppercase;
-  margin-top:4px; opacity:0.7;
-}
-.modal-close {
-  width:32px; height:32px; border-radius:50%;
-  background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
-  color:var(--muted); cursor:pointer; font-size:1rem;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.2s; flex-shrink:0;
-}
-.modal-close:hover { background:rgba(255,45,59,0.15); border-color:var(--red); color:var(--red); }
+.flip-overlay.open { opacity: 1; pointer-events: all; }
 
-.modal-body { padding:20px 22px 24px; }
-
-.modal-stats {
-  display:grid; grid-template-columns:1fr 1fr;
-  gap:10px; margin-bottom:16px;
+.flip-scene {
+  perspective: 1200px;
+  width: 320px; height: 460px;
 }
-.modal-stat {
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:10px; padding:12px 14px;
-}
-.modal-stat-label {
-  font-family:'Space Mono',monospace; font-size:0.5rem;
-  color:var(--muted); letter-spacing:3px; text-transform:uppercase;
-  margin-bottom:6px;
-}
-.modal-stat-value {
-  font-family:'Bebas Neue',sans-serif; font-size:1.4rem;
-  letter-spacing:2px;
-}
-.modal-stat-value.note { color:var(--cyan); }
-.modal-stat-value.date { color:white; font-size:1.1rem; }
-
-.modal-status {
-  display:inline-flex; align-items:center; gap:6px;
-  font-family:'Space Mono',monospace; font-size:0.6rem;
-  letter-spacing:2px; text-transform:uppercase;
-  padding:5px 12px; border-radius:20px;
-}
-.modal-status.termine  { background:rgba(0,212,255,0.1);  color:var(--cyan);   border:1px solid rgba(0,212,255,0.25); }
-.modal-status.encours  { background:rgba(255,107,26,0.1); color:var(--orange); border:1px solid rgba(255,107,26,0.25); }
-.modal-status.abandonne{ background:rgba(255,45,59,0.1);  color:var(--red);    border:1px solid rgba(255,45,59,0.25); }
-.modal-status::before  { content:''; width:6px; height:6px; border-radius:50%; background:currentColor; }
-
-.modal-comment {
-  background:rgba(124,58,237,0.05);
-  border:1px solid rgba(124,58,237,0.15);
-  border-left:3px solid var(--purple);
-  border-radius:0 8px 8px 0;
-  padding:12px 14px;
-  font-size:0.85rem; line-height:1.6;
-  color:var(--text); font-style:italic;
+/* Reflet arc-en-ciel TCG sur la carte zoomée */
+.flip-overlay-shine {
+  position: absolute; inset: 0; z-index: 20; border-radius: 16px;
+  pointer-events: none; opacity: 0;
+  transition: opacity 0.15s ease;
+  mix-blend-mode: screen;
 }
 
-.stars {
-  display:flex; gap:3px; margin-top:4px;
+.flip-card {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg) scale(0.15);
+  opacity: 0;
+  transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.25s ease;
+  border-radius: 16px;
 }
-.star { font-size:0.85rem; }
+.flip-card.entering {
+  transform: rotateY(0deg) scale(1);
+  opacity: 1;
+}
+.flip-card.flipped {
+  transform: rotateY(180deg) scale(1.04);
+  opacity: 1;
+}
 
-.modal-divider {
-  height:1px; background:linear-gradient(to right, transparent, rgba(0,212,255,0.15), transparent);
-  margin:14px 0;
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
 }
-.modal-patreon {
-  display:flex; align-items:center; justify-content:center; gap:10px;
-  margin-top:14px; padding:12px 20px;
-  background:linear-gradient(135deg, rgba(255,66,77,0.12), rgba(255,66,77,0.06));
-  border:1px solid rgba(255,66,77,0.3); border-radius:10px;
-  color:#ff6b7a; text-decoration:none;
-  font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:2px;
-  text-transform:uppercase; font-weight:700;
-  transition:all 0.25s;
+
+/* FACE AVANT */
+.flip-front {
+  background: var(--card);
+  border: 1px solid rgba(0,212,255,0.2);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,212,255,0.1);
 }
-.modal-patreon:hover {
-  background:linear-gradient(135deg, rgba(255,66,77,0.2), rgba(255,66,77,0.1));
-  border-color:rgba(255,66,77,0.6);
-  color:white; transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(255,66,77,0.2);
+.flip-front img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
 }
-.modal-patreon svg { flex-shrink:0; }
+.flip-front-no-img {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--card2), #0d0d22);
+}
+.flip-front-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 40px 16px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+  letter-spacing: 3px; color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* FACE ARRIÈRE */
+.flip-back {
+  transform: rotateY(180deg);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+}
+.flip-back-glow {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0.15;
+}
+.flip-back-content {
+  position: relative; z-index: 1;
+  height: 100%; padding: 22px 20px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  overflow-y: auto;
+}
+.flip-back-type {
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 4px; text-transform: uppercase;
+  opacity: 0.6; color: white;
+}
+.flip-back-title {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+  letter-spacing: 3px; color: white; line-height: 1.1;
+}
+.flip-back-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px;
+  width: fit-content;
+}
+.flip-back-status.termine  { background: rgba(0,212,255,0.15);  color: var(--cyan);   border: 1px solid rgba(0,212,255,0.3); }
+.flip-back-status.encours  { background: rgba(255,107,26,0.15); color: var(--orange); border: 1px solid rgba(255,107,26,0.3); }
+.flip-back-status.abandonne{ background: rgba(255,45,59,0.15);  color: var(--red);    border: 1px solid rgba(255,45,59,0.3); }
+.flip-back-status::before  { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }
+
+.flip-back-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+}
+.flip-back-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.flip-back-stat {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 10px 12px;
+}
+.flip-back-stat-label {
+  font-family: 'Space Mono', monospace; font-size: 0.48rem;
+  color: rgba(255,255,255,0.45); letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.flip-back-stat-value {
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px;
+}
+.flip-back-stat-value.cyan  { color: var(--cyan); }
+.flip-back-stat-value.white { color: white; font-size: 1rem; }
+
+.flip-back-comment {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 3px solid rgba(255,255,255,0.3);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 12px;
+  font-size: 0.8rem; line-height: 1.6;
+  color: rgba(255,255,255,0.75); font-style: italic;
+  flex: 1;
+}
+.flip-patreon {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255,66,77,0.12);
+  border: 1px solid rgba(255,66,77,0.35); border-radius: 8px;
+  color: #ff6b7a; text-decoration: none;
+  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+  transition: all 0.2s;
+}
+.flip-patreon:hover {
+  background: rgba(255,66,77,0.22); border-color: rgba(255,66,77,0.7);
+  color: white; transform: translateY(-2px);
+}
+
+/* Gradients selon le type */
+.flip-back.type-jeu     { background: linear-gradient(145deg, #050518, #0a0a2a, #0d1535); }
+.flip-back.type-anime   { background: linear-gradient(145deg, #0f0518, #1a0528, #2a0a35); }
+.flip-back.type-film    { background: linear-gradient(145deg, #0a0505, #1a0a05, #200f08); }
+.flip-back.type-serie   { background: linear-gradient(145deg, #051005, #0a1f0a, #0d2510); }
+
+.flip-back.type-jeu   .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #00d4ff 0%, transparent 70%); }
+.flip-back.type-anime .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #7c3aed 0%, transparent 70%); }
+.flip-back.type-film  .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #ff6b1a 0%, transparent 70%); }
+.flip-back.type-serie .flip-back-glow   { background: radial-gradient(ellipse at 50% 0%, #22c55e 0%, transparent 70%); }
+
+.flip-back.type-jeu   .flip-back-status.termine { border-color: rgba(0,212,255,0.4); }
+.flip-back.type-anime .flip-back-comment { border-left-color: #7c3aed; }
+.flip-back.type-film  .flip-back-comment { border-left-color: #ff6b1a; }
+.flip-back.type-serie .flip-back-comment { border-left-color: #22c55e; }
+
+/* Particules flip */
+.flip-particle {
+  position: fixed; border-radius: 50%; pointer-events: none; z-index: 10000;
+  animation: particleFly 0.6s ease-out forwards;
+}
 
 
 /* ═══ NETFLIX CARD ═══ */
@@ -573,9 +732,10 @@ footer::before {
 .list-item .card-label {
   position:absolute; bottom:0; left:0; right:0; z-index:4;
   padding:8px 10px;
-  font-size:0.68rem; font-weight:700; letter-spacing:0.5px;
+  font-size:0.72rem; font-weight:700; letter-spacing:0.5px;
   color:white; line-height:1.3;
   text-shadow:0 1px 4px rgba(0,0,0,0.8);
+  word-break:break-word;
 }
 
 
@@ -655,41 +815,49 @@ footer::before {
 <body>
 
 <!-- ═══ MODAL ═══ -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-glow"></div>
-    <div class="modal-header">
-      <div id="modalCover"></div>
-      <div class="modal-title-block">
-        <div class="modal-title" id="modalTitle">—</div>
-        <div class="modal-type" id="modalType">—</div>
+<div class="flip-overlay" id="flipOverlay">
+  <div class="flip-scene" id="flipScene">
+    <div class="flip-card" id="flipCard">
+
+      <!-- FACE AVANT (image) -->
+      <div class="flip-front" id="flipFront">
+        <div class="flip-overlay-shine" id="flipShineFront"></div>
+        <img id="flipFrontImg" src="" alt="">
+        <div class="flip-front-no-img" id="flipFrontNoImg" style="display:none">🎮</div>
+        <div class="flip-front-label" id="flipFrontLabel"></div>
       </div>
-      <button class="modal-close" id="modalClose">✕</button>
-    </div>
-    <div class="modal-body">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-        <div id="modalStatus" class="modal-status termine">Terminé</div>
-      </div>
-      <div class="modal-stats">
-        <div class="modal-stat">
-          <div class="modal-stat-label">Note Shinii</div>
-          <div class="modal-stat-value note" id="modalNote">—/10</div>
-          <div class="stars" id="modalStars"></div>
+
+      <!-- FACE ARRIÈRE (infos) -->
+      <div class="flip-back" id="flipBack">
+        <div class="flip-overlay-shine" id="flipShine"></div>
+        <div class="flip-back-glow" id="flipBackGlow"></div>
+        <div class="flip-back-content">
+          <div class="flip-back-type" id="flipBackType"></div>
+          <div class="flip-back-title" id="flipBackTitle"></div>
+          <div class="flip-back-status" id="flipBackStatus"></div>
+          <div class="flip-back-divider"></div>
+          <div class="flip-back-stats">
+            <div class="flip-back-stat">
+              <div class="flip-back-stat-label">Note Shinii</div>
+              <div class="flip-back-stat-value cyan" id="flipNote">À venir</div>
+              <div class="stars" id="flipStars"></div>
+            </div>
+            <div class="flip-back-stat">
+              <div class="flip-back-stat-label">Date</div>
+              <div class="flip-back-stat-value white" id="flipDate">—</div>
+            </div>
+          </div>
+          <div class="flip-back-comment" id="flipComment"></div>
+          <a class="flip-patreon" id="flipPatreon" href="#" target="_blank" style="display:none">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
+            React sur Patreon
+          </a>
+          <div id="flipReactLost" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(255,45,59,0.07); border:1px solid rgba(255,45,59,0.2); border-radius:6px; font-family:'Space Mono',monospace; font-size:0.55rem; color:#ff6b7a; letter-spacing:2px; text-align:center;">
+            ⚠ REACT PERDU
+          </div>
         </div>
-        <div class="modal-stat">
-          <div class="modal-stat-label">Vu le</div>
-          <div class="modal-stat-value date" id="modalDate">—</div>
-        </div>
       </div>
-      <div class="modal-divider"></div>
-      <div class="modal-comment" id="modalComment">—</div>
-      <a class="modal-patreon" id="modalPatreon" href="#" target="_blank" style="display:none">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
-        Voir le react sur Patreon
-      </a>
-      <div id="modalReactLost" style="display:none; margin-top:14px; padding:10px 14px; background:rgba(255,45,59,0.07); border:1px solid rgba(255,45,59,0.2); border-radius:8px; font-family:'Space Mono',monospace; font-size:0.6rem; color:#ff6b7a; letter-spacing:2px; text-align:center;">
-        ⚠ REACT PERDU — Non disponible sur Patreon
-      </div>
+
     </div>
   </div>
 </div>
@@ -752,121 +920,145 @@ footer::before {
     <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
   <div class="game-grid reveal">
-    <div class="game-year-divider"><span class="game-year-label">— 2026 —</span><span class="game-year-line"></span><span class="game-year-count">8 JEUX</span></div>
-    <div class="game-card searchable" data-title="Zelda Breath of the Wild"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA BOTW</span><span class="game-badge">AVENTURE</span></div></div>
-    <div class="game-card searchable" data-title="Pokopia"><img class="game-img" src="images/pokopia.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKOPIA</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Dokkan Battle"><img class="game-img" src="images/dokkan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ DOKKAN BATTLE</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Super Mario Galaxy 2"><img class="game-img" src="images/mariogalaxy2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER MARIO GALAXY 2</span><span class="game-badge">PLATEFORME</span></div></div>
-    <div class="game-card searchable" data-title="Super Mario Galaxy"><img class="game-img" src="images/mariogalaxy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER MARIO GALAXY</span><span class="game-badge">PLATEFORME</span></div></div>
-    <div class="game-card searchable" data-title="EA Sports FC 25"><img class="game-img" src="images/ea25.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA SPORTS FC 25</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="Sekiro Shadows Die Twice"><img class="game-img" src="images/sekiro.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SEKIRO SHADOWS DIE TWICE</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="MHA All Justice"><img class="game-img" src="images/mhaalljustice.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MHA ALL JUSTICE</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2025 —</span><span class="game-year-line"></span><span class="game-year-count">16 JEUX</span></div>
-    <div class="game-card searchable" data-title="Mario Kart World"><img class="game-img" src="images/mkworld.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MARIO KART WORLD</span><span class="game-badge">COURSE</span></div></div>
-    <div class="game-card searchable" data-title="Outlast 1"><img class="game-img" src="images/outlast1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">OUTLAST</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Victory Road"><img class="game-img" src="images/victoryroad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">INAZUMA ELEVEN VICTORY ROAD</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="Doomsday Last Survivors"><img class="game-img" src="images/doomsday.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DOOMSDAY LAST SURVIVORS</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Detroit Become Human"><img class="game-img" src="images/detroit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DETROIT BECOME HUMAN</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="Batman Arkham Asylum"><img class="game-img" src="images/asylum.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BATMAN ARKHAM ASYLUM</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Batman Arkham City"><img class="game-img" src="images/arkham.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BATMAN ARKHAM CITY</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Little Nightmares 2"><img class="game-img" src="images/little2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE NIGHTMARES II</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Little Nightmares"><img class="game-img" src="images/little1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE NIGHTMARES</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Monster Hunter Wilds"><img class="game-img" src="images/monsterhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MONSTER HUNTER WILDS</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Red Dead Redemption 2"><img class="game-img" src="images/reddead.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RED DEAD REDEMPTION II</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Heavy Rain"><img class="game-img" src="images/heavy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HEAVY RAIN</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="The Dark Pictures The Devil In Me"><img class="game-img" src="images/devil.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE DEVIL IN ME</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="Clair Obscur Expedition 33"><img class="game-img" src="images/clair.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">CLAIR OBSCUR</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Bleach Rebirth of Souls"><img class="game-img" src="images/bleachrebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLEACH REBIRTH OF SOULS</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="DB Xenoverse 2"><img class="game-img" src="images/xenoverse2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DB XENOVERSE 2</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2024 —</span><span class="game-year-line"></span><span class="game-year-count">14 JEUX</span></div>
-    <div class="game-card searchable" data-title="The Dark Pictures House of Ashes"><img class="game-img" src="images/ashes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HOUSE OF ASHES</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="The Dark Pictures Man of Medan"><img class="game-img" src="images/medan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MAN OF MEDAN</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="The Dark Pictures Little Hope"><img class="game-img" src="images/littlehope.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LITTLE HOPE</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="Dofus"><img class="game-img" src="images/dofus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DOFUS</span><span class="game-badge">MMO</span></div></div>
-    <div class="game-card searchable" data-title="Until Dawn"><img class="game-img" src="images/untildawn.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">UNTIL DAWN</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="Bleach Brave Souls"><img class="game-img" src="images/bleachbravesouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLEACH BRAVE SOULS</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Elden Ring"><img class="game-img" src="images/elden.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Pokémon Noir 2"><img class="game-img" src="images/pokenoir2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON NOIR 2</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Pokémon Blanc 2"><img class="game-img" src="images/pokeblanc2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON BLANC 2</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Rebirth"><img class="game-img" src="images/ff7rebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FF7 REBIRTH</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="AFK Journey"><img class="game-img" src="images/afkj.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AFK JOURNEY</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Garry's Mod"><img class="game-img" src="images/garrys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GARRY'S MOD</span><span class="game-badge">SANDBOX</span></div></div>
-    <div class="game-card searchable" data-title="Tekken 8"><img class="game-img" src="images/tekken8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">TEKKEN 8</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Crisis Core"><img class="game-img" src="images/ff7crisiscore.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">CRISIS CORE FF7 REUNION</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2023 —</span><span class="game-year-line"></span><span class="game-year-count">14 JEUX</span></div>
-    <div class="game-card searchable" data-title="Pokémon Omega Ruby"><img class="game-img" src="images/pokeruby.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON OMEGA RUBY</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Black Clover Mobile"><img class="game-img" src="images/bcmobile.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">BLACK CLOVER MOBILE</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Waven"><img class="game-img" src="images/waven.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">WAVEN</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Lycans"><img class="game-img" src="images/lycans.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LYCANS</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Spider-Man 2"><img class="game-img" src="images/spider2jeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SPIDER-MAN 2</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Spider-Man Miles Morales"><img class="game-img" src="images/spidermilesjeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SPIDER-MAN MILES MORALES</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Final Fantasy VII Remake"><img class="game-img" src="images/ff7remake.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FF7 REMAKE</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Final Fantasy XVI"><img class="game-img" src="images/ff16.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FINAL FANTASY XVI</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Zelda Tears of the Kingdom"><img class="game-img" src="images/totk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA TOTK</span><span class="game-badge">AVENTURE</span></div></div>
-    <div class="game-card searchable" data-title="Zelda Skyward Sword"><img class="game-img" src="images/skywardsword.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ZELDA SKYWARD SWORD</span><span class="game-badge">AVENTURE</span></div></div>
-    <div class="game-card searchable" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ KAKAROT</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Monster Hunter Rise"><img class="game-img" src="images/monsterrise.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MONSTER HUNTER RISE</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Hogwarts Legacy"><img class="game-img" src="images/hogwarts.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">HOGWARTS LEGACY</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="New Super Mario Bros U"><img class="game-img" src="images/brosu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">NEW SUPER MARIO BROS U</span><span class="game-badge">PLATEFORME</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2022 —</span><span class="game-year-line"></span><span class="game-year-count">15 JEUX</span></div>
-    <div class="game-card searchable" data-title="Pokémon Violet"><img class="game-img" src="images/pokescarletviolet.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON ÉCARLATE/VIOLET</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RISE OF KINGDOMS</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="God of War Ragnarok"><img class="game-img" src="images/gowragna.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GOD OF WAR RAGNARÖK</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="FIFA 22"><img class="game-img" src="images/fifa22.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 22</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="MultiVersus"><img class="game-img" src="images/multiversus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MULTIVERSUS</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="The Quarry"><img class="game-img" src="images/thequarry.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE QUARRY</span><span class="game-badge">NARRATIF</span></div></div>
-    <div class="game-card searchable" data-title="Inazuma Eleven GO Strikers 2013"><img class="game-img" src="images/inazuma2013.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">INAZUMA ELEVEN GO STRIKERS</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="Super Smash Bros Ultimate"><img class="game-img" src="images/smashbros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SUPER SMASH BROS ULTIMATE</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="Poppy Playtime"><img class="game-img" src="images/poppy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POPPY PLAYTIME</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Pokémon X"><img class="game-img" src="images/pokex.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON X</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Pokémon Legends Arceus"><img class="game-img" src="images/arceus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON LEGENDS ARCEUS</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Yu-Gi-Oh Master Duel"><img class="game-img" src="images/masterduel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">YU-GI-OH MASTER DUEL</span><span class="game-badge">CARTE</span></div></div>
-    <div class="game-card searchable" data-title="Lost Ark"><img class="game-img" src="images/lostark.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LOST ARK</span><span class="game-badge">MMO</span></div></div>
-    <div class="game-card searchable" data-title="Gartic Phone"><img class="game-img" src="images/gartic.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GARTIC PHONE</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Demon Slayer The Hinokami Chronicles"><img class="game-img" src="images/demonslayergame.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DEMON SLAYER HINOKAMI</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2021 —</span><span class="game-year-line"></span><span class="game-year-count">16 JEUX</span></div>
-    <div class="game-card searchable" data-title="Pokémon Diamant Étincelant"><img class="game-img" src="images/pokediamant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">POKÉMON DIAMANT ÉTINCELANT</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="DBZ Budokai Tenkaichi 3"><img class="game-img" src="images/bt3.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ BUDOKAI TENKAICHI 3</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="Resident Evil 8 Village"><img class="game-img" src="images/re8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RESIDENT EVIL VILLAGE</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Knight Squad 2"><img class="game-img" src="images/knightsquad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">KNIGHT SQUAD 2</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Alt F4"><img class="game-img" src="images/altf4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ALT F4</span><span class="game-badge">INDé</span></div></div>
-    <div class="game-card searchable" data-title="Getting Over It"><img class="game-img" src="images/gettingovit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GETTING OVER IT</span><span class="game-badge">INDé</span></div></div>
-    <div class="game-card searchable" data-title="Dread Hunger"><img class="game-img" src="images/dreadhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DREAD HUNGER</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="FIFA 21"><img class="game-img" src="images/fifa21.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 21</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="Resident Evil 7"><img class="game-img" src="images/re7.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">RESIDENT EVIL 7</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="Ghost of Tsushima"><img class="game-img" src="images/ghostoftsushima.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GHOST OF TSUSHIMA</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Rocket League"><img class="game-img" src="images/rocketleague.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ROCKET LEAGUE</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-card searchable" data-title="God of War"><img class="game-img" src="images/godofwar.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GOD OF WAR</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Among Us"><img class="game-img" src="images/amongus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AMONG US</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="The Last of Us"><img class="game-img" src="images/thelastofus1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE LAST OF US</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="The Last of Us 2"><img class="game-img" src="images/thelastofus2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">THE LAST OF US 2</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Qui veut gagner des millions"><img class="game-img" src="images/qvgdm.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">QUI VEUT GAGNER DES MILLIONS</span><span class="game-badge">QUIZ</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2020 —</span><span class="game-year-line"></span><span class="game-year-count">12 JEUX</span></div>
-    <div class="game-card searchable" data-title="Naruto Storm 4"><img class="game-img" src="images/narutostorm4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">NARUTO STORM 4</span><span class="game-badge">COMBAT</span></div></div>
-    <div class="game-card searchable" data-title="Assassin's Creed Valhalla"><img class="game-img" src="images/assasinsvalhalla.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ASSASSIN'S CREED VALHALLA</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Genshin Impact"><img class="game-img" src="images/genshin.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GENSHIN IMPACT</span><span class="game-badge">RPG</span></div></div>
-    <div class="game-card searchable" data-title="Astro's Playroom"><img class="game-img" src="images/astros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ASTRO'S PLAYROOM</span><span class="game-badge">PLATEFORME</span></div></div>
-    <div class="game-card searchable" data-title="Fairy Tail Hero's Journey"><img class="game-img" src="images/fairytailherosjourney.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FAIRY TAIL HERO'S JOURNEY</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Pummel Party"><img class="game-img" src="images/pummel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">PUMMEL PARTY</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Deceit"><img class="game-img" src="images/deceit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DECEIT</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="GTA V"><img class="game-img" src="images/gtav.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GTA V</span><span class="game-badge">ACTION</span></div></div>
-    <div class="game-card searchable" data-title="Skribbl.io"><img class="game-img" src="images/skribblio.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SKRIBBL.IO</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="7 Deadly Sins Grand Cross"><img class="game-img" src="images/7dscross.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">7 DEADLY SINS GRAND CROSS</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-card searchable" data-title="Outlast 2"><img class="game-img" src="images/outlast2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">OUTLAST 2</span><span class="game-badge">HORREUR</span></div></div>
-    <div class="game-card searchable" data-title="FIFA 20"><img class="game-img" src="images/fifa20.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 20</span><span class="game-badge">SPORT</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— 2019 —</span><span class="game-year-line"></span><span class="game-year-count">1 JEU</span></div>
-    <div class="game-card searchable" data-title="Saint Seiya Awakening"><img class="game-img" src="images/saintseiyaawak.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">SAINT SEIYA AWAKENING</span><span class="game-badge">MOBILE</span></div></div>
-    <div class="game-year-divider"><span class="game-year-label">— HORS SAISON —</span><span class="game-year-line"></span><span class="game-year-count">7 JEUX</span></div>
-    <div class="game-card searchable" data-title="Mario Kart 8 Deluxe"><img class="game-img" src="images/mk8deluxe.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MARIO KART 8 DELUXE</span><span class="game-badge">COURSE</span></div></div>
-    <div class="game-card searchable" data-title="Fortnite"><img class="game-img" src="images/fortnite.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FORTNITE</span><span class="game-badge">BATTLE ROYALE</span></div></div>
-    <div class="game-card searchable" data-title="Valorant"><img class="game-img" src="images/valorant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">VALORANT</span><span class="game-badge">FPS</span></div></div>
-    <div class="game-card searchable" data-title="League of Legends"><img class="game-img" src="images/lol.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">LEAGUE OF LEGENDS</span><span class="game-badge">MOBA</span></div></div>
-    <div class="game-card searchable" data-title="Fall Guys"><img class="game-img" src="images/fallguys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FALL GUYS</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Tournoi de billes"><img class="game-img" src="images/billes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">TOURNOI DE BILLES</span><span class="game-badge">PARTY</span></div></div>
-    <div class="game-card searchable" data-title="Roblox"><img class="game-img" src="images/roblox.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ROBLOX</span><span class="game-badge">SANDBOX</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">✦ SAISON 3 — 2024/2026</span><span class="game-year-line"></span><span class="game-year-count">51 JEUX</span></div>
+    <div class="game-card searchable rarity-legendary" data-title="Zelda: Breath of the Wild"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Breath of the Wild</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Pokopia"><img class="game-img" src="images/pokopia.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokopia</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="DBZ Dokkan Battle"><img class="game-img" src="images/dokkan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Dokkan Battle</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Super Mario Galaxy 2"><img class="game-img" src="images/mariogalaxy2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Mario Galaxy 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Super Mario Galaxy"><img class="game-img" src="images/mariogalaxy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Super Mario Galaxy</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Mario Kart 8 Deluxe"><img class="game-img" src="images/mk8deluxe.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Mario Kart 8 Deluxe</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="EA Sports FC 25"><img class="game-img" src="images/ea25.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA Sports FC 25</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Mario Kart World"><img class="game-img" src="images/mkworld.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Mario Kart World</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Outlast"><img class="game-img" src="images/outlast1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Outlast</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Fortnite"><img class="game-img" src="images/fortnite.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fortnite</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Inazuma Eleven Victory Road"><img class="game-img" src="images/victoryroad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Inazuma Eleven Victory Road</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="VALORANT"><img class="game-img" src="images/valorant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">VALORANT</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Doomsday: Last Survivors"><img class="game-img" src="images/doomsday.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Doomsday: Last Survivors</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Detroit: Become Human"><img class="game-img" src="images/detroit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Detroit: Become Human</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Batman: Arkham Asylum"><img class="game-img" src="images/asylum.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Batman: Arkham Asylum</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Batman: Arkham City"><img class="game-img" src="images/arkham.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Batman: Arkham City</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Little Nightmares II"><img class="game-img" src="images/little2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Little Nightmares II</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Little Nightmares I"><img class="game-img" src="images/little1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Little Nightmares I</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Monster Hunter Wilds"><img class="game-img" src="images/monsterhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Monster Hunter Wilds</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="League of Legends"><img class="game-img" src="images/lol.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">League of Legends</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="ROBLOX"><img class="game-img" src="images/roblox.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ROBLOX</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Red Dead Redemption II"><img class="game-img" src="images/reddead.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Red Dead Redemption II</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Heavy Rain"><img class="game-img" src="images/heavy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Heavy Rain</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="The Dark Pictures: The Devil in Me"><img class="game-img" src="images/devil.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Dark Pictures: The Devil in Me</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="The Dark Pictures: House of Ashes"><img class="game-img" src="images/ashes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Dark Pictures: House of Ashes</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="The Dark Pictures: Little Hope"><img class="game-img" src="images/littlehope.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Dark Pictures: Little Hope</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="The Dark Pictures: Man of Medan"><img class="game-img" src="images/medan.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Dark Pictures: Man of Medan</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Dofus"><img class="game-img" src="images/dofus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dofus</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Until Dawn"><img class="game-img" src="images/untildawn.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Until Dawn</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="The Walking Dead"><img class="game-img" src="images/walkingdead.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Walking Dead</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Silent Hill 2"><img class="game-img" src="images/silenthill2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Silent Hill 2</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Bleach: Brave Souls"><img class="game-img" src="images/bleachbravesouls.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Brave Souls</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Black Myth: Wukong"><img class="game-img" src="images/wukong.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Black Myth: Wukong</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="ELDEN RING"><img class="game-img" src="images/elden.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Noir 2"><img class="game-img" src="images/pokenoir2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Noir 2</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Chained Together"><img class="game-img" src="images/chainedtogether.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Chained Together</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Bodycam"><img class="game-img" src="images/bodycam.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bodycam</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="FFVII Rebirth"><img class="game-img" src="images/ff7rebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FFVII Rebirth</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Supermarket Simulator"><img class="game-img" src="images/supermarket.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Supermarket Simulator</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Content Warning"><img class="game-img" src="images/contentwarning.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Content Warning</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="AFK Journey"><img class="game-img" src="images/afkj.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AFK Journey</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Tekken 8"><img class="game-img" src="images/tekken8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Tekken 8</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Crisis Core FFVII"><img class="game-img" src="images/ff7crisiscore.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Crisis Core FFVII</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Lethal Company"><img class="game-img" src="images/lethal.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Lethal Company</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Sekiro: Shadows Die Twice"><img class="game-img" src="images/sekiro.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Sekiro: Shadows Die Twice</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="MHA: All Justice"><img class="game-img" src="images/mhaalljustice.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MHA: All Justice</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Clair Obscur: Expedition 33"><img class="game-img" src="images/clair.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Clair Obscur: Expedition 33</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Bleach: Rebirth of Souls"><img class="game-img" src="images/bleachrebirth.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Rebirth of Souls</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="DB Xenoverse 2"><img class="game-img" src="images/xenoverse2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DB Xenoverse 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">◆ SAISON 2 — 2022/2023</span><span class="game-year-line"></span><span class="game-year-count">44 JEUX</span></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Omega Ruby"><img class="game-img" src="images/pokeruby.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Omega Ruby</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Black Clover Mobile"><img class="game-img" src="images/bcmobile.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Black Clover Mobile</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Waven"><img class="game-img" src="images/waven.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Waven</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Lycans"><img class="game-img" src="images/lycans.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Lycans</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="The Day Before"><img class="game-img" src="images/daybefore.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Day Before</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Jusant"><img class="game-img" src="images/jusant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Jusant</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Spider-Man 2"><img class="game-img" src="images/spider2jeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Spider-Man 2</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Only Up!"><img class="game-img" src="images/onlyup.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Only Up!</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Spider-Man: Miles Morales"><img class="game-img" src="images/spidermilesjeu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Spider-Man: Miles Morales</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="FFVII Remake"><img class="game-img" src="images/ff7remake.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FFVII Remake</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Street Fighter 6"><img class="game-img" src="images/sf6.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Street Fighter 6</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Zelda: Tears of the Kingdom"><img class="game-img" src="images/totk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Tears of the Kingdom</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Zelda: Skyward Sword"><img class="game-img" src="images/skywardsword.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Skyward Sword</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Bramble: The Mountain King"><img class="game-img" src="images/bramble.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bramble: The Mountain King</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Kakarot</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Monster Hunter Rise"><img class="game-img" src="images/monsterrise.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Monster Hunter Rise</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Resident Evil 4 Remake"><img class="game-img" src="images/re4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Resident Evil 4 Remake</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Sons of the Forest"><img class="game-img" src="images/sonsoftheforest.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Sons of the Forest</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Hogwarts Legacy"><img class="game-img" src="images/hogwarts.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Hogwarts Legacy</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="New Super Mario Bros U"><img class="game-img" src="images/brosu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">New Super Mario Bros U</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Mario Kart 8"><img class="game-img" src="images/mariokart8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Mario Kart 8</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="High on Life"><img class="game-img" src="images/high.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">High on Life</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="One Piece Odyssey"><img class="game-img" src="images/opodyssey.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">One Piece Odyssey</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Écarlate/Violet"><img class="game-img" src="images/pokescarletviolet.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Écarlate/Violet</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Rise of Kingdoms</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="The Callisto Protocol"><img class="game-img" src="images/callisto.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Callisto Protocol</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="God of War Ragnarök"><img class="game-img" src="images/gowragna.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">God of War Ragnarök</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="FIFA 22"><img class="game-img" src="images/fifa22.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 22</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Pokémon Blanc 2"><img class="game-img" src="images/pokeblanc2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Blanc 2</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Garry's Mod"><img class="game-img" src="images/garrys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Garry's Mod</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Final Fantasy XVI"><img class="game-img" src="images/ff16.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Final Fantasy XVI</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Cyberpunk 2077"><img class="game-img" src="images/cyberpunkk.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Cyberpunk 2077</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Tournoi de billes"><img class="game-img" src="images/billes.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Tournoi de billes</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Fall Guys"><img class="game-img" src="images/fallguys.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fall Guys</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="MultiVersus"><img class="game-img" src="images/multiversus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MultiVersus</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Stray"><img class="game-img" src="images/stray.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Stray</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="The Quarry"><img class="game-img" src="images/thequarry.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Quarry</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Inazuma GO Strikers 2013"><img class="game-img" src="images/inazuma2013.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Inazuma GO Strikers 2013</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Smash Ultimate"><img class="game-img" src="images/smashbros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Smash Ultimate</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Poppy Playtime"><img class="game-img" src="images/poppy.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Poppy Playtime</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon X"><img class="game-img" src="images/pokex.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon X</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Arceus"><img class="game-img" src="images/arceus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Arceus</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Sifu"><img class="game-img" src="images/sifu.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Sifu</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Dying Light 2"><img class="game-img" src="images/dyinglight2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dying Light 2</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Yu-Gi-Oh Master Duel"><img class="game-img" src="images/masterduel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Yu-Gi-Oh Master Duel</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Lost Ark"><img class="game-img" src="images/lostark.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Lost Ark</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Gartic Phone"><img class="game-img" src="images/gartic.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Gartic Phone</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="FNAF: Security Breach"><img class="game-img" src="images/fnaf.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FNAF: Security Breach</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Demon Slayer: Hinokami"><img class="game-img" src="images/demonslayergame.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Demon Slayer: Hinokami</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-year-divider"><span class="game-year-label">● SAISON 1 — 2019/2021</span><span class="game-year-line"></span><span class="game-year-count">34 JEUX</span></div>
+    <div class="game-card searchable rarity-legendary" data-title="Pokémon Diamant Étincelant"><img class="game-img" src="images/pokediamant.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Diamant Étincelant</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="It Takes Two"><img class="game-img" src="images/ittakestwo.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">It Takes Two</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="DBZ Budokai Tenkaichi 3"><img class="game-img" src="images/bt3.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Budokai Tenkaichi 3</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Metroid Dread"><img class="game-img" src="images/metroid.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Metroid Dread</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="ALTF4"><img class="game-img" src="images/altf4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ALTF4</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Resident Evil Village"><img class="game-img" src="images/re8.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Resident Evil Village</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Knight Squad 2"><img class="game-img" src="images/knightsquad.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Knight Squad 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="FIFA 21"><img class="game-img" src="images/fifa21.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 21</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Resident Evil 7"><img class="game-img" src="images/re7.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Resident Evil 7</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Ghost of Tsushima"><img class="game-img" src="images/ghostoftsushima.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Ghost of Tsushima</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Rocket League"><img class="game-img" src="images/rocketleague.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Rocket League</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="God of War"><img class="game-img" src="images/godofwar.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">God of War</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Among Us"><img class="game-img" src="images/amongus.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Among Us</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="The Last of Us"><img class="game-img" src="images/thelastofus1.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Last of Us</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="The Last of Us Part II"><img class="game-img" src="images/thelastofus2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Last of Us Part II</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Qui veut gagner des millions"><img class="game-img" src="images/qvgdm.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Qui veut gagner des millions</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Getting Over It"><img class="game-img" src="images/gettingovit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Getting Over It</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Dread Hunger"><img class="game-img" src="images/dreadhunter.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dread Hunger</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Naruto Storm 4"><img class="game-img" src="images/narutostorm4.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto Storm 4</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Zelda: Breath of the Wild (2020)"><img class="game-img" src="images/zelda.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Breath of the Wild (2020)</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="AC Valhalla"><img class="game-img" src="images/assasinsvalhalla.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">AC Valhalla</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-legendary" data-title="Genshin Impact"><img class="game-img" src="images/genshin.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Genshin Impact</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Astro's Playroom"><img class="game-img" src="images/astros.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Astro's Playroom</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Phasmophobia"><img class="game-img" src="images/phasmo.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Phasmophobia</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Fairy Tail Hero's Journey"><img class="game-img" src="images/fairytailherosjourney.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fairy Tail Hero's Journey</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Pummel Party"><img class="game-img" src="images/pummel.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pummel Party</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Deceit"><img class="game-img" src="images/deceit.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Deceit</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="GTA V"><img class="game-img" src="images/gtav.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">GTA V</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Skribbl.io"><img class="game-img" src="images/skribblio.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Skribbl.io</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="7 Deadly Sins Grand Cross"><img class="game-img" src="images/7dscross.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">7 Deadly Sins Grand Cross</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-horror" data-title="Outlast 2"><img class="game-img" src="images/outlast2.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Outlast 2</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="FIFA 20"><img class="game-img" src="images/fifa20.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 20</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="DBZ Kakarot"><img class="game-img" src="images/dbzkakarot.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Kakarot</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-rare" data-title="Death Stranding"><img class="game-img" src="images/deathstranding.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Death Stranding</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Saint Seiya Awakening"><img class="game-img" src="images/saintseiyaawak.jpg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Saint Seiya Awakening</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
   </div>
 
-  <!-- ANIMÉS -->
+    <!-- ANIMÉS -->
   <div class="section-header reveal" id="animes" style="position:relative;">
     <h2>Animés<img src="floaters/mew.gif" style="height:48px; vertical-align:middle; margin-left:10px; animation:mewOrbit 3s linear infinite; display:inline-block;"></h2><div class="section-line"></div>
   </div>
@@ -1161,6 +1353,7 @@ footer::before {
 
 
   <!-- MUSIQUE -->
+  <div id="musicSection">
   <div class="section-header reveal" id="musique">
     <h2>Musique</h2><div class="section-line"></div><span class="section-tag">Openings & OST</span>
   </div>
@@ -1188,6 +1381,13 @@ footer::before {
       Écouter sur YouTube
     </a>
   </div>
+</div>
+</div><!-- /musicSection -->
+
+<!-- NO RESULTS -->
+<div id="noResultsOverlay" style="display:none; position:relative; z-index:1; text-align:center; padding:80px 20px;">
+  <img src="floaters/pikazzz.gif" style="height:80px; margin-bottom:20px;">
+  <p style="font-family:'Bebas Neue',sans-serif; font-size:2.5rem; letter-spacing:6px; color:var(--muted);">AUCUN RÉSULTAT</p>
 </div>
 
 <footer>
@@ -1220,7 +1420,151 @@ footer::before {
 
 
 <script>
-// SCROLL PROGRESS
+// ═══ TILT 3D ═══
+(function() {
+  const MAX_TILT   = 12;
+  const SCALE      = 1.05;
+  const LIFT       = -12;
+
+  function applyTilt(card) {
+    let rafId = null;
+    let mx = 0, my = 0;
+
+    function update() {
+      rafId = null;
+      const rect = card.getBoundingClientRect();
+      const cx = rect.width  / 2;
+      const cy = rect.height / 2;
+      const dx = (mx - cx) / cx;
+      const dy = (my - cy) / cy;
+      const rotX = -dy * MAX_TILT;
+      const rotY =  dx * MAX_TILT;
+      card.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${SCALE}) translateY(${LIFT}px)`;
+    }
+
+    card.addEventListener('mouseenter', () => {
+      card.style.willChange = 'transform';
+      card.style.transition = 'box-shadow 0.2s ease';
+    }, { passive: true });
+
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      mx = e.clientX - rect.left;
+      my = e.clientY - rect.top;
+      shine.style.opacity = '1';
+      if (!rafId) rafId = requestAnimationFrame(update);
+    }, { passive: true });
+
+    card.addEventListener('mouseleave', () => {
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+      card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s ease';
+      card.style.transform  = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0px)';
+      shine.style.opacity   = '0';
+      setTimeout(() => { card.style.willChange = 'auto'; }, 500);
+    }, { passive: true });
+  }
+
+  function initTilt() {
+    document.querySelectorAll('.game-card, .list-item').forEach(applyTilt);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTilt);
+  } else {
+    initTilt();
+  }
+})();
+
+// ═══ PARTICULES LEGENDARY ═══
+(function() {
+  function createParticle(card) {
+    const p = document.createElement('div');
+    const size = 2 + Math.random() * 3;
+    const startX = 5 + Math.random() * 90; // % horizontal
+    const duration = 1.5 + Math.random() * 2;
+    const delay = Math.random() * 2;
+    const drift = (Math.random() - 0.5) * 40;
+    const colors = ['#ffd700','#ffb800','#ffe566','#fff3a0','#ffcc00'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    p.className = 'legendary-particle';
+    p.style.cssText = `
+      position: absolute;
+      width: ${size}px; height: ${size}px;
+      background: ${color};
+      box-shadow: 0 0 ${size * 2}px ${color}, 0 0 ${size * 4}px rgba(255,215,0,0.4);
+      border-radius: 50%;
+      left: ${startX}%;
+      bottom: ${5 + Math.random() * 30}%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      animation: floatParticle ${duration}s ${delay}s ease-out infinite;
+      --drift: ${drift}px;
+    `;
+    return p;
+  }
+
+  // Inject keyframe
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes floatParticle {
+      0%   { opacity: 0;   transform: translate(0, 0) scale(1); }
+      20%  { opacity: 0.9; }
+      80%  { opacity: 0.6; }
+      100% { opacity: 0;   transform: translate(var(--drift), -${60}px) scale(0.3); }
+    }
+    .game-card.rarity-legendary { overflow: visible !important; }
+  `;
+  document.head.appendChild(style);
+
+  document.querySelectorAll('.game-card.rarity-legendary').forEach(card => {
+    // Spawn 5-7 particules permanentes par carte
+    const count = 5 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < count; i++) {
+      card.appendChild(createParticle(card));
+    }
+  });
+})();
+
+
+(function() {
+  const MAX_TILT = 18;
+  const scene  = document.getElementById('flipScene');
+  const card   = document.getElementById('flipCard');
+  const shineF = document.getElementById('flipShineFront');
+  const shineB = document.getElementById('flipShine');
+
+  scene.addEventListener('mousemove', e => {
+    if (!card.classList.contains('entering')) return;
+    const rect = scene.getBoundingClientRect();
+    const x  = e.clientX - rect.left;
+    const y  = e.clientY - rect.top;
+    const cx = rect.width  / 2;
+    const cy = rect.height / 2;
+    const dx = (x - cx) / cx;
+    const dy = (y - cy) / cy;
+    const rotX = -dy * MAX_TILT;
+    const rotY =  dx * MAX_TILT;
+
+    const isFlipped = card.classList.contains('flipped');
+    const baseRot   = isFlipped ? 180 : 0;
+    card.style.transition = 'transform 0.08s ease';
+    card.style.transform  = `rotateY(${baseRot + rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+  });
+
+  scene.addEventListener('mouseleave', () => {
+    const isFlipped = card.classList.contains('flipped');
+    const baseRot   = isFlipped ? 180 : 0;
+    card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+    shineF.style.opacity  = '0';
+    shineB.style.opacity  = '0';
+  });
+})();
+
+// ═══ SCROLL PROGRESS ═══
+
 window.addEventListener('scroll', () => {
   const s = document.documentElement;
   document.getElementById('scrollLine').style.width =
@@ -1252,46 +1596,90 @@ document.querySelectorAll('.cinema-filter').forEach(btn => {
 // GLOBAL SEARCH
 document.getElementById('globalSearch').addEventListener('input', function() {
   const q = this.value.toLowerCase().trim();
-
-  // Éléments de chrome à masquer pendant la recherche
-  const chrome = document.querySelectorAll(
-    '.section-header, .game-year-divider, .cat-title, .filters, .section-tag, #animeNoResults'
-  );
+  const noResults = document.getElementById('noResultsOverlay');
+  const musicSection = document.getElementById('musicSection');
 
   if (!q) {
-    // Reset complet
+    // Reset tout
     document.querySelectorAll('.searchable').forEach(el => el.style.display = '');
     document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => g.style.display = '');
-    chrome.forEach(el => el.style.display = '');
+    document.querySelectorAll('.section-header').forEach(el => el.style.display = '');
+    document.querySelectorAll('.game-year-divider').forEach(el => el.style.display = '');
+    document.querySelectorAll('.cat-title').forEach(el => el.style.display = '');
+    document.querySelectorAll('.filters').forEach(el => el.style.display = '');
+    musicSection.style.display = '';
+    noResults.style.display = 'none';
     document.getElementById('animeNoResults').style.display = 'none';
     return;
   }
 
-  // Masquer tout le chrome de navigation pendant la recherche
-  chrome.forEach(el => el.style.display = 'none');
-
-  // Filtrer les cartes
+  // Filtrer toutes les cartes
   document.querySelectorAll('.searchable').forEach(el => {
-    const match = (el.dataset.title || el.textContent).toLowerCase().includes(q);
-    el.style.display = match ? '' : 'none';
+    el.style.display = (el.dataset.title || '').toLowerCase().includes(q) ? '' : 'none';
   });
 
-  // Gérer les cat-group cinéma (garder visible si au moins une carte match)
+  // Pour chaque section-header, vérifier si sa section a au moins un résultat
+  // On mappe chaque section-header à son contenu via l'id
+  const sectionIds = ['jeux','animes','cinema','series','musique'];
+  const sectionHeaders = document.querySelectorAll('.section-header');
+  
+  sectionHeaders.forEach(header => {
+    const id = header.id;
+    // Trouver les éléments searchable qui appartiennent à cette section
+    // On cherche entre ce header et le prochain
+    let hasMatch = false;
+    
+    if (id === 'jeux') {
+      hasMatch = [...document.querySelectorAll('.game-grid .searchable')].some(el => el.style.display !== 'none');
+    } else if (id === 'animes') {
+      hasMatch = [...document.querySelectorAll('#animeGrid .searchable')].some(el => el.style.display !== 'none');
+    } else if (id === 'cinema') {
+      hasMatch = [...document.querySelectorAll('#cinemaGrid .searchable')].some(el => el.style.display !== 'none');
+    } else if (id === 'series') {
+      const seriesGrid = header.nextElementSibling;
+      hasMatch = seriesGrid ? [...seriesGrid.querySelectorAll('.searchable')].some(el => el.style.display !== 'none') : false;
+    } else if (id === 'musique') {
+      hasMatch = false; // musique n'a pas de searchables
+    }
+    
+    header.style.display = hasMatch ? '' : 'none';
+  });
+
+  // Masquer les dividers d'années qui n'ont aucune carte visible après eux
+  document.querySelectorAll('.game-year-divider').forEach(divider => {
+    let next = divider.nextElementSibling;
+    let hasVisible = false;
+    while (next && !next.classList.contains('game-year-divider')) {
+      if (next.classList.contains('game-card') && next.style.display !== 'none') {
+        hasVisible = true; break;
+      }
+      next = next.nextElementSibling;
+    }
+    divider.style.display = hasVisible ? '' : 'none';
+  });
+
+  // Gérer les cat-group cinéma (garder si résultats, masquer sinon)
   document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => {
     const hasVisible = [...g.querySelectorAll('.list-item')].some(i => i.style.display !== 'none');
     g.style.display = hasVisible ? '' : 'none';
-    // Mais masquer le titre du groupe quand même
-    const title = g.querySelector('.cat-title');
-    if (title) title.style.display = 'none';
   });
 
+  // Masquer filtres cinéma pendant la recherche
+  document.querySelectorAll('.filters').forEach(el => el.style.display = 'none');
   document.querySelectorAll('.cinema-filter').forEach(b => b.classList.remove('active'));
   const allBtn = document.querySelector('.cinema-filter[data-filter="all"]');
   if (allBtn) allBtn.classList.add('active');
+
+  // Masquer musique si pas de résultat dedans (toujours)
+  musicSection.style.display = 'none';
+
+  // Vérifier si aucun résultat du tout
+  const anyVisible = [...document.querySelectorAll('.searchable')].some(el => el.style.display !== 'none');
+  noResults.style.display = anyVisible ? 'none' : 'block';
 });
 
 // COUNTS
-document.getElementById('countGames').textContent  = '103';
+document.getElementById('countGames').textContent  = '133';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
@@ -1528,110 +1916,56 @@ const FAKE_DATA = {
   "100 Metters sport":               { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   "K-pop Demon Hunters":             { note: null, date: 'Déc 2025',  status: 'termine', comment: 'À venir' },
   // JEUX
-  "Zelda Breath of the Wild":                    { note: null, date: 'Switch 1 : Août 2020 — Switch 2 : Mars 2026', status: 'termine', comment: 'À venir' },
-  "Pokopia":                                     { note: null, date: 'Mars 2026',  status: 'termine', comment: 'À venir' },
-  "Dokkan Battle":                               { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
-  "Super Mario Galaxy 2":                        { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
-  "Super Mario Galaxy":                          { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
-  "Mario Kart 8 Deluxe":                         { note: null, date: null,         status: 'termine', comment: 'À venir' },
-  "EA Sports FC 25":                             { note: null, date: 'Fév 2026',   status: 'termine', comment: 'À venir' },
-  "Mario Kart World":                            { note: null, date: 'Jan 2026',   status: 'termine', comment: 'À venir' },
-  "Outlast 1":                                   { note: null, date: 'Jan 2026',   status: 'termine', comment: 'À venir' },
-  "Fortnite":                                    { note: null, date: null,   status: 'termine', comment: 'À venir' },
-  "Victory Road":                                { note: null, date: 'Déc 2025',   status: 'termine', comment: 'À venir' },
-  "Valorant":                                    { note: null, date: null,   status: 'termine', comment: 'À venir' },
-  "Doomsday Last Survivors":                     { note: null, date: 'Nov 2025',   status: 'termine', comment: 'À venir' },
-  "Detroit Become Human":                        { note: null, date: 'Août 2025',  status: 'termine', comment: 'À venir' },
-  "Batman Arkham Asylum":                        { note: null, date: 'Juin 2025',  status: 'termine', comment: 'À venir' },
-  "Batman Arkham City":                          { note: null, date: 'Juil 2025',  status: 'termine', comment: 'À venir' },
-  "Little Nightmares 2":                         { note: null, date: 'Mai 2025',   status: 'termine', comment: 'À venir' },
-  "Little Nightmares":                           { note: null, date: 'Mai 2025',   status: 'termine', comment: 'À venir' },
-  "Monster Hunter Wilds":                        { note: null, date: 'Mars 2025',  status: 'termine', comment: 'À venir' },
-  "League of Legends":                           { note: null, date: null,  status: 'termine', comment: 'À venir' },
-  "Roblox":                                      { note: null, date: null,  status: 'termine', comment: 'À venir' },
-  "Red Dead Redemption 2":                       { note: null, date: 'Fév 2025',   status: 'termine', comment: 'À venir' },
-  "Heavy Rain":                                  { note: null, date: 'Jan 2025',   status: 'termine', comment: 'À venir' },
-  "The Dark Pictures The Devil In Me":           { note: null, date: 'Jan 2025',   status: 'termine', comment: 'À venir' },
-  "The Dark Pictures House of Ashes":            { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
-  "The Dark Pictures Man of Medan":              { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
-  "Dofus":                                       { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
-  "Until Dawn":                                  { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
-  "Bleach Brave Souls":                          { note: null, date: 'Sept 2024',  status: 'termine', comment: 'À venir' },
-  "Elden Ring":                                  { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
-  "Pokémon Noir 2":                              { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
-  "Pokémon Blanc 2":                             { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
-  "Final Fantasy VII Rebirth":                   { note: null, date: 'Mai 2024',   status: 'termine', comment: 'À venir' },
-  "AFK Journey":                                 { note: null, date: 'Mai 2024',   status: 'termine', comment: 'À venir' },
-  "Garry's Mod":                                 { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
-  "Tekken 8":                                    { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
-  "Final Fantasy VII Crisis Core":               { note: null, date: 'Fév 2024',   status: 'termine', comment: 'À venir' },
-  "Pokémon Omega Ruby":                          { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
-  "Black Clover Mobile":                         { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
-  "Waven":                                       { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
-  "Lycans":                                      { note: null, date: 'Déc 2023',   status: 'termine', comment: 'À venir' },
-  "Spider-Man 2":                                { note: null, date: 'Oct 2023',   status: 'termine', comment: 'À venir' },
-  "Spider-Man Miles Morales":                    { note: null, date: 'Juil 2023',  status: 'termine', comment: 'À venir' },
-  "Final Fantasy VII Remake":                    { note: null, date: 'Juin 2023',  status: 'termine', comment: 'À venir' },
-  "Zelda Tears of the Kingdom":                  { note: null, date: 'Mai 2023',   status: 'termine', comment: 'À venir' },
-  "Zelda Skyward Sword":                         { note: null, date: 'Mai 2023',   status: 'termine', comment: 'À venir' },
-  "DBZ Kakarot":                                 { note: null, date: 'Avr 2023',   status: 'termine', comment: 'À venir' },
-  "Monster Hunter Rise":                         { note: null, date: 'Avr 2023',   status: 'termine', comment: 'À venir' },
-  "Hogwarts Legacy":                             { note: null, date: 'Fév 2023',   status: 'termine', comment: 'À venir' },
-  "New Super Mario Bros U":                      { note: null, date: 'Fév 2023',   status: 'termine', comment: 'À venir' },
-  "Mario Kart 8":                                { note: null, date: 'Jan 2023',   status: 'termine', comment: 'À venir' },
-  "Pokémon Violet":                              { note: null, date: 'Déc 2022',   status: 'termine', comment: 'À venir' },
-  "Rise of Kingdoms":                            { note: null, date: 'Déc 2022',   status: 'termine', comment: 'À venir' },
-  "God of War Ragnarok":                         { note: null, date: 'Nov 2022',   status: 'termine', comment: 'À venir' },
-  "FIFA 22":                                     { note: null, date: 'Oct 2022',   status: 'termine', comment: 'À venir' },
-  "Fall Guys":                                   { note: null, date: null,  status: 'termine', comment: 'À venir' },
-  "MultiVersus":                                 { note: null, date: 'Août 2022',  status: 'termine', comment: 'À venir' },
-  "The Quarry":                                  { note: null, date: 'Juil 2022',  status: 'termine', comment: 'À venir' },
-  "Inazuma Eleven GO Strikers 2013":             { note: null, date: 'Juil 2022',  status: 'termine', comment: 'À venir' },
-  "Super Smash Bros Ultimate":                   { note: null, date: 'Mai 2022',   status: 'termine', comment: 'À venir' },
-  "Poppy Playtime":                              { note: null, date: 'Mai 2022',   status: 'termine', comment: 'À venir' },
-  "Pokémon X":                                   { note: null, date: 'Avr 2022',   status: 'termine', comment: 'À venir' },
-  "Pokémon Legends Arceus":                      { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
-  "Yu-Gi-Oh Master Duel":                        { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
-  "Lost Ark":                                    { note: null, date: 'Fév 2022',   status: 'termine', comment: 'À venir' },
-  "Gartic Phone":                                { note: null, date: 'Jan 2022',   status: 'termine', comment: 'À venir' },
-  "Pokémon Diamant Étincelant":                  { note: null, date: 'Déc 2021',   status: 'termine', comment: 'À venir' },
-  "DBZ Budokai Tenkaichi 3":                     { note: null, date: 'Oct 2021',   status: 'termine', comment: 'À venir' },
-  "Alt F4":                                      { note: null, date: 'Sept 2021',  status: 'termine', comment: 'À venir' },
-  "Resident Evil 8 Village":                     { note: null, date: 'Août 2021',  status: 'termine', comment: 'À venir' },
-  "Knight Squad 2":                              { note: null, date: 'Juil 2021',  status: 'termine', comment: 'À venir' },
-  "FIFA 21":                                     { note: null, date: 'Juin 2021',  status: 'termine', comment: 'À venir' },
-  "Resident Evil 7":                             { note: null, date: 'Juin 2021',  status: 'termine', comment: 'À venir' },
-  "Ghost of Tsushima":                           { note: null, date: 'Mai 2021',   status: 'termine', comment: 'À venir' },
-  "Rocket League":                               { note: null, date: 'Mai 2021',   status: 'termine', comment: 'À venir' },
-  "God of War":                                  { note: null, date: 'Mars 2021',  status: 'termine', comment: 'À venir' },
-  "Among Us":                                    { note: null, date: 'Fév 2021',   status: 'termine', comment: 'À venir' },
-  "Naruto Storm 4":                              { note: null, date: 'Déc 2020',   status: 'termine', comment: 'À venir' },
-  "Assassin's Creed Valhalla":                   { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
-  "Genshin Impact":                              { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
-  "Astro's Playroom":                            { note: null, date: 'Nov 2020',   status: 'termine', comment: 'À venir' },
-  "Fairy Tail Hero's Journey":                   { note: null, date: 'Juil 2020',  status: 'termine', comment: 'À venir' },
-  "Pummel Party":                                { note: null, date: 'Juin 2020',  status: 'termine', comment: 'À venir' },
-  "Deceit":                                      { note: null, date: 'Juin 2020',  status: 'termine', comment: 'À venir' },
-  "GTA V":                                       { note: null, date: 'Mai 2020',   status: 'termine', comment: 'À venir' },
-  "Skribbl.io":                                  { note: null, date: 'Mai 2020',   status: 'termine', comment: 'À venir' },
-  "7 Deadly Sins Grand Cross":                   { note: null, date: 'Avr 2020',   status: 'termine', comment: 'À venir' },
-  "Outlast 2":                                   { note: null, date: 'Avr 2020',   status: 'termine', comment: 'À venir' },
-  "FIFA 20":                                     { note: null, date: 'Fév 2020',   status: 'termine', comment: 'À venir' },
-  "Saint Seiya Awakening":                       { note: null, date: 'Oct 2019',   status: 'termine', comment: 'À venir' },
-  "Clair Obscur Expedition 33":                  { note: null, date: 'Août 2025',  status: 'termine', comment: 'À venir' },
-  "MHA All Justice":                             { note: null, date: 'Fév 2026',         status: 'termine', comment: 'À venir' },
-  "Tournoi de billes":                           { note: null, date: null,         status: 'termine', comment: 'À venir' },
-  "Qui veut gagner des millions":                { note: null, date: 'Mars 2021',         status: 'termine', comment: 'À venir' },
-  "Getting Over It":                             { note: null, date: 'Nov 2021',         status: 'termine', comment: 'À venir' },
-  "Dread Hunger":                                { note: null, date: 'Août 2021',         status: 'termine', comment: 'À venir' },
-  "The Dark Pictures Little Hope":               { note: null, date: 'Déc 2024',   status: 'termine', comment: 'À venir' },
-  "DB Xenoverse 2":                              { note: null, date: 'Sept 2025',         status: 'termine', comment: 'À venir' },
-  "Demon Slayer The Hinokami Chronicles":        { note: null, date: 'Mars 2022',         status: 'termine', comment: 'À venir' },
-  "Final Fantasy XVI":                           { note: null, date: 'Juil 2023',         status: 'termine', comment: 'À venir' },
-  "The Last of Us":                              { note: null, date: 'Mars 2021',         status: 'termine', comment: 'À venir' },
-  "The Last of Us 2":                            { note: null, date: 'Mai 2021',         status: 'termine', comment: 'À venir' },
-  "Sekiro Shadows Die Twice":                    { note: null, date: 'Jan 2026',         status: 'termine', comment: 'À venir' },
-  "Bleach Rebirth of Souls":                     { note: null, date: 'Mars 2025',         status: 'termine', comment: 'À venir' },
+  "Elden Ring":                            { note: null, date: 'Fév 2024',  status: 'termine', comment: 'À venir' },
+  "Zelda Breath of the Wild":              { note: null, date: 'Switch 1: Août 2020 — Switch 2: Fév 2026', status: 'termine', comment: 'À venir' },
+  "Clair Obscur Expedition 33":            { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
+  "Super Mario Galaxy 2":                  { note: null, date: 'Fév 2026',  status: 'termine', comment: 'À venir' },
+  "Super Mario Galaxy":                    { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
+  "New Super Mario Bros U":                { note: null, date: 'Jan 2023',  status: 'termine', comment: 'À venir' },
+  "Batman Arkham Asylum":                  { note: null, date: 'Juin 2025', status: 'termine', comment: 'À venir' },
+  "Batman Arkham City":                    { note: null, date: 'Juil 2025', status: 'termine', comment: 'À venir' },
+  "Super Smash Bros Ultimate":             { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
+  "The Dark Pictures The Devil In Me":     { note: null, date: 'Jan 2025',  status: 'termine', comment: 'À venir' },
+  "The Dark Pictures Man of Medan":        { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
+  "The Dark Pictures House of Ashes":      { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
+  "The Dark Pictures Little Hope":         { note: null, date: 'Déc 2024',  status: 'termine', comment: 'À venir' },
+  "Until Dawn":                            { note: null, date: 'Nov 2024',  status: 'termine', comment: 'À venir' },
+  "Zelda Skyward Sword":                   { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
+  "Zelda Tears of the Kingdom":            { note: null, date: 'Mai 2023',  status: 'termine', comment: 'À venir' },
+
+  // Nouveaux jeux 2024
+  'The Walking Dead':         { note: null, date: 'Oct 2024',  status: 'termine', comment: 'À venir' },
+  'Silent Hill 2':            { note: null, date: 'Oct 2024',  status: 'termine', comment: 'À venir' },
+  'Black Myth Wukong':        { note: null, date: 'Août 2024', status: 'termine', comment: 'À venir' },
+  'Chained Together':         { note: null, date: 'Juin 2024', status: 'termine', comment: 'À venir' },
+  'Bodycam':                  { note: null, date: 'Juin 2024', status: 'termine', comment: 'À venir' },
+  'Supermarket Simulator':    { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
+  'Content Warning':          { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
+  'Lethal Company':           { note: null, date: 'Jan 2024',  status: 'termine', comment: 'À venir' },
+  // Nouveaux jeux 2023
+  'The Day Before':           { note: null, date: 'Déc 2023',  status: 'termine', comment: 'À venir' },
+  'Jusant':                   { note: null, date: 'Nov 2023',  status: 'termine', comment: 'À venir' },
+  'Only Up!':                 { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
+  'Street Fighter 6':         { note: null, date: 'Juin 2023', status: 'termine', comment: 'À venir' },
+  'Bramble The Mountain King':{ note: null, date: 'Mai 2023',  status: 'termine', comment: 'À venir' },
+  'Resident Evil 4 Remake':   { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
+  'Sons of the Forest':       { note: null, date: 'Mars 2023', status: 'termine', comment: 'À venir' },
+  'High on Life':             { note: null, date: 'Jan 2023',  status: 'termine', comment: 'À venir' },
+  'One Piece Odyssey':        { note: null, date: 'Jan 2023',  status: 'termine', comment: 'À venir' },
+  // Nouveaux jeux 2022
+  'The Callisto Protocol':    { note: null, date: 'Déc 2022',  status: 'termine', comment: 'À venir' },
+  'Stray':                    { note: null, date: 'Juil 2022', status: 'termine', comment: 'À venir' },
+  'Sifu':                     { note: null, date: 'Fév 2022',  status: 'termine', comment: 'À venir' },
+  'Dying Light 2':            { note: null, date: 'Fév 2022',  status: 'termine', comment: 'À venir' },
+  'FNAF Security Breach':     { note: null, date: 'Jan 2022',  status: 'termine', comment: 'À venir' },
+  // Nouveaux jeux 2021
+  'It Takes Two':             { note: null, date: 'Déc 2021',  status: 'termine', comment: 'À venir' },
+  'Metroid Dread':            { note: null, date: 'Oct 2021',  status: 'termine', comment: 'À venir' },
+  'Cyberpunk 2077':           { note: null, date: 'Jan 2021',  status: 'termine', comment: 'À venir' },
+  // Nouveaux jeux 2020
+  'Phasmophobia':             { note: null, date: 'Nov 2020',  status: 'termine', comment: 'À venir' },
+  // 2019
+  'Death Stranding':          { note: null, date: 'Nov 2019',  status: 'termine', comment: 'À venir' },
   // SÉRIES
   "100% Physique S1":                { note: null, date: 'Fév 2023',  status: 'termine', comment: 'À venir' },
   "100% Physique S2":                { note: null, date: 'Mars 2024', status: 'termine', comment: 'À venir' },
@@ -1825,14 +2159,6 @@ const PATREON_LINKS = {
 
 
 // Image fallback pour les items sans image visible
-function getModalCoverHTML(item) {
-  const img = item.querySelector('img.card-img, img.game-img, img');
-  if (img) {
-    return `<img class="modal-cover" src="${img.src}" onerror="this.style.display='none'">`;
-  }
-  return `<div class="modal-cover-placeholder">🎬</div>`;
-}
-
 function getStars(note) {
   const full = Math.round(note / 2);
   return Array.from({length:5}, (_,i) =>
@@ -1840,122 +2166,165 @@ function getStars(note) {
   ).join('');
 }
 
-function openModal(item) {
+function spawnParticles(colors) {
+  const scene = document.getElementById('flipScene');
+  const rect = scene.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'flip-particle';
+    const angle = (i / 18) * Math.PI * 2;
+    const dist = 60 + Math.random() * 80;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 3 + Math.random() * 4;
+    p.style.cssText = `left:${cx}px;top:${cy}px;width:${size}px;height:${size}px;background:${color};box-shadow:0 0 ${size*2}px ${color};`;
+    p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+    p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+    p.style.animationDelay = (Math.random() * 0.15) + 's';
+    p.style.animationDuration = (0.5 + Math.random() * 0.3) + 's';
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 900);
+  }
+}
+
+let currentParticleColors = ['#00d4ff','#7c3aed','#ffffff'];
+
+function openFlip(item) {
   const title = item.dataset.title;
-  const type  = item.classList.contains('game-card') ? 'Jeu' :
-                item.closest('#animeGrid') ? 'Animé' :
-                item.closest('#series + .list-grid') ? 'Série' :
-                item.closest('#cinemaGrid') ? 'Film' : 'Œuvre';
+  const isGame   = item.classList.contains('game-card');
+  const isAnime  = !!item.closest('#animeGrid');
+  const isSeries = !!item.closest('#series + .list-grid, .list-grid');
+  const isCinema = !!item.closest('#cinemaGrid');
 
-  const data = FAKE_DATA[title] || {
-    note: null,
-    date: 'À venir',
-    status: 'termine',
-    comment: 'À venir'
+  let type = 'Œuvre';
+  let typeClass = 'type-film';
+  let particleColors = ['#ff6b1a','#ff2d3b','#ffffff'];
+  if (isGame)  { type = 'Jeu';    typeClass = 'type-jeu';   particleColors = ['#00d4ff','#7c3aed','#ffffff']; }
+  else if (isAnime)  { type = 'Animé';  typeClass = 'type-anime'; particleColors = ['#7c3aed','#c4b5fd','#ffffff']; }
+  else if (isSeries && !isCinema) { type = 'Série'; typeClass = 'type-serie'; particleColors = ['#22c55e','#86efac','#ffffff']; }
+  else if (isCinema) { type = 'Film';   typeClass = 'type-film';  particleColors = ['#ff6b1a','#ff2d3b','#ffffff']; }
+
+  const data = FAKE_DATA[title] || { note: null, date: 'À venir', status: 'termine', comment: 'À venir' };
+
+  // Remplir la face avant
+  const img = item.querySelector('img.card-img, img.game-img');
+  const frontImg = document.getElementById('flipFrontImg');
+  const frontNoImg = document.getElementById('flipFrontNoImg');
+  if (img && img.src) {
+    frontImg.src = img.src;
+    frontImg.style.display = 'block';
+    frontNoImg.style.display = 'none';
+  } else {
+    frontImg.style.display = 'none';
+    frontNoImg.style.display = 'flex';
+  }
+  document.getElementById('flipFrontLabel').textContent = title;
+
+  // Remplir la face arrière
+  const back = document.getElementById('flipBack');
+  back.className = 'flip-back ' + typeClass;
+
+  // Édition depuis la rareté
+  const rarityMap = {
+    'rarity-legendary': '✦ ÉDITION LÉGENDAIRE',
+    'rarity-rare':      '◆ ÉDITION DIAMANT',
+    'rarity-horror':    '☠ ÉDITION NIGHTMARE',
+    'rarity-common':    '⬡ ÉDITION PLATINE',
   };
+  const rarityClass = [...item.classList].find(cl => rarityMap[cl]);
+  const editionLabel = rarityClass ? rarityMap[rarityClass] : type;
+  const editionColors = {
+    'rarity-legendary': '#ffd700',
+    'rarity-rare':      '#7dd8ff',
+    'rarity-horror':    '#ff6b7a',
+    'rarity-common':    'rgba(180,180,200,0.7)',
+  };
+  const typeEl = document.getElementById('flipBackType');
+  typeEl.textContent = editionLabel;
+  typeEl.style.color = editionColors[rarityClass] || 'rgba(255,255,255,0.5)';
+  typeEl.style.textShadow = rarityClass === 'rarity-legendary' ? '0 0 10px rgba(255,215,0,0.6)' : 'none';
+  document.getElementById('flipBackTitle').textContent = title.toUpperCase();
+  document.getElementById('flipNote').textContent      = data.note ? data.note + '/10' : 'À venir';
+  document.getElementById('flipDate').textContent      = data.date || '—';
+  document.getElementById('flipComment').textContent   = data.comment || '—';
+  document.getElementById('flipStars').innerHTML       = data.note ? getStars(data.note) : '';
 
-  // Remplir le modal
-  document.getElementById('modalTitle').textContent = title.toUpperCase();
-  document.getElementById('modalType').textContent  = type;
-  document.getElementById('modalNote').textContent  = data.note ? data.note + '/10' : 'À venir';
-  document.getElementById('modalDate').textContent  = data.date;
-  document.getElementById('modalComment').textContent = data.comment;
+  const statusEl = document.getElementById('flipBackStatus');
+  statusEl.className = 'flip-back-status ' + data.status;
+  statusEl.innerHTML = '● ' + { termine:'Terminé', encours:'En cours', abandonne:'Abandonné' }[data.status];
 
-  // Bouton Patreon
-  const patreonBtn = document.getElementById('modalPatreon');
   const patreonUrl = PATREON_LINKS[title];
+  const patreonBtn = document.getElementById('flipPatreon');
+  const reactLost  = document.getElementById('flipReactLost');
   if (patreonUrl) {
     patreonBtn.href = patreonUrl;
     patreonBtn.style.display = 'flex';
-    document.getElementById('modalReactLost').style.display = 'none';
+    reactLost.style.display = 'none';
   } else {
     patreonBtn.style.display = 'none';
-    const isGameOrSeries = item.classList.contains('game-card') || item.closest('#series + .list-grid');
-    const reactLostEl = document.getElementById('modalReactLost');
-    if (!isGameOrSeries) {
-      reactLostEl.style.display = 'block';
-    } else {
-      reactLostEl.style.display = 'none';
-    }
+    reactLost.style.display = (isGame || (isSeries && !isCinema)) ? 'none' : 'block';
   }
-  document.getElementById('modalStars').innerHTML   = data.note ? getStars(data.note) : '';
-  document.getElementById('modalCover').outerHTML   = getModalCoverHTML(item).replace('id="modalCover"','') + '';
-  // Re-set cover id
-  const coverEl = document.querySelector('.modal-cover, .modal-cover-placeholder');
-  if (coverEl) coverEl.id = 'modalCover';
 
-  const statusEl = document.getElementById('modalStatus');
-  statusEl.className = 'modal-status ' + data.status;
-  statusEl.innerHTML = '— ' + {
-    termine:'Terminé', encours:'En cours', abandonne:'Abandonné'
-  }[data.status];
+  currentParticleColors = particleColors;
 
-  document.getElementById('modalOverlay').classList.add('open');
+  // Ouvrir l'overlay — d'abord face avant visible, carte minuscule
+  const overlay = document.getElementById('flipOverlay');
+  const card    = document.getElementById('flipCard');
+  card.classList.remove('flipped', 'entering');
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Particules éclairs au bord du modal
-  setTimeout(() => {
-    const modal = document.querySelector('.modal-box');
-    const rect = modal.getBoundingClientRect();
-    const colors = ['#00d4ff','#7c3aed','#00d4ff','#ffffff','#00d4ff'];
-    const edges = [];
-    // Générer des points sur les 4 bords
-    for (let i = 0; i < 28; i++) {
-      const side = Math.floor(Math.random() * 4);
-      let x, y;
-      if (side === 0) { x = rect.left + Math.random() * rect.width; y = rect.top; }
-      else if (side === 1) { x = rect.right; y = rect.top + Math.random() * rect.height; }
-      else if (side === 2) { x = rect.left + Math.random() * rect.width; y = rect.bottom; }
-      else { x = rect.left; y = rect.top + Math.random() * rect.height; }
-      edges.push({x, y, side});
-    }
-    edges.forEach(function(e) {
-      var p = document.createElement('div');
-      p.className = 'modal-particle';
-      var angle = Math.random() * Math.PI * 2;
-      var dist = 30 + Math.random() * 50;
-      var color = colors[Math.floor(Math.random() * colors.length)];
-      var size = 2 + Math.random() * 4;
-      p.style.left = e.x + 'px';
-      p.style.top = e.y + 'px';
-      p.style.background = color;
-      p.style.width = size + 'px';
-      p.style.height = size + 'px';
-      p.style.boxShadow = '0 0 ' + (size*2) + 'px ' + color;
-      p.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
-      p.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
-      p.style.animationDelay = (Math.random()*0.2) + 's';
-      p.style.animationDuration = (0.4 + Math.random()*0.4) + 's';
-      document.body.appendChild(p);
-      setTimeout(function() { p.remove(); }, 800);
+  // Zoom in uniquement, pas de flip automatique
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      card.classList.add('entering');
     });
-  }, 80);
-
-
+  });
 }
 
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-
+function closeFlip() {
+  const card = document.getElementById('flipCard');
+  // Retour face avant
+  card.classList.remove('flipped');
+  // Puis zoom out
+  setTimeout(() => {
+    card.classList.remove('entering');
+    setTimeout(() => {
+      document.getElementById('flipOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }, 300);
+  }, 500);
 }
 
-document.getElementById('modalClose').addEventListener('click', closeModal);
-document.getElementById('modalOverlay').addEventListener('click', e => {
-  if (e.target === e.currentTarget) closeModal();
+document.getElementById('flipOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeFlip();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('flipCard').addEventListener('click', e => {
+  e.stopPropagation();
+  const card = document.getElementById('flipCard');
+  if (card.classList.contains('flipped')) {
+    card.classList.remove('flipped');
+    card.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
+    card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1.04)';
+  } else {
+    card.classList.add('flipped');
+    card.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
+    card.style.transform = 'rotateY(180deg) rotateX(0deg) scale(1.04)';
+    spawnParticles(currentParticleColors);
+  }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeFlip(); });
 
-// Attacher le click à tous les list-items
 document.querySelectorAll('.list-item, .game-card').forEach(item => {
   item.style.cursor = 'pointer';
-  item.addEventListener('click', () => openModal(item));
+  item.addEventListener('click', () => openFlip(item));
 });
 
 
 
 // ═══ COMPTEURS ═══
-document.getElementById('countGames').textContent  = '103';
+document.getElementById('countGames').textContent  = '133';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
