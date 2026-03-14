@@ -23,13 +23,25 @@
 <meta name="twitter:image" content="https://s-gang.github.io/shiniigang/images/shiniimeta.webp">
 <meta name="twitter:site" content="@Shini_hg">
 
+<!-- Preconnect pour Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Préchargement image de fond (améliore LCP) -->
+<link rel="preload" href="images/ichigofond.webp" as="image" fetchpriority="high">
+
+<!-- Préchargement police custom -->
+<link rel="preload" href="sheikah/HandwrittenSheikahRunes-Regular.ttf" as="font" type="font/ttf" crossorigin>
+
+<!-- Google Fonts en async (non bloquant) -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"></noscript>
+
 <style>
 @font-face {
   font-family: 'SheikahRunes';
   src: url('sheikah/HandwrittenSheikahRunes-Regular.ttf') format('truetype');
+  font-display: swap;
 }
 </style>
 
@@ -2719,5 +2731,6 @@ document.getElementById('countSeries').textContent = '5';
 
 </script>
 
+<script>history.scrollRestoration = 'manual'; window.scrollTo(0, 0);</script>
 </body>
 </html>
