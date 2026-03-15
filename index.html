@@ -54,6 +54,18 @@
   51%  { left:var(--silver-end, 200px); transform:scaleX(-1); }
   100% { left:0;                       transform:scaleX(-1); }
 }
+@media (max-width: 768px) {
+  #silverWalker { display: none; }
+  #silverWalker2 { display: none !important; }
+}
+@media (min-width: 769px) {
+  #silverWalker2 { display: block !important; }
+}
+@keyframes silverLine2 {
+  0%   { left:0; }
+  50%  { left:var(--silver-end2, 200px); }
+  100% { left:0; }
+}
 </style>
 </style>
 
@@ -1020,11 +1032,11 @@ footer::before {
 
   <!-- JEUX -->
   <div class="section-header reveal" id="jeux">
-    <h2>Musée Shinitendo</h2><div class="section-line" style="position:relative;"><img src="floaters/silvergif.gif" alt="" id="silverWalker" style="position:absolute; bottom:0; left:0; height:70px; width:auto; image-rendering:pixelated; z-index:10; animation:silverLine 18s linear infinite;"></div><span class="section-tag">Jeux Vidéo</span>
+    <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
   <div class="reliques-section reveal">
     <div class="reliques-header">
-      <h2 class="reliques-title">★ LES RELIQUES</h2>
+      <h2 class="reliques-title">★ LES RELIQUES</h2><img src="floaters/simia.gif" alt="" style="height:55px; width:auto; image-rendering:pixelated; margin-left:14px; vertical-align:middle;">
     </div>
     <div class="reliques-grid">
     <div class="game-card searchable rarity-origin" data-title="DBZ Dokkan Battle"><img class="game-img" src="images/dokkan.webp" alt="DBZ Dokkan Battle" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="eager"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DBZ Dokkan Battle</span><span class="game-badge">★ ÉD. ORIGINE</span></div></div>
@@ -1119,7 +1131,7 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="Hogwarts Legacy"><img class="game-img" src="images/hogwarts.webp" alt="Hogwarts Legacy" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Hogwarts Legacy</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="New Super Mario Bros U"><img class="game-img" src="images/brosu.webp" alt="New Super Mario Bros U" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">New Super Mario Bros U</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     
-    <div class="game-card searchable rarity-common" data-title="High on Life"><img class="game-img" src="images/high.webp" alt="High on Life" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">High on Life</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
+    
     
     <div class="game-card searchable rarity-legendary" data-title="Pokémon Écarlate/Violet"><img class="game-img" src="images/pokescarletviolet.webp" alt="Pokémon Écarlate/Violet" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Écarlate/Violet</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Rise of Kingdoms"><img class="game-img" src="images/rok.webp" alt="Rise of Kingdoms" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Rise of Kingdoms</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
@@ -1133,7 +1145,7 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="Cyberpunk 2077"><img class="game-img" src="images/cyberpunkk.webp" alt="Cyberpunk 2077" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Cyberpunk 2077</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Fall Guys"><img class="game-img" src="images/fallguys.webp" alt="Fall Guys" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Fall Guys</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="MultiVersus"><img class="game-img" src="images/multiversus.webp" alt="MultiVersus" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">MultiVersus</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-card searchable rarity-rare" data-title="Stray"><img class="game-img" src="images/stray.webp" alt="Stray" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Stray</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
+    
     <div class="game-card searchable rarity-rare" data-title="The Quarry"><img class="game-img" src="images/thequarry.webp" alt="The Quarry" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">The Quarry</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Inazuma GO Strikers 2013"><img class="game-img" src="images/inazuma2013.webp" alt="Inazuma GO Strikers 2013" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Inazuma GO Strikers 2013</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Smash Ultimate"><img class="game-img" src="images/smashbros.webp" alt="Smash Ultimate" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Smash Ultimate</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
@@ -1145,7 +1157,7 @@ footer::before {
     <div class="game-card searchable rarity-common" data-title="Yu-Gi-Oh Master Duel"><img class="game-img" src="images/masterduel.webp" alt="Yu-Gi-Oh Master Duel" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Yu-Gi-Oh Master Duel</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     
     <div class="game-card searchable rarity-common" data-title="Gartic Phone"><img class="game-img" src="images/gartic.webp" alt="Gartic Phone" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Gartic Phone</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
-    <div class="game-card searchable rarity-horror" data-title="FNAF: Security Breach"><img class="game-img" src="images/fnaf.webp" alt="FNAF: Security Breach" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FNAF: Security Breach</span><span class="game-badge">☠ ÉD. NIGHTMARE</span></div></div>
+    
     <div class="game-card searchable rarity-common" data-title="Demon Slayer: Hinokami"><img class="game-img" src="images/demonslayergame.webp" alt="Demon Slayer: Hinokami" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Demon Slayer: Hinokami</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-year-divider"><span class="game-year-label">● SAISON 1 — 2019/2021</span><span class="game-year-line"></span><span class="game-year-count">45 JEUX</span></div>
     <div class="game-card searchable rarity-common" data-title="Naruto Storm 2"><img class="game-img" src="images/narutostorm2.webp" alt="Naruto Storm 2" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Naruto Storm 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
@@ -1951,6 +1963,19 @@ document.getElementById('globalSearch').addEventListener('input', function() {
   noResults.style.display = anyVisible ? 'none' : 'block';
 });
 
+// Silver2 end position (reliques line)
+(function(){
+  function setSilverEnd2() {
+    const line = document.getElementById('reliquesLine');
+    if (!line) return;
+    const end = line.getBoundingClientRect().width * 0.75;
+    line.style.setProperty('--silver-end2', end + 'px');
+  }
+  window.addEventListener('load', setSilverEnd2);
+  window.addEventListener('resize', setSilverEnd2);
+  setTimeout(setSilverEnd2, 100);
+})();
+
 // Silver end position
 (function(){
   function setSilverEnd() {
@@ -1970,7 +1995,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 })();
 
 // COUNTS
-document.getElementById('countGames').textContent = '123';
+document.getElementById('countGames').textContent = '120';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
@@ -2769,7 +2794,7 @@ document.querySelectorAll('.list-item').forEach(item => {
 });
 
 // ═══ COMPTEURS ═══
-document.getElementById('countGames').textContent = '123';
+document.getElementById('countGames').textContent = '120';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
