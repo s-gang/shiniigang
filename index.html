@@ -929,7 +929,6 @@ footer::before {
 
 <body>
 
-<!-- ═══ MODAL ═══ -->
 <div class="flip-overlay" id="flipOverlay">
   <div class="flip-overlay-bg" id="flipOverlayBg"></div>
   <div class="flip-scene" id="flipScene">
@@ -978,17 +977,14 @@ footer::before {
   </div>
 </div>
 
-<!-- ═══ MANGA BG ═══ -->
 <div class="manga-halftone"></div>
 <div class="speed-lines"></div>
 
-<!-- ═══ FLOATING CHARACTERS ═══ -->
 <div class="floaters" id="floatersLayer">
 </div>
 
 <div class="scroll-line" id="scrollLine"></div>
 
-<!-- ═══ NAV ═══ -->
 <nav>
   <span class="nav-logo"><img src="floaters/link.gif" alt="S-Gang logo" width="32" height="32" style="height:32px; vertical-align:middle; margin-right:8px;" loading="eager" fetchpriority="high">S-GANG ENCYCLOPÉDIE<img src="floaters/link.gif" alt="" width="32" height="32" style="height:32px; vertical-align:middle; margin-left:8px; transform:scaleX(-1);" loading="eager"></span>
   <div class="nav-links">
@@ -1000,7 +996,6 @@ footer::before {
   </div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
 <main>
 <section class="hero" id="top">
   <div class="hero-eyebrow">★ L'Archive Officielle du Streamer</div>
@@ -1016,7 +1011,6 @@ footer::before {
   </div>
 </section>
 
-<!-- ═══ GLOBAL SEARCH ═══ -->
 <div class="global-search">
   <div class="search-wrap">
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -1027,10 +1021,8 @@ footer::before {
   <p class="search-hint">Recherche globale dans toute l'archive</p>
 </div>
 
-<!-- ═══ CONTENT ═══ -->
 <div class="container">
 
-  <!-- JEUX -->
   <div class="section-header reveal" id="jeux">
     <h2>Musée Shinitendo</h2><div class="section-line"></div><span class="section-tag">Jeux Vidéo</span>
   </div>
@@ -1207,7 +1199,6 @@ footer::before {
     
   </div>
 
-    <!-- ANIMÉS -->
   <div class="section-header reveal" id="animes" style="position:relative;">
     <h2>Animés<img src="floaters/mew.gif" alt="" width="48" height="48" style="height:48px; vertical-align:middle; margin-left:10px; animation:mewOrbit 3s linear infinite; display:inline-block;" loading="lazy"></h2><div class="section-line"></div>
   </div>
@@ -1277,7 +1268,6 @@ footer::before {
   </div>
   <div class="no-results" id="animeNoResults">Aucun animé trouvé</div>
 
-  <!-- CINÉMA -->
   <div class="section-header reveal" id="cinema">
     <h2>Cinéma</h2><div class="section-line"></div><span class="section-tag">Films</span>
   </div>
@@ -1488,7 +1478,6 @@ footer::before {
 
   </div>
 
-  <!-- SÉRIES -->
   <div class="section-header reveal" id="series">
     <h2>Séries</h2><div class="section-line"></div><span class="section-tag">Séries regardées</span>
   </div>
@@ -1500,7 +1489,6 @@ footer::before {
     <div class="list-item searchable" data-title="Le Choc des Toques S2"><img class="card-img" src="images/toques2.webp" alt="Le Choc des Toques S2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Choc des Toques S2</div></div>
   </div>
 
-  <!-- MUSIQUE -->
   <div id="musicSection">
   <div class="section-header reveal" id="musique">
     <h2>Musique</h2><div class="section-line"></div><span class="section-tag">Openings & OST</span>
@@ -1532,7 +1520,6 @@ footer::before {
 </div>
 </div><!-- /musicSection -->
 
-<!-- NO RESULTS -->
 <div id="noResultsOverlay" style="display:none; position:relative; z-index:1; text-align:center; padding:80px 20px;">
   <img src="floaters/pikazzz.gif" alt="" width="140" height="140" style="height:140px; margin-bottom:20px;" loading="lazy">
   <p style="font-family:'Bebas Neue',sans-serif; font-size:2.5rem; letter-spacing:6px; color:var(--muted);">AUCUN RÉSULTAT</p>
@@ -1568,7 +1555,6 @@ footer::before {
 </footer>
 
 <script>
-// ═══ TILT 3D ═══
 (function() {
   const MAX_TILT   = 12;
   const SCALE      = 1.05;
@@ -1623,7 +1609,6 @@ footer::before {
   }
 })();
 
-// ═══ PARTICULES LEGENDARY ═══
 (function() {
   function createParticle() {
     const p = document.createElement('div');
@@ -1653,7 +1638,6 @@ footer::before {
     return p;
   }
 
-  // Inject keyframes
   const style = document.createElement('style');
   style.textContent = `
     @keyframes floatParticle {
@@ -1841,7 +1825,6 @@ footer::before {
   });
 })();
 
-// ═══ SCROLL PROGRESS ═══
 
 window.addEventListener('scroll', () => {
   const s = document.documentElement;
@@ -1893,13 +1876,10 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     return;
   }
 
-  // Filtrer toutes les cartes
   document.querySelectorAll('.searchable').forEach(el => {
     el.style.display = (el.dataset.title || '').toLowerCase().includes(q) ? '' : 'none';
   });
 
-  // Pour chaque section-header, vérifier si sa section a au moins un résultat
-  // On mappe chaque section-header à son contenu via l'id
   const sectionIds = ['jeux','animes','cinema','series','musique'];
   const sectionHeaders = document.querySelectorAll('.section-header');
   
@@ -1930,7 +1910,6 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     header.style.display = hasMatch ? '' : 'none';
   });
 
-  // Masquer les dividers d'années qui n'ont aucune carte visible après eux
   document.querySelectorAll('.game-year-divider').forEach(divider => {
     let next = divider.nextElementSibling;
     let hasVisible = false;
@@ -1943,27 +1922,22 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     divider.style.display = hasVisible ? '' : 'none';
   });
 
-  // Gérer les cat-group cinéma (garder si résultats, masquer sinon)
   document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => {
     const hasVisible = [...g.querySelectorAll('.list-item')].some(i => i.style.display !== 'none');
     g.style.display = hasVisible ? '' : 'none';
   });
 
-  // Masquer filtres cinéma pendant la recherche
   document.querySelectorAll('.filters').forEach(el => el.style.display = 'none');
   document.querySelectorAll('.cinema-filter').forEach(b => b.classList.remove('active'));
   const allBtn = document.querySelector('.cinema-filter[data-filter="all"]');
   if (allBtn) allBtn.classList.add('active');
 
-  // Masquer musique si pas de résultat dedans (toujours)
   musicSection.style.display = 'none';
 
-  // Vérifier si aucun résultat du tout
   const anyVisible = [...document.querySelectorAll('.searchable')].some(el => el.style.display !== 'none');
   noResults.style.display = anyVisible ? 'none' : 'block';
 });
 
-// Silver2 end position (reliques line)
 (function(){
   function setSilverEnd2() {
     const line = document.getElementById('reliquesLine');
@@ -1976,7 +1950,6 @@ document.getElementById('globalSearch').addEventListener('input', function() {
   setTimeout(setSilverEnd2, 100);
 })();
 
-// Silver end position
 (function(){
   function setSilverEnd() {
     const line = document.querySelector('.section-line');
@@ -2000,7 +1973,6 @@ document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
 
-// ═══ ANIMATION TITRE ═══
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 function animateTitle(elementId, finalText, startDelay, finalFont = "'Bebas Neue', sans-serif") {
@@ -2040,7 +2012,6 @@ setTimeout(() => {
   animateTitle('titleLine1', "L'ANTRE DE", 0);
   animateTitle('titleLine2', 'SHINII', 600);
 }, 500);
-// ═══ MODAL SYSTÈME ═══
 const FAKE_DATA = {
   // ANIMÉS
   "Arcane S1":                       { note: null, date: 'Nov 2024',  status: 'termine', comment: 'À venir' },
@@ -2639,7 +2610,6 @@ function openFlip(item) {
 
   const data = FAKE_DATA[title] || { note: null, date: 'À venir', status: 'termine', comment: 'À venir' };
 
-  // Remplir la face avant
   const img = item.querySelector('img.card-img, img.game-img');
   const frontImg = document.getElementById('flipFrontImg');
   const frontNoImg = document.getElementById('flipFrontNoImg');
@@ -2653,11 +2623,9 @@ function openFlip(item) {
   }
   document.getElementById('flipFrontLabel').textContent = title;
 
-  // Remplir la face arrière
   const back = document.getElementById('flipBack');
   back.className = 'flip-back ' + typeClass;
 
-  // Édition depuis la rareté
   const rarityMap = {
     'rarity-origin':    '★ ÉDITION ORIGINE',
     'rarity-legendary': '✦ ÉDITION LÉGENDAIRE',
@@ -2702,10 +2670,8 @@ function openFlip(item) {
 
   currentParticleColors = particleColors;
 
-  // Particules sur la face avant de la flip card
   const flipFront = document.getElementById('flipFront');
 
-  // Couleur de bordure face avant selon la section
   const frontColors = {
     'type-jeu':   'rgba(0,212,255,0.6)',
     'type-anime': 'rgba(124,58,237,0.6)',
@@ -2718,7 +2684,6 @@ function openFlip(item) {
   const frontColor = frontColors[effectiveType] || 'rgba(0,212,255,0.4)';
   flipFront.style.borderColor = frontColor;
   flipFront.style.boxShadow = `0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px ${frontColor.replace('0.6','0.2').replace('0.5','0.15').replace('0.7','0.25')}`;
-  // Nettoyer les anciennes particules
   flipFront.querySelectorAll('.flip-front-particle').forEach(p => p.remove());
   if (rarityClass === 'rarity-origin') {
     for (let i = 0; i < 18; i++) {
@@ -2728,7 +2693,6 @@ function openFlip(item) {
     }
   }
 
-  // Ouvrir l'overlay — reset complet puis animation
   const overlay = document.getElementById('flipOverlay');
   const card    = document.getElementById('flipCard');
   card.classList.remove('flipped', 'entering');
@@ -2750,7 +2714,6 @@ function openFlip(item) {
 
 function closeFlip() {
   const card = document.getElementById('flipCard');
-  // Retour face avant
   card.classList.remove('flipped');
   // Puis zoom out
   setTimeout(() => {
@@ -2786,14 +2749,12 @@ document.querySelectorAll('.list-item, .game-card').forEach(item => {
   item.addEventListener('click', () => openFlip(item));
 });
 
-// Ajouter le triangle doré sur tous les list-items
 document.querySelectorAll('.list-item').forEach(item => {
   const corner = document.createElement('div');
   corner.className = 'card-corner';
   item.appendChild(corner);
 });
 
-// ═══ COMPTEURS ═══
 document.getElementById('countGames').textContent = '120';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
