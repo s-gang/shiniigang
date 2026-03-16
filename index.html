@@ -6,11 +6,11 @@
 <title>L'Encyclopédie S-Gang ⛩️</title>
 
 <!-- SEO -->
-<meta name="description" content="Le panthéon officiel de Shinii.">
+<meta name="description" content="Le panthéon officiel de Shini.">
 
 <!-- Open Graph (Discord, Facebook, WhatsApp...) -->
 <meta property="og:title" content="L'Encyclopédie S-Gang ⛩️">
-<meta property="og:description" content="Le panthéon officiel de Shinii.">
+<meta property="og:description" content="Le panthéon officiel de Shini.">
 <meta property="og:image" content="https://s-gang.github.io/shiniigang/images/shiniimeta.webp">
 <meta property="og:url" content="https://s-gang.github.io/shiniigang/">
 <meta property="og:type" content="website">
@@ -19,7 +19,7 @@
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="L'Encyclopédie S-Gang ⛩️">
-<meta name="twitter:description" content="Le panthéon officiel de Shinii.">
+<meta name="twitter:description" content="Le panthéon officiel de Shini.">
 <meta name="twitter:image" content="https://s-gang.github.io/shiniigang/images/shiniimeta.webp">
 <meta name="twitter:site" content="@Shini_hg">
 
@@ -558,6 +558,67 @@ nav::after {
   color:#c4b5fd; box-shadow:0 0 15px rgba(124,58,237,0.15);
 }
 
+
+.tierlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 60px;
+}
+.tierlist-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  transition: all 0.3s ease;
+  background: var(--card);
+}
+.tierlist-card img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+.tierlist-card:hover img { transform: scale(1.05); }
+.tierlist-card:hover {
+  border-color: rgba(0,212,255,0.6);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(0,212,255,0.2);
+}
+.tierlist-card::after {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 2rem;
+  color: rgba(255,255,255,0.85);
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  text-shadow: 0 0 20px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+.tierlist-card:hover::after {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+.tierlist-label {
+  padding: 10px 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.3;
+  background: var(--card);
+}
+@media (max-width: 768px) {
+  .tierlist-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+}
+
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(28px); }
   to   { opacity:1; transform:translateY(0); }
@@ -965,7 +1026,7 @@ footer::before {
           <div class="flip-back-divider"></div>
           <div class="flip-back-stats">
             <div class="flip-back-stat">
-              <div class="flip-back-stat-label">Note Shinii</div>
+              <div class="flip-back-stat-label">Note Shini</div>
               <div class="flip-back-stat-value cyan" id="flipNote">À venir</div>
               <div class="stars" id="flipStars"></div>
             </div>
@@ -1003,7 +1064,7 @@ footer::before {
   <div class="nav-links">
     <a href="#jeux">Jeux</a>
     
-    <a href="#musique">Musique</a><a href="#series">Séries</a>
+    <a href="#crashout">Émissions</a><a href="#tierlists">Tier Lists</a><a href="#musique">Musique</a><a href="#series">Séries</a>
     <a href="#animes">Animés</a>
     <a href="#cinema">Cinéma</a>
   </div>
@@ -1092,6 +1153,7 @@ footer::before {
     
     <div class="game-card searchable rarity-legendary" data-title="ELDEN RING"><img class="game-img" src="images/elden.webp" alt="ELDEN RING" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">ELDEN RING</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-legendary" data-title="Pokémon Noir 2"><img class="game-img" src="images/pokenoir2.webp" alt="Pokémon Noir 2" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Pokémon Noir 2</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
+    <div class="game-card searchable rarity-common" data-title="Level Devil"><img class="game-img" src="images/leveldevil.webp" alt="Level Devil" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Level Devil</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Chained Together"><img class="game-img" src="images/chainedtogether.webp" alt="Chained Together" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Chained Together</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     
     <div class="game-card searchable rarity-rare" data-title="FFVII Rebirth"><img class="game-img" src="images/ff7rebirth.webp" alt="FFVII Rebirth" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FFVII Rebirth</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
@@ -1503,11 +1565,100 @@ footer::before {
     <div class="list-item searchable" data-title="Le Choc des Toques S2"><img class="card-img" src="images/toques2.webp" alt="Le Choc des Toques S2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Choc des Toques S2</div></div>
   </div>
 
+  <div class="section-header reveal" id="crashout">
+    <h2>Les Émissions de Shini</h2><div class="section-line"></div>
+  </div>
+  <div style="font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:0 0 12px 0; text-shadow:0 0 10px var(--cyan);">✦ Crash Out</div>
+  <div class="tierlist-grid reveal">
+    <a class="tierlist-card searchable" data-title="#1 — La coupe du monde, les influenceurs et l'argent feat. Dofla & Wahib" href="https://www.youtube.com/watch?v=NU--heWnzPc" target="_blank">
+      <img src="https://img.youtube.com/vi/NU--heWnzPc/hqdefault.jpg" alt="#1 — La coupe du monde, les influenceurs et l'argent feat. Dofla & Wahib" loading="lazy">
+      <div class="tierlist-label">#1 — La coupe du monde, les influenceurs et l'argent feat. Dofla & Wahib</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="#2 — Le harcèlement et les règles d'Internet feat. Dofla & Koumo" href="https://www.youtube.com/watch?v=M7XZ-l2GWak" target="_blank">
+      <img src="https://img.youtube.com/vi/M7XZ-l2GWak/hqdefault.jpg" alt="#2 — Le harcèlement et les règles d'Internet feat. Dofla & Koumo" loading="lazy">
+      <div class="tierlist-label">#2 — Le harcèlement et les règles d'Internet feat. Dofla & Koumo</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="#3 — 10 ans d'histoire sur Dokkan Battle feat. Yekais & Lilian31" href="https://www.youtube.com/watch?v=Q6JXAHEPpB4" target="_blank">
+      <img src="https://img.youtube.com/vi/Q6JXAHEPpB4/hqdefault.jpg" alt="#3 — 10 ans d'histoire sur Dokkan Battle feat. Yekais & Lilian31" loading="lazy">
+      <div class="tierlist-label">#3 — 10 ans d'histoire sur Dokkan Battle feat. Yekais & Lilian31</div>
+    </a>
+  </div>
+  <div style="font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:24px 0 12px 0; text-shadow:0 0 10px var(--cyan);">✦ Le Chef Shini</div>
+  <div class="tierlist-grid reveal">
+    <a class="tierlist-card searchable" data-title="Le Chef Shini — Mousseline de Pomme de terre" href="https://www.youtube.com/watch?v=ZD3-jA2bO14" target="_blank">
+      <img src="https://img.youtube.com/vi/ZD3-jA2bO14/hqdefault.jpg" alt="Mousseline de Pomme de terre" loading="lazy">
+      <div class="tierlist-label">Le Chef Shini — Mousseline de Pomme de terre</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Le Chef Shini — Risotto crémeux aux Champignons" href="https://www.youtube.com/watch?v=nwDGgUA9iv8" target="_blank">
+      <img src="https://img.youtube.com/vi/nwDGgUA9iv8/hqdefault.jpg" alt="Risotto crémeux aux Champignons" loading="lazy">
+      <div class="tierlist-label">Le Chef Shini — Risotto crémeux aux Champignons</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Le Chef Shini — Filet de Daurade et Mousseline de Carotte" href="https://www.youtube.com/watch?v=yrbwe_Z2B8Y" target="_blank">
+      <img src="https://img.youtube.com/vi/yrbwe_Z2B8Y/hqdefault.jpg" alt="Filet de Daurade et Mousseline de Carotte" loading="lazy">
+      <div class="tierlist-label">Le Chef Shini — Filet de Daurade & Mousseline de Carotte</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Le Chef Shini — Burger à 130€ de Valouzz" href="https://www.youtube.com/watch?v=F6fLpuQM_mc" target="_blank">
+      <img src="https://img.youtube.com/vi/F6fLpuQM_mc/hqdefault.jpg" alt="Burger à 130€ de Valouzz" loading="lazy">
+      <div class="tierlist-label">Le Chef Shini — Je mange le Burger à 130€ de Valouzz</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Le Chef Shini — J'apprend la cuisine à Koumo" href="https://www.youtube.com/watch?v=iU6Njdv6XxI" target="_blank">
+      <img src="https://img.youtube.com/vi/iU6Njdv6XxI/hqdefault.jpg" alt="J'apprend la cuisine à Koumo" loading="lazy">
+      <div class="tierlist-label">Le Chef Shini — J'apprend la cuisine à Koumo !</div>
+    </a>
+  </div>
+
+  <div class="section-header reveal" id="tierlists">
+    <h2>Tier Lists</h2><div class="section-line"></div><span class="section-tag">Les classements de Shini</span>
+  </div>
+  <div class="tierlist-grid reveal">
+    <a class="tierlist-card searchable" data-title="Tier List Inazuma Eleven — Personnages" href="https://www.youtube.com/watch?v=bzgMLxsWWGU" target="_blank">
+      <img src="https://img.youtube.com/vi/bzgMLxsWWGU/hqdefault.jpg" alt="Tier List Inazuma Eleven — Personnages" loading="lazy">
+      <div class="tierlist-label">Tier List Inazuma Eleven — Personnages</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Pâtisseries Françaises" href="https://www.youtube.com/watch?v=sckcP-YJEwc" target="_blank">
+      <img src="https://img.youtube.com/vi/sckcP-YJEwc/hqdefault.jpg" alt="Tier List Pâtisseries Françaises" loading="lazy">
+      <div class="tierlist-label">Tier List Pâtisseries Françaises</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Openings Naruto" href="https://www.youtube.com/watch?v=bykp3r1LqFs" target="_blank">
+      <img src="https://img.youtube.com/vi/bykp3r1LqFs/hqdefault.jpg" alt="Tier List Openings Naruto" loading="lazy">
+      <div class="tierlist-label">Tier List Openings Naruto</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Personnages Jojo's" href="https://www.youtube.com/watch?v=-nWA8OjUT-Q" target="_blank">
+      <img src="https://img.youtube.com/vi/-nWA8OjUT-Q/hqdefault.jpg" alt="Tier List Personnages Jojo's" loading="lazy">
+      <div class="tierlist-label">Tier List Personnages Jojo's</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Openings One Piece" href="https://www.youtube.com/watch?v=2n_15bVwGDw" target="_blank">
+      <img src="https://img.youtube.com/vi/2n_15bVwGDw/hqdefault.jpg" alt="Tier List Openings One Piece" loading="lazy">
+      <div class="tierlist-label">Tier List Openings One Piece</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Protagonistes Anime/Manga" href="https://www.youtube.com/watch?v=s0-7kPr59vI" target="_blank">
+      <img src="https://img.youtube.com/vi/s0-7kPr59vI/hqdefault.jpg" alt="Tier List Protagonistes Anime/Manga" loading="lazy">
+      <div class="tierlist-label">Tier List Protagonistes Anime/Manga</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Openings Bleach" href="https://www.youtube.com/watch?v=aTLsR0nVChc" target="_blank">
+      <img src="https://img.youtube.com/vi/aTLsR0nVChc/hqdefault.jpg" alt="Tier List Openings Bleach" loading="lazy">
+      <div class="tierlist-label">Tier List Openings Bleach</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Antagonistes Anime/Manga" href="https://www.youtube.com/watch?v=bcwNer2GA4Q" target="_blank">
+      <img src="https://img.youtube.com/vi/bcwNer2GA4Q/hqdefault.jpg" alt="Tier List Antagonistes Anime/Manga" loading="lazy">
+      <div class="tierlist-label">Tier List Antagonistes Anime/Manga</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Tier List Meilleurs Jeux Pokémon" href="https://www.youtube.com/watch?v=7xvJmI9r06g" target="_blank">
+      <img src="https://img.youtube.com/vi/7xvJmI9r06g/hqdefault.jpg" alt="Tier List Meilleurs Jeux Pokémon" loading="lazy">
+      <div class="tierlist-label">Tier List Meilleurs Jeux Pokémon</div>
+    </a>
+    <a class="tierlist-card searchable" data-title="Je note les arcs de Jojo's Bizarre Adventure" href="https://www.youtube.com/watch?v=thDNXSapwmc" target="_blank">
+      <img src="https://img.youtube.com/vi/thDNXSapwmc/hqdefault.jpg" alt="Je note les arcs de Jojo's Bizarre Adventure" loading="lazy">
+      <div class="tierlist-label">Je note les arcs de Jojo's Bizarre Adventure</div>
+    </a>
+  </div>
+
+
   <div id="musicSection">
   <div class="section-header reveal" id="musique">
     <h2>Musique</h2><div class="section-line"></div><span class="section-tag">Openings & OST</span>
   </div>
-  <p style="font-family:'Rajdhani',sans-serif; font-size:1.1rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:0 0 24px 0;">La playlist officielle de Shinii</p>
+  <p style="font-family:'Rajdhani',sans-serif; font-size:1.1rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:0 0 24px 0;">La playlist officielle de Shini</p>
   <div class="reveal" style="display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:16px; padding:20px 20px 30px; border:1px solid var(--border); border-radius:16px; text-align:center; position:relative; overflow:hidden; height:420px;">
     <!-- GIF fond -->
     <img src="floaters/lugia.gif" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 65%; opacity:0.9; z-index:0; border-radius:16px;" loading="lazy">
@@ -1886,6 +2037,11 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     document.querySelectorAll('.cat-title').forEach(el => el.style.display = '');
     document.querySelectorAll('.filters').forEach(el => el.style.display = '');
     musicSection.style.display = '';
+    document.getElementById('crashout').style.display = '';
+    document.getElementById('crashout').nextElementSibling.style.display = '';
+    document.getElementById('tierlists').style.display = '';
+    document.getElementById('tierlists').nextElementSibling.style.display = '';
+    document.querySelectorAll('.tierlist-card.searchable').forEach(el => el.style.display = '');
     noResults.style.display = 'none';
     document.getElementById('animeNoResults').style.display = 'none';
     return;
@@ -1949,6 +2105,31 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 
   musicSection.style.display = 'none';
 
+  const crashHeader = document.getElementById('crashout');
+  const crashGrid = crashHeader ? crashHeader.nextElementSibling : null;
+  const tierHeader = document.getElementById('tierlists');
+  const tierGrid = tierHeader ? tierHeader.nextElementSibling : null;
+
+  // Filtrer les cartes tierlist/crashout
+  let hasCrash = false, hasTier = false;
+  document.querySelectorAll('#crashout ~ .tierlist-grid .searchable, .tierlist-grid').forEach(grid => {});
+  if (crashGrid) {
+    crashGrid.querySelectorAll('.searchable').forEach(el => {
+      const match = (el.dataset.title || '').toLowerCase().includes(q);
+      el.style.display = match ? '' : 'none';
+      if (match) hasCrash = true;
+    });
+  }
+  if (tierGrid) {
+    tierGrid.querySelectorAll('.searchable').forEach(el => {
+      const match = (el.dataset.title || '').toLowerCase().includes(q);
+      el.style.display = match ? '' : 'none';
+      if (match) hasTier = true;
+    });
+  }
+  if (crashHeader) { crashHeader.style.display = hasCrash ? '' : 'none'; if (crashGrid) crashGrid.style.display = hasCrash ? '' : 'none'; }
+  if (tierHeader) { tierHeader.style.display = hasTier ? '' : 'none'; if (tierGrid) tierGrid.style.display = hasTier ? '' : 'none'; }
+
   const anyVisible = [...document.querySelectorAll('.searchable')].some(el => el.style.display !== 'none');
   noResults.style.display = anyVisible ? 'none' : 'block';
 });
@@ -1983,10 +2164,10 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 })();
 
 // COUNTS
-document.getElementById('countGames').textContent = '121';
+document.getElementById('countGames').textContent = '122';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
-document.getElementById('countSeries').textContent = '5';
+document.getElementById('countSeries').textContent = '3';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -2025,7 +2206,7 @@ function animateTitle(elementId, finalText, startDelay, finalFont = "'Bebas Neue
 // Lancer après le fadeUp du hero
 setTimeout(() => {
   animateTitle('titleLine1', "L'ANTRE DE", 0);
-  animateTitle('titleLine2', 'SHINII', 600);
+  animateTitle('titleLine2', 'SHINI', 600);
 }, 500);
 const FAKE_DATA = {
   // ANIMÉS
@@ -2363,6 +2544,7 @@ const FAKE_DATA = {
   "Elden Ring":                            { note: null, date: 'Août 2024', status: 'termine', comment: 'À venir' },
   "Black Myth: Wukong":                    { note: null, date: 'Août 2024',  status: 'termine', comment: 'À venir' },
   "Silent Hill 2":                         { note: null, date: 'Oct 2024',   status: 'termine', comment: 'À venir' },
+  "Level Devil": { note: null, date: "Juil 2024", status: "termine", comment: "À venir" },
   "Chained Together":                      { note: null, date: 'Juin 2024',  status: 'termine', comment: 'À venir' },
   "Bodycam":                               { note: null, date: 'Juin 2024',  status: 'termine', comment: 'À venir' },
   "Supermarket Simulator":                 { note: null, date: 'Avr 2024',   status: 'termine', comment: 'À venir' },
@@ -2394,6 +2576,43 @@ const FAKE_DATA = {
 };
 
 const YOUTUBE_LINKS = {
+  "Clair Obscur: Expedition 33": [
+    { label: "Ep.1 — Le meilleur jeu de 2025 !", url: "https://www.youtube.com/watch?v=-ruK4nItjC8" },
+  ],
+  "Super Mario Galaxy": [
+    { label: "Ep.1 — Je découvre en 2025 !", url: "https://www.youtube.com/watch?v=KuI0r5-raWk" },
+  ],
+  "Mario Kart 8 Deluxe": [
+    { label: "Session pleine de rage vs viewers", url: "https://www.youtube.com/watch?v=aDRIHhx2hd0" },
+    { label: "Le chat veut ma peau", url: "https://www.youtube.com/watch?v=XogQimz2Ltg" },
+    { label: "Les prédictions de la mort", url: "https://www.youtube.com/watch?v=6VjtXz-Tq0w" },
+    { label: "Tournoi avec Yekais & Lilian31 #1", url: "https://www.youtube.com/watch?v=TLyy9x9wm38" },
+    { label: "Tournoi avec Yekais & Lilian31 #2", url: "https://www.youtube.com/watch?v=jN2oROP-AQM" },
+    { label: "Tournoi avec Yekais & Lilian31 #3", url: "https://www.youtube.com/watch?v=T1PvdHiW3IA" },
+  ],
+  "VALORANT": [
+    { label: "Mes premières Ranked", url: "https://www.youtube.com/watch?v=pn9Z9ZqZtDo" },
+  ],
+  "Mario Kart World": [
+    { label: "J'affronte 9 streamers connus", url: "https://www.youtube.com/watch?v=NPBiHHKYyQM" },
+  ],
+  "League of Legends": [
+    { label: "Duo Q ranked avec Abdallah", url: "https://www.youtube.com/watch?v=gmpcHEAAh34" },
+    { label: "De retour dans la faille en ranked", url: "https://www.youtube.com/watch?v=-n7cnnlk18U" },
+  ],
+  "Rocket League": [
+    { label: "Mes débuts (une catastrophe)", url: "https://www.youtube.com/watch?v=CNtC9vor76w" },
+    { label: "Mes premières ranked", url: "https://www.youtube.com/watch?v=3doKOERTuik" },
+  ],
+  "Dread Hunger": [
+    { label: "Imposteur pour la première fois !", url: "https://www.youtube.com/watch?v=yIKaiLRZZpg" },
+    { label: "8 pirates, 2 traîtres !", url: "https://www.youtube.com/watch?v=GhjprWki4UU" },
+  ],
+  "Super Seducer 3": [
+    { label: "Ep.1 — Je drague dans un supermarché", url: "https://www.youtube.com/watch?v=u-13eGuaZZA" },
+    { label: "Ep.2 — En duo c'est une dinguerie", url: "https://www.youtube.com/watch?v=ZCMGENR82hw" },
+    { label: "Ep.3 — Pas une mais deux femmes ?", url: "https://www.youtube.com/watch?v=TdYNlb_Zkdw" },
+  ],
   "Sekiro: Shadows Die Twice": [
     { label: "Ep.1 — Découverte du meilleur jeu de 2019", url: "https://www.youtube.com/watch?v=V5Nt6063SIA" },
     { label: "Ep.2 — Le premier gros boss", url: "https://www.youtube.com/watch?v=7yK_3DR-tV0" },
@@ -2970,10 +3189,10 @@ document.querySelectorAll('.list-item').forEach(item => {
   item.appendChild(corner);
 });
 
-document.getElementById('countGames').textContent = '121';
+document.getElementById('countGames').textContent = '122';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
-document.getElementById('countSeries').textContent = '5';
+document.getElementById('countSeries').textContent = '3';
 
 </script>
 
