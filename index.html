@@ -117,7 +117,7 @@ body::after {
   background-attachment: fixed;
   opacity: 0.22;
   pointer-events: none;
-  filter: saturate(0.6) blur(1px);
+  filter: saturate(0.6);
 }
 @media (max-width: 768px) {
   body::after {
@@ -620,7 +620,7 @@ footer::before {
 
 .flip-scene {
   perspective: 1200px;
-  width: 320px; height: 460px;
+  width: 340px; height: 580px;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -688,6 +688,7 @@ footer::before {
   transform: rotateY(180deg);
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+  background: #080818;
 }
 .flip-back-glow {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -697,7 +698,6 @@ footer::before {
   position: relative; z-index: 1;
   height: 100%; padding: 22px 20px 20px;
   display: flex; flex-direction: column; gap: 10px;
-  overflow-y: auto;
   isolation: isolate;
 }
 .flip-back-type {
@@ -752,7 +752,19 @@ footer::before {
   padding: 10px 12px;
   font-size: 0.8rem; line-height: 1.6;
   color: rgba(255,255,255,0.75); font-style: italic;
-  flex: 1;
+}
+.flip-youtube-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.3);
+  color: #ffffff; border-radius: 6px; padding: 7px 12px;
+  text-decoration: none; font-family: 'Space Mono', monospace;
+  font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.flip-youtube-btn:hover {
+  background: rgba(255,0,0,0.18); border-color: #ff4444;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(255,0,0,0.25);
 }
 .flip-patreon {
   display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -967,6 +979,7 @@ footer::before {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
             React sur Patreon
           </a>
+          <div id="flipYoutubeLinks" style="display:none; margin-top:8px; flex-direction:column; gap:5px;"></div>
           <div id="flipReactLost" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(255,45,59,0.07); border:1px solid rgba(255,45,59,0.2); border-radius:6px; font-family:'Space Mono',monospace; font-size:0.55rem; color:#ff6b7a; letter-spacing:2px; text-align:center;">
             ⚠ REACT PERDU
           </div>
@@ -1094,6 +1107,7 @@ footer::before {
     <div class="game-card searchable rarity-rare" data-title="Bleach: Rebirth of Souls"><img class="game-img" src="images/bleachrebirth.webp" alt="Bleach: Rebirth of Souls" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Bleach: Rebirth of Souls</span><span class="game-badge">◆ ÉD. DIAMANT</span></div></div>
     <div class="game-card searchable rarity-common" data-title="DB Xenoverse 2"><img class="game-img" src="images/xenoverse2.webp" alt="DB Xenoverse 2" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">DB Xenoverse 2</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-year-divider"><span class="game-year-label">◆ SAISON 2 — 2022/2023</span><span class="game-year-line"></span><span class="game-year-count">56 JEUX</span></div>
+    <div class="game-card searchable rarity-legendary" data-title="Zelda: Tears of the Kingdom"><img class="game-img" src="images/totk.webp" alt="Zelda: Tears of the Kingdom" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Zelda: Tears of the Kingdom</span><span class="game-badge">✦ ÉD. LÉGENDAIRE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="EA Sports FC 24"><img class="game-img" src="images/easfc24.webp" alt="EA Sports FC 24" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">EA Sports FC 24</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="FIFA 23"><img class="game-img" src="images/fifa23.webp" alt="FIFA 23" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">FIFA 23</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
     <div class="game-card searchable rarity-common" data-title="Dragon Ball Legends"><img class="game-img" src="images/dblegends.webp" alt="Dragon Ball Legends" width="140" height="210" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="game-img-placeholder" style="display:none">🎮</div><div class="game-info"><span class="game-title">Dragon Ball Legends</span><span class="game-badge">⬡ ÉD. PLATINE</span></div></div>
@@ -1582,6 +1596,7 @@ footer::before {
     }, { passive: true });
 
     card.addEventListener('mousemove', e => {
+      if (card.dataset.tiltDisabled) return;
       const rect = card.getBoundingClientRect();
       mx = e.clientX - rect.left;
       my = e.clientY - rect.top;
@@ -1592,7 +1607,7 @@ footer::before {
     card.addEventListener('mouseleave', () => {
       if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
       card.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1), box-shadow 0.5s ease';
-      card.style.transform  = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0px)';
+      card.style.transform  = '';
       shine.style.opacity   = '0';
       setTimeout(() => { card.style.willChange = 'auto'; }, 500);
     }, { passive: true });
@@ -1968,7 +1983,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 })();
 
 // COUNTS
-document.getElementById('countGames').textContent = '120';
+document.getElementById('countGames').textContent = '121';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
@@ -2219,7 +2234,7 @@ const FAKE_DATA = {
   "DBZ Kakarot":                           { note: null, date: 'Avr 2023', status: 'termine', comment: 'À venir' },
   "Genshin Impact":                        { note: null, date: 'Nov 2020', status: 'termine', comment: 'À venir' },
   "Garry's Mod":                           { note: null, date: 'Fév 2024', status: 'termine', comment: 'À venir' },
-  "Zelda: Tears of the Kingdom":           { note: null, date: 'Mai 2023', status: 'termine', comment: 'À venir' },
+  "Zelda: Tears of the Kingdom": { note: null, date: "Mai 2023", status: "termine", comment: "À venir" },
   "Pokémon Omega Ruby":                    { note: null, date: 'Déc 2023', status: 'termine', comment: 'À venir' },
   "Demon Slayer: Hinokami":                { note: null, date: 'Mar 2022', status: 'termine', comment: 'À venir' },
   "Dofus":                                 { note: null, date: 'Déc 2024', status: 'termine', comment: 'À venir' },
@@ -2376,6 +2391,174 @@ const FAKE_DATA = {
   "Fermat Kitchen":                  { note: null, date: 'Déc 2023',  status: 'termine', comment: 'À venir' },
   "Le Choc des Toques S1":           { note: null, date: 'Sept 2025', status: 'termine', comment: 'À venir' },
   "Le Choc des Toques S2":           { note: null, date: 'Jan 2026',  status: 'termine', comment: 'À venir' },
+};
+
+const YOUTUBE_LINKS = {
+  "Zelda: Skyward Sword": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=ijuK2QD8lHo" },
+    { label: "Ep.2 — Ghirahim le Démon", url: "https://www.youtube.com/watch?v=6DK02_rfMzY" },
+    { label: "Ep.3 — Le Volcan D'Ordinn", url: "https://www.youtube.com/watch?v=Zj1-O90dMhk" },
+    { label: "Ep.4 — L'araignée Bela Darma", url: "https://www.youtube.com/watch?v=XsXwhPT-LJg" },
+    { label: "Ep.5 — Le désert de Lanelle", url: "https://www.youtube.com/watch?v=gex2m5DdnYc" },
+    { label: "Ep.6 — À la recherche des Flammes", url: "https://www.youtube.com/watch?v=iqbe5ej6B6E" },
+    { label: "Ep.7 — La première Flamme", url: "https://www.youtube.com/watch?v=0YMYgEPKsAo" },
+  ],
+  "Inazuma Eleven Victory Road": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=gviloQ5VFJU" },
+    { label: "Ep.2 — Chapitre 1", url: "https://www.youtube.com/watch?v=RU2ZSU86RTg" },
+    { label: "Ep.3 — Le tournoi commence", url: "https://www.youtube.com/watch?v=RG2FaNYIRLc" },
+    { label: "Ep.4 — On continue l'aventure", url: "https://www.youtube.com/watch?v=mbMyUxW98Lc" },
+    { label: "Ep.5 — Découverte du PVP", url: "https://www.youtube.com/watch?v=mvjR5VlYNr4" },
+    { label: "Ep.6 — Franchement WOW !", url: "https://www.youtube.com/watch?v=SUA0L0G5618" },
+    { label: "Ep.7 — La Finale !", url: "https://www.youtube.com/watch?v=NPel-mFRUW4" },
+  ],
+  "Spider-Man Remastered": [
+    { label: "Ep.1 — Début de l'aventure", url: "https://www.youtube.com/watch?v=P5NIY7v_EmI" },
+    { label: "Ep.2 — Le combat final", url: "https://www.youtube.com/watch?v=a4nePTNsZus" },
+  ],
+  "Pokémon Diamant Étincelant": [
+    { label: "Ep.1 — Le choix du starter", url: "https://www.youtube.com/watch?v=sxuJ6q4pJg8" },
+    { label: "Ep.2 — Les mines incroyables", url: "https://www.youtube.com/watch?v=uufLFReRxbc" },
+    { label: "Ep.3 — Le secret de Griknot", url: "https://www.youtube.com/watch?v=M0_olb6DWqM" },
+    { label: "Ep.4 — 3 badges déjà", url: "https://www.youtube.com/watch?v=cZfFk5Vi0N0" },
+    { label: "Ep.5 — On rush l'aventure", url: "https://www.youtube.com/watch?v=5oreCcSppCc" },
+    { label: "Ep.6 — On enchaîne les arènes", url: "https://www.youtube.com/watch?v=8us2m4x2Qec" },
+    { label: "Ep.7 — Direction Frimapic", url: "https://www.youtube.com/watch?v=44PY-yHBQhE" },
+    { label: "Ep.8 — Dialga fait son apparition", url: "https://www.youtube.com/watch?v=vaP6H5d4CcI" },
+    { label: "Ep.9 — Cynthia et le Conseil 4 (FINAL)", url: "https://www.youtube.com/watch?v=OQKioYx4M4k" },
+  ],
+  "DB Xenoverse 2": [
+    { label: "Ep.1 — Découverte en 2025", url: "https://www.youtube.com/watch?v=xyGzK1_PDCI" },
+    { label: "Ep.2 — Freezer et Cooler", url: "https://www.youtube.com/watch?v=3FJaAxj7fHI" },
+    { label: "Ep.3 — Super Saiyan débloqué", url: "https://www.youtube.com/watch?v=E19UGRg5TEQ" },
+    { label: "Ep.4 — Le boss final (FIN)", url: "https://www.youtube.com/watch?v=7fx9TMErPYQ" },
+  ],
+  "Final Fantasy XVI": [
+    { label: "Ep.1 — Début de l'aventure", url: "https://www.youtube.com/watch?v=5B_Ltwh9mFI" },
+    { label: "Ep.2 — L'éveil de Clive", url: "https://www.youtube.com/watch?v=gn_6QDKJSEk" },
+    { label: "Ep.3 — Clive vs Hugo Kupka", url: "https://www.youtube.com/watch?v=AFFy272MKHQ" },
+    { label: "Ep.4 — Le combat final (FIN)", url: "https://www.youtube.com/watch?v=YggMhf5K0Xc" },
+  ],
+  "FFVII Remake": [
+    { label: "Ep.1 — Début de l'aventure", url: "https://www.youtube.com/watch?v=BrhOECt0CBA" },
+    { label: "Ep.2 — Le Quartier des Plaisirs", url: "https://www.youtube.com/watch?v=mMws1i56aEg" },
+    { label: "Ep.3 — Cloud vs Sephiroth (FIN)", url: "https://www.youtube.com/watch?v=CTERWMckRDo" },
+  ],
+  "DBZ Kakarot": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=k-1B0-FVa-U" },
+    { label: "Ep.2 — Formation de Son Gohan", url: "https://www.youtube.com/watch?v=VBj_SHnQ_xQ" },
+    { label: "Ep.3 — Goku vs Vegeta", url: "https://www.youtube.com/watch?v=Ccgv3dL9tVM" },
+    { label: "Ep.4 — Arc Namek", url: "https://www.youtube.com/watch?v=O7Vux0AAg7w" },
+    { label: "Ep.5 — Le Super Saiyan Légendaire", url: "https://www.youtube.com/watch?v=1_GMxnNTNFI" },
+    { label: "Ep.6 — Le prince Trunks", url: "https://www.youtube.com/watch?v=NgDiH5fyKPA" },
+    { label: "Ep.7 — Le combat le plus dur", url: "https://www.youtube.com/watch?v=7jbXdpLYH4w" },
+    { label: "Ep.8 — Cell parfait", url: "https://www.youtube.com/watch?v=efvhSFUWDAI" },
+    { label: "Ep.9 — Gohan SSJ2 vs Cell", url: "https://www.youtube.com/watch?v=1uJ3RkzhNr0" },
+    { label: "Ep.10 — Gohan montre sa puissance", url: "https://www.youtube.com/watch?v=jxSxmIWLoD0" },
+    { label: "Ep.11 — Le sacrifice de Vegeta", url: "https://www.youtube.com/watch?v=uR7kkBwcHOA" },
+    { label: "Ep.12 — Vegeto fait son apparition", url: "https://www.youtube.com/watch?v=LCqI1TA_6bI" },
+    { label: "Ep.13 — La scène finale (FIN)", url: "https://www.youtube.com/watch?v=jRuPRFSIo1U" },
+  ],
+  "Demon Slayer: Hinokami": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=dDunCtysR9k" },
+    { label: "Ep.2 — Zenitsu fait son apparition", url: "https://www.youtube.com/watch?v=ihyd8fzhBQ4" },
+    { label: "Ep.3 — Tanjiro vs Rui", url: "https://www.youtube.com/watch?v=kfZOrN37jcI" },
+    { label: "Ep.4 — Train de l'Infini pt.1", url: "https://www.youtube.com/watch?v=yLw4q3EaD1E" },
+    { label: "Ep.5 — Rengoku vs Akaza", url: "https://www.youtube.com/watch?v=OyHeQEAcjUM" },
+    { label: "Ep.6 — Débuts en Ranked", url: "https://www.youtube.com/watch?v=LBa2SIQVc2Y" },
+    { label: "Ep.7 — 1v1 vs les abos", url: "https://www.youtube.com/watch?v=GDNhAEtJ578" },
+    { label: "Ep.8 — Try hard en Ranked", url: "https://www.youtube.com/watch?v=bgSpaYuTVKs" },
+    { label: "Ep.9 — Vous êtes trop forts !", url: "https://www.youtube.com/watch?v=8pFqdeDI214" },
+    { label: "Ep.10 — Akaza et Rui en Ranked", url: "https://www.youtube.com/watch?v=VaqtWyZUUlI" },
+    { label: "Ep.11 — On devient plus fort", url: "https://www.youtube.com/watch?v=NXcifnRribc" },
+    { label: "Ep.12 — Train + 1v1", url: "https://www.youtube.com/watch?v=MXIPOG7mepQ" },
+    { label: "Ep.13 — Combats difficiles", url: "https://www.youtube.com/watch?v=UOpXML0jE9U" },
+  ],
+  "DBZ Budokai Tenkaichi 3": [
+    { label: "Ep.1 — Re-découverte après 15 ans", url: "https://www.youtube.com/watch?v=CTOASPpyTRQ" },
+    { label: "Ep.2 — Arc Namek & Saga Cell", url: "https://www.youtube.com/watch?v=HiwoGVRLaEY" },
+    { label: "Ep.3 — Saga Buu & Vegeto", url: "https://www.youtube.com/watch?v=CgFCApmEDgc" },
+    { label: "Ep.4 — Saga GT & Gogeta 4", url: "https://www.youtube.com/watch?v=kXWXt9vAdA0" },
+    { label: "Ep.5 — Saga Dragon Ball", url: "https://www.youtube.com/watch?v=CZvvcyUmWoU" },
+    { label: "Ep.6 — Saga Films (Broly, C-13...)", url: "https://www.youtube.com/watch?v=_do_5brT6XA" },
+    { label: "Ep.7 — Saga Films (Gogeta, Janemba...)", url: "https://www.youtube.com/watch?v=gr6MAEcmtJs" },
+  ],
+  "Resident Evil Village": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=DoJr9kBVNR0" },
+    { label: "Ep.2 — C'est une malade mental !", url: "https://www.youtube.com/watch?v=CyJWKiqqIos" },
+    { label: "Ep.3 — Le monstre le plus moche", url: "https://www.youtube.com/watch?v=GW8wyPSK7oI" },
+    { label: "Ep.4 — Un poisson géant", url: "https://www.youtube.com/watch?v=N3ri8NYTKVg" },
+    { label: "Ep.5 — Le labyrinthe", url: "https://www.youtube.com/watch?v=40vYY3kT61w" },
+  ],
+  "Resident Evil 7": [
+    { label: "Ep.1 — Ma première fois sur RE !", url: "https://www.youtube.com/watch?v=HEneI3Ah2-o" },
+    { label: "Ep.2 — Ils sont immortels ?!", url: "https://www.youtube.com/watch?v=6yWIkWCz_QM" },
+    { label: "Ep.3 — S'occuper de Marguerite", url: "https://www.youtube.com/watch?v=bfw5FatqZzk" },
+    { label: "Ep.4 — Des énigmes incroyables", url: "https://www.youtube.com/watch?v=TQQPli-f8KM" },
+    { label: "Ep.5 — Le mauvais choix ?!", url: "https://www.youtube.com/watch?v=2pABJERThyA" },
+  ],
+  "Ghost of Tsushima": [
+    { label: "Ep.1 — Découverte", url: "https://www.youtube.com/watch?v=43gRhW17Yaw" },
+    { label: "Ep.2 — À la recherche d'alliés", url: "https://www.youtube.com/watch?v=ciwg6C1E6Mc" },
+    { label: "Ep.3 — Sauver mon oncle", url: "https://www.youtube.com/watch?v=8G3EOibWsQM" },
+    { label: "Ep.4 — Animation de fight de malade", url: "https://www.youtube.com/watch?v=vZDRq8O_rC4" },
+  ],
+  "The Last of Us Part II": [
+    { label: "Ep.1 — Découverte (PS5)", url: "https://www.youtube.com/watch?v=ds_om1dULKE" },
+    { label: "Ep.2 — C'est pas possible !!", url: "https://www.youtube.com/watch?v=Qg4XE-7BsXM" },
+    { label: "Ep.3 — Premier flash back", url: "https://www.youtube.com/watch?v=XFYw9hBhfW0" },
+  ],
+  "God of War": [
+    { label: "Ep.1 — Découverte (PS5)", url: "https://www.youtube.com/watch?v=7Nh8kANSz_s" },
+  ],
+
+  "Dragon Ball Sparking Zero": [
+    { label: "Mes débuts sur DBZ Sparking Zero !", url: "https://www.youtube.com/watch?v=qc5y6iLLZoU" },
+    { label: "Mes premières RANKED !", url: "https://www.youtube.com/watch?v=da9zEQa02E4" },
+  ],
+  "Batman: Arkham City": [
+    { label: "Ce jeu est EXTRAORDINAIRE !", url: "https://www.youtube.com/watch?v=Wb3stuHGNuc" },
+  ],
+  "Batman: Arkham Asylum": [
+    { label: "Je Découvre le MEILLEUR jeu de 2009 !", url: "https://www.youtube.com/watch?v=raPzCwtw10g" },
+  ],
+  "Batman: Arkham Knight": [
+    { label: "Je suis CHOQUÉ de la Qualité du Jeu !", url: "https://www.youtube.com/watch?v=k_LfQ-1TPFQ" },
+  ],
+  "Spider-Man Remastered": [
+    { label: "Ep.1 — Début de l'aventure", url: "https://www.youtube.com/watch?v=P5NIY7v_EmI" },
+    { label: "Ep.2 — Le combat final", url: "https://www.youtube.com/watch?v=a4nePTNsZus" },
+  ],
+  "Spider-Man: Miles Morales": [
+    { label: "Début et fin de l'aventure !", url: "https://www.youtube.com/watch?v=cpDBHlf7Z_M" },
+  ],
+  "MHA: The Strongest Hero": [
+    { label: "UNE MULTI SUFFIT ? ! DECOUVERTE", url: "https://www.youtube.com/watch?v=ty6sit_LFvk" },
+    { label: "CREATION DE L'ALLIANCE / FARM INTENSIF !", url: "https://www.youtube.com/watch?v=0SfMZW6SbL4" },
+    { label: "INVOCATION ALL MIGHT !", url: "https://www.youtube.com/watch?v=3oGUKCUf96U" },
+    { label: "ALL MIGHT ARRIVE, ON EN DISCUTE !", url: "https://www.youtube.com/watch?v=lgbr_B3inAU" },
+  ],
+  "Pokémon Diamant Étincelant": [
+    { label: "Ep.1 — Le choix du starter", url: "https://www.youtube.com/watch?v=sxuJ6q4pJg8" },
+    { label: "Ep.2 — Les mines incroyables", url: "https://www.youtube.com/watch?v=uufLFReRxbc" },
+    { label: "Ep.3 — Le secret de Griknot", url: "https://www.youtube.com/watch?v=M0_olb6DWqM" },
+    { label: "Ep.4 — 3 badges déjà", url: "https://www.youtube.com/watch?v=cZfFk5Vi0N0" },
+    { label: "Ep.5 — On rush l'aventure", url: "https://www.youtube.com/watch?v=5oreCcSppCc" },
+    { label: "Ep.6 — On enchaîne les arènes", url: "https://www.youtube.com/watch?v=8us2m4x2Qec" },
+    { label: "Ep.7 — Direction Frimapic", url: "https://www.youtube.com/watch?v=44PY-yHBQhE" },
+    { label: "Ep.8 — Dialga fait son apparition", url: "https://www.youtube.com/watch?v=vaP6H5d4CcI" },
+    { label: "Ep.9 — Cynthia et le Conseil 4 (FIN)", url: "https://www.youtube.com/watch?v=OQKioYx4M4k" },
+  ],
+  "Zelda: Tears of the Kingdom": [
+    { label: "#1 : Le Commencement", url: "https://www.youtube.com/watch?v=BEJErYCRQMk" },
+    { label: "#2 : Les Sanctuaires !", url: "https://www.youtube.com/watch?v=07tAGg-Gt8M" },
+    { label: "#3 : Le Temple du FEU", url: "https://www.youtube.com/watch?v=DZKPoF2GRZ4" },
+    { label: "#4 : Impa et les Géoglyphes", url: "https://www.youtube.com/watch?v=zp9Eo99_it4" },
+    { label: "#5 : Le Temple du Vent", url: "https://www.youtube.com/watch?v=NQDQ_-u9rT8" },
+    { label: "#6 : L'exploration INFINI !", url: "https://www.youtube.com/watch?v=3lgwtbd6jaE" },
+    { label: "#7 : Les îles CÉLESTES !", url: "https://www.youtube.com/watch?v=VQ2eapQb04M" },
+    { label: "#8 : Le Domaine ZORA !", url: "https://www.youtube.com/watch?v=ent4SAGZNHY" },
+  ],
 };
 
 const PATREON_LINKS = {
@@ -2659,6 +2842,30 @@ function openFlip(item) {
   const patreonUrl = PATREON_LINKS[title];
   const patreonBtn = document.getElementById('flipPatreon');
   const reactLost  = document.getElementById('flipReactLost');
+
+  const youtubeLinks = YOUTUBE_LINKS[title] || [];
+  const youtubeDiv = document.getElementById('flipYoutubeLinks');
+
+  // Adapter la hauteur de la carte selon le nombre de liens
+  const scene = document.getElementById('flipScene');
+  const baseH = 460;
+  const linkH = 26; // hauteur par lien en px
+  const extraH = Math.max(0, youtubeLinks.length - 3) * linkH;
+  const newH = Math.min(baseH + extraH, 700);
+  scene.style.height = newH + 'px';
+
+  if (youtubeLinks.length > 0) {
+    youtubeDiv.style.display = 'flex';
+    youtubeDiv.innerHTML = youtubeLinks.map(l =>
+      `<a class="flip-youtube-btn" href="${l.url}" target="_blank">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="#ff4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        ${l.label}
+      </a>`
+    ).join('');
+  } else {
+    youtubeDiv.style.display = 'none';
+    youtubeDiv.innerHTML = '';
+  }
   if (patreonUrl) {
     patreonBtn.href = patreonUrl;
     patreonBtn.style.display = 'flex';
@@ -2708,12 +2915,15 @@ function openFlip(item) {
       card.style.transform = '';
       card.style.opacity = '';
       card.classList.add('entering');
+  // Désactiver le tilt pendant l'overlay
+  card.dataset.tiltDisabled = '1';
     });
   });
 }
 
 function closeFlip() {
   const card = document.getElementById('flipCard');
+  card.dataset.tiltDisabled = '';
   card.classList.remove('flipped');
   // Puis zoom out
   setTimeout(() => {
@@ -2755,7 +2965,7 @@ document.querySelectorAll('.list-item').forEach(item => {
   item.appendChild(corner);
 });
 
-document.getElementById('countGames').textContent = '120';
+document.getElementById('countGames').textContent = '121';
 document.getElementById('countAnimes').textContent = '30';
 document.getElementById('countMovies').textContent = '130';
 document.getElementById('countSeries').textContent = '5';
