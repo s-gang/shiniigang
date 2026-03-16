@@ -272,6 +272,30 @@ nav::after {
   box-shadow:0 0 0 3px rgba(0,212,255,0.1), 0 0 30px rgba(0,212,255,0.08);
 }
 #globalSearch::placeholder { color:var(--muted); }
+
+.search-category-filters {
+  display: flex; gap: 6px; justify-content: center;
+  margin-bottom: 10px; flex-wrap: wrap;
+  opacity: 0; pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.search-category-filters.visible {
+  opacity: 1; pointer-events: all;
+  transform: translateY(0);
+}
+.search-cat-btn {
+  font-family: 'Space Mono', monospace; font-size: 0.52rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px; cursor: pointer;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--muted); transition: all 0.15s;
+}
+.search-cat-btn:hover { color: var(--cyan); border-color: rgba(0,212,255,0.3); }
+.search-cat-btn.active {
+  background: rgba(0,212,255,0.08); border-color: rgba(0,212,255,0.5);
+  color: var(--cyan);
+}
 .search-hint {
   font-family:'Space Mono',monospace; font-size:0.58rem;
   color:var(--muted); text-align:center; margin-top:10px; letter-spacing:2px;
@@ -369,7 +393,9 @@ nav::after {
 }
 .reliques-header {
   display: flex; align-items: center; margin-bottom: 28px;
+  overflow: visible;
 }
+.reliques-section.reveal { overflow: visible; }
 .reliques-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 0.9rem; letter-spacing: 5px;
@@ -446,6 +472,22 @@ nav::after {
 .game-card.rarity-common { border-color: var(--border); }
 .game-card.rarity-common .game-badge { display: none; }
 .game-card.rarity-common:hover { border-color: rgba(0,212,255,0.6); box-shadow: 0 25px 50px rgba(0,0,0,0.7); }
+
+/* ── MAUDIT : aura noire ── */
+.list-item.rarity-cursed {
+  border-color: rgba(0,0,0,1);
+  box-shadow: 0 0 0 2px rgba(0,0,0,1), 0 0 25px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(0,0,0,0.5);
+  animation: auraCursed 2.5s ease-in-out infinite;
+}
+@keyframes auraCursed {
+  0%,100% { box-shadow: 0 0 0 2px #000, 0 0 20px rgba(0,0,0,0.9), 0 0 45px rgba(0,0,0,0.7), inset 0 0 15px rgba(0,0,0,0.4); }
+  50%      { box-shadow: 0 0 0 3px #000, 0 0 40px rgba(0,0,0,1), 0 0 80px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.6); }
+}
+.list-item.rarity-cursed:hover {
+  border-color: #000;
+  box-shadow: 0 20px 50px rgba(0,0,0,1), 0 0 0 3px #000, 0 0 60px rgba(0,0,0,1), 0 0 100px rgba(0,0,0,0.8) !important;
+}
+.list-item.rarity-cursed .card-label { color: rgba(160,160,160,0.7); }
 
 .game-card.rarity-horror { border-color: var(--border); }
 .game-card.rarity-horror::before { opacity: 0.85; }
@@ -1086,6 +1128,13 @@ footer::before {
 </section>
 
 <div class="global-search">
+  <div class="search-category-filters" id="searchCategoryFilters">
+    <button class="search-cat-btn active" data-cat="all">Tout</button>
+    <button class="search-cat-btn" data-cat="jeux">Jeux</button>
+    <button class="search-cat-btn" data-cat="animes">Animés</button>
+    <button class="search-cat-btn" data-cat="films">Films</button>
+    <button class="search-cat-btn" data-cat="series">Séries</button>
+  </div>
   <div class="search-wrap">
     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -1337,6 +1386,12 @@ footer::before {
     <!-- 2021 -->
     <div class="list-item searchable" data-title="Classroom of the Elite S1"><img class="card-img" src="images/cote1.webp" alt="Classroom of the Elite S1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Classroom of the Elite S1</div></div>
     <div class="list-item searchable" data-title="Classroom of the Elite S2"><img class="card-img" src="images/cote2.webp" alt="Classroom of the Elite S2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Classroom of the Elite S2</div></div>
+    <div class="list-item searchable rarity-cursed" data-title="Dr Stone"><img class="card-img" src="images/drstone.webp" alt="Dr Stone" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Dr Stone</div></div>
+    <div class="list-item searchable" data-title="Inazuma Eleven"><img class="card-img" src="images/inazeleven.webp" alt="Inazuma Eleven" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Inazuma Eleven</div></div>
+    <div class="list-item searchable" data-title="Inazuma Eleven Go"><img class="card-img" src="images/inago.webp" alt="Inazuma Eleven Go" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Inazuma Eleven Go</div></div>
+    <div class="list-item searchable" data-title="Inazuma Eleven Go Chrono Stones"><img class="card-img" src="images/inagochrono.webp" alt="Inazuma Eleven Go Chrono Stones" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">IE Go: Chrono Stones</div></div>
+    <div class="list-item searchable" data-title="Beyblade Metal Fusion"><img class="card-img" src="images/beyblade.webp" alt="Beyblade Metal Fusion" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Beyblade Metal Fusion</div></div>
+    <div class="list-item searchable" data-title="Takopi's Original Sin"><img class="card-img" src="images/takopis.webp" alt="Takopi's Original Sin" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Takopi's Original Sin</div></div>
     <div class="list-item searchable" data-title="Great Teacher Onizuka GTO"><img class="card-img" src="images/gto.webp" alt="Great Teacher Onizuka GTO" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">GTO</div></div>
     <!-- 2020 -->
     <div class="list-item searchable" data-title="Eyeshield 21"><img class="card-img" src="images/eyeshield21.webp" alt="Eyeshield 21" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Eyeshield 21</div></div>
@@ -1458,6 +1513,7 @@ footer::before {
         <div class="list-item searchable" data-title="Sonic le film 1"><img class="card-img" src="images/sonic1.webp" alt="Sonic le film 1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Sonic 1</div></div>
         <div class="list-item searchable" data-title="Sonic le film 2"><img class="card-img" src="images/sonic2.webp" alt="Sonic le film 2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Sonic 2</div></div>
         <div class="list-item searchable" data-title="Sonic le film 3"><img class="card-img" src="images/sonic3.webp" alt="Sonic le film 3" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Sonic 3</div></div>
+        <div class="list-item searchable" data-title="Wall-E"><img class="card-img" src="images/walle.webp" alt="Wall-E" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Wall-E</div></div>
       </div>
     </div>
 
@@ -1494,14 +1550,14 @@ footer::before {
     <div class="cat-group" data-category="scifi">
       <div class="cat-title">Sci-Fi & Drame</div>
       <div class="list-grid">
-        <div class="list-item searchable" data-title="Oppenheimer Nolan"><img class="card-img" src="images/oppenheimer.webp" alt="Oppenheimer Nolan" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Oppenheimer</div></div>
-        <div class="list-item searchable" data-title="Inception Nolan"><img class="card-img" src="images/inception.webp" alt="Inception Nolan" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Inception</div></div>
-        <div class="list-item searchable" data-title="Interstellar Nolan"><img class="card-img" src="images/interstellar.webp" alt="Interstellar Nolan" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Interstellar</div></div>
-        <div class="list-item searchable" data-title="Le Prestige Nolan"><img class="card-img" src="images/prestige.webp" alt="Le Prestige Nolan" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Prestige</div></div>
-        <div class="list-item searchable" data-title="Les Évadés Shawshank Redemption"><img class="card-img" src="images/evades.webp" alt="Les Évadés Shawshank Redemption" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Les Évadés</div></div>
-        <div class="list-item searchable" data-title="Parasite Bong Joon-ho"><img class="card-img" src="images/parasite.webp" alt="Parasite Bong Joon-ho" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Parasite</div></div>
-        <div class="list-item searchable" data-title="Seul sur Mars The Martian"><img class="card-img" src="images/martian.webp" alt="Seul sur Mars The Martian" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Seul sur Mars</div></div>
-        <div class="list-item searchable" data-title="Seven Se7en"><img class="card-img" src="images/seven.webp" alt="Seven Se7en" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Seven</div></div>
+        <div class="list-item searchable" data-title="Oppenheimer"><img class="card-img" src="images/oppenheimer.webp" alt="Oppenheimer" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Oppenheimer</div></div>
+        <div class="list-item searchable" data-title="Inception"><img class="card-img" src="images/inception.webp" alt="Inception" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Inception</div></div>
+        <div class="list-item searchable" data-title="Interstellar"><img class="card-img" src="images/interstellar.webp" alt="Interstellar" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Interstellar</div></div>
+        <div class="list-item searchable" data-title="Le Prestige"><img class="card-img" src="images/prestige.webp" alt="Le Prestige" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Prestige</div></div>
+        <div class="list-item searchable" data-title="Les Évadés"><img class="card-img" src="images/evades.webp" alt="Les Évadés" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Les Évadés</div></div>
+        <div class="list-item searchable" data-title="Parasite"><img class="card-img" src="images/parasite.webp" alt="Parasite" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Parasite</div></div>
+        <div class="list-item searchable" data-title="Seul sur Mars"><img class="card-img" src="images/martian.webp" alt="Seul sur Mars" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Seul sur Mars</div></div>
+        <div class="list-item searchable" data-title="Seven"><img class="card-img" src="images/seven.webp" alt="Seven" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Seven</div></div>
         <div class="list-item searchable" data-title="Time Out In Time"><img class="card-img" src="images/timeout.webp" alt="Time Out In Time" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Time Out</div></div>
         <div class="list-item searchable" data-title="Memories of Murder"><img class="card-img" src="images/memoriesofmurder.webp" alt="Memories of Murder" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Memories of Murder</div></div>
         <div class="list-item searchable" data-title="Tu ne tueras point"><img class="card-img" src="images/tunetueras.webp" alt="Tu ne tueras point" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Tu ne tueras point</div></div>
@@ -1539,6 +1595,9 @@ footer::before {
         <div class="list-item searchable" data-title="Kaiji 1"><img class="card-img" src="images/kaiji1.webp" alt="Kaiji 1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Kaiji 1</div></div>
         <div class="list-item searchable" data-title="Kaiji 2"><img class="card-img" src="images/kaiji2.webp" alt="Kaiji 2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Kaiji 2</div></div>
         <div class="list-item searchable" data-title="Kaiji 3"><img class="card-img" src="images/kaiji3.webp" alt="Kaiji 3" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Kaiji 3</div></div>
+        <div class="list-item searchable" data-title="Inazuma Eleven contre les Ogres"><img class="card-img" src="images/inaogre.webp" alt="Inazuma Eleven contre les Ogres" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">IE: Les Ogres</div></div>
+        <div class="list-item searchable" data-title="Inazuma Eleven Go le film"><img class="card-img" src="images/inagofilm.webp" alt="Inazuma Eleven Go le film" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">IE Go: Le Film</div></div>
+        <div class="list-item searchable" data-title="One Piece Z"><img class="card-img" src="images/opz.webp" alt="One Piece Z" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">One Piece Z</div></div>
       </div>
     </div>
 
@@ -1549,6 +1608,7 @@ footer::before {
         <div class="list-item searchable" data-title="Les Saveurs du Palais"><img class="card-img" src="images/saveurs.webp" alt="Les Saveurs du Palais" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Les Saveurs du Palais</div></div>
         <div class="list-item searchable" data-title="100 Metters sport"><img class="card-img" src="images/100metters.webp" alt="100 Metters sport" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">100 Metters</div></div>
         <div class="list-item searchable" data-title="K-pop Demon Hunters"><img class="card-img" src="images/kpop.webp" alt="K-pop Demon Hunters" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">K-pop Demon Hunters</div></div>
+        <div class="list-item searchable" data-title="Jumanji 1995"><img class="card-img" src="images/jumanji.webp" alt="Jumanji 1995" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Jumanji</div></div>
       </div>
     </div>
 
@@ -1563,6 +1623,7 @@ footer::before {
     <div class="list-item searchable" data-title="Fermat Kitchen"><img class="card-img" src="images/fermat.webp" alt="Fermat Kitchen" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Fermat Kitchen</div></div>
     <div class="list-item searchable" data-title="Le Choc des Toques S1"><img class="card-img" src="images/toques1.webp" alt="Le Choc des Toques S1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Choc des Toques S1</div></div>
     <div class="list-item searchable" data-title="Le Choc des Toques S2"><img class="card-img" src="images/toques2.webp" alt="Le Choc des Toques S2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Le Choc des Toques S2</div></div>
+    <div class="list-item searchable" data-title="The Bear S1"><img class="card-img" src="images/thebear.webp" alt="The Bear S1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">The Bear S1</div></div>
   </div>
 
   <div class="section-header reveal" id="crashout">
@@ -1583,7 +1644,7 @@ footer::before {
       <div class="tierlist-label">#3 — 10 ans d'histoire sur Dokkan Battle feat. Yekais & Lilian31</div>
     </a>
   </div>
-  <div style="font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:24px 0 12px 0; text-shadow:0 0 10px var(--cyan);">✦ Le Chef Shini</div>
+  <div id="chefshini" style="font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--cyan); letter-spacing:3px; text-transform:uppercase; margin:24px 0 12px 0; text-shadow:0 0 10px var(--cyan);">✦ Le Chef Shini</div>
   <div class="tierlist-grid reveal">
     <a class="tierlist-card searchable" data-title="Le Chef Shini — Mousseline de Pomme de terre" href="https://www.youtube.com/watch?v=ZD3-jA2bO14" target="_blank">
       <img src="https://img.youtube.com/vi/ZD3-jA2bO14/hqdefault.jpg" alt="Mousseline de Pomme de terre" loading="lazy">
@@ -1867,6 +1928,42 @@ footer::before {
     for (let i = 0; i < count; i++) card.appendChild(createEmber());
   });
 
+  // Particules sombres pour les cartes maudites
+  function createCursedParticle() {
+    const p = document.createElement('div');
+    const size = 4 + Math.random() * 5;
+    const x = 5 + Math.random() * 90;
+    const duration = 1.5 + Math.random() * 2;
+    const delay = Math.random() * 2;
+    const ex = (Math.random() - 0.5) * 35;
+    const ey = -(35 + Math.random() * 55);
+    const er = (Math.random() - 0.5) * 180;
+    const palette = ['#1a0033','#2d0050','#0a0a0a','#3d0066','#1a1a2e','#16003a','#000000'];
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    p.style.cssText = `
+      position: absolute;
+      width: ${size}px; height: ${size}px;
+      background: ${color};
+      box-shadow: 0 0 ${size * 3}px ${color}, 0 0 ${size * 6}px rgba(50,0,80,0.6);
+      border-radius: 50%;
+      left: ${x}%;
+      bottom: ${5 + Math.random() * 20}%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      animation: emberFloat ${duration}s ${delay}s ease-out infinite;
+      --ex: ${ex}px; --ey: ${ey}px; --er: ${er}deg;
+    `;
+    return p;
+  }
+
+  document.querySelectorAll('.list-item.rarity-cursed').forEach(card => {
+    const count = 14 + Math.floor(Math.random() * 6);
+    for (let i = 0; i < count; i++) card.appendChild(createCursedParticle());
+  });
+
+  window.createCursedParticle = createCursedParticle;
+
   // Exposer pour openFlip
   window.createParticle = createParticle;
   window.createEmber    = createEmber;
@@ -2021,18 +2118,54 @@ document.querySelectorAll('.cinema-filter').forEach(btn => {
 });
 
 // GLOBAL SEARCH
+// ═══ FILTRES CATÉGORIE + RECHERCHE ═══
+let activeCategory = 'all';
+const searchFilters = document.getElementById('searchCategoryFilters');
+
+document.getElementById('globalSearch').addEventListener('focus', () => {
+  searchFilters.classList.add('visible');
+});
+document.getElementById('globalSearch').addEventListener('blur', () => {
+  if (!document.getElementById('globalSearch').value.trim()) {
+    setTimeout(() => searchFilters.classList.remove('visible'), 150);
+  }
+});
+window.addEventListener('scroll', () => {
+  const input = document.getElementById('globalSearch');
+  if (!input.value.trim() && activeCategory === 'all') {
+    searchFilters.classList.remove('visible');
+  }
+}, { passive: true });
+
+document.querySelectorAll('.search-cat-btn').forEach(btn => {
+  btn.addEventListener('mousedown', e => e.preventDefault()); // empêche le blur sur la barre
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.search-cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.cat;
+    // Mettre à jour le placeholder
+    const placeholders = { all: 'Rechercher dans toute l\'archive...', jeux: 'Rechercher un jeu...', animes: 'Rechercher un animé...', films: 'Rechercher un film...', series: 'Rechercher une série...' };
+    document.getElementById('globalSearch').placeholder = placeholders[activeCategory];
+    // Relancer la recherche si y a déjà du texte
+    document.getElementById('globalSearch').dispatchEvent(new Event('input'));
+  });
+});
+
 document.getElementById('globalSearch').addEventListener('input', function() {
   const q = this.value.toLowerCase().trim();
   const noResults = document.getElementById('noResultsOverlay');
   const musicSection = document.getElementById('musicSection');
+  const hero = document.querySelector('.hero');
+  const globalSearchWrap = document.querySelector('.global-search');
 
   if (!q) {
-    // Reset tout
     document.querySelectorAll('.searchable').forEach(el => el.style.display = '');
     document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => g.style.display = '');
     document.querySelectorAll('.section-header').forEach(el => el.style.display = '');
     const reliquesSection = document.querySelector('.reliques-section');
     if (reliquesSection) reliquesSection.style.display = '';
+    const reliquesHeader = document.querySelector('.reliques-header');
+    if (reliquesHeader) reliquesHeader.style.display = '';
     document.querySelectorAll('.game-year-divider').forEach(el => el.style.display = '');
     document.querySelectorAll('.cat-title').forEach(el => el.style.display = '');
     document.querySelectorAll('.filters').forEach(el => el.style.display = '');
@@ -2044,94 +2177,73 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     document.querySelectorAll('.tierlist-card.searchable').forEach(el => el.style.display = '');
     noResults.style.display = 'none';
     document.getElementById('animeNoResults').style.display = 'none';
+    const flatGrid = document.getElementById('searchFlatGrid');
+    if (flatGrid) flatGrid.remove();
+    const ch = document.getElementById('crashout');
+    const th = document.getElementById('tierlists');
+    if (ch) { ch.style.display = ''; if (ch.nextElementSibling) ch.nextElementSibling.style.display = ''; }
+    if (th) { th.style.display = ''; if (th.nextElementSibling) th.nextElementSibling.style.display = ''; }
+    const cs = document.getElementById('chefshini');
+    if (cs) { cs.style.display = ''; if (cs.nextElementSibling) cs.nextElementSibling.style.display = ''; }
     return;
   }
 
-  document.querySelectorAll('.searchable').forEach(el => {
-    el.style.display = (el.dataset.title || '').toLowerCase().includes(q) ? '' : 'none';
-  });
-
-  const sectionIds = ['jeux','animes','cinema','series','musique'];
-  const sectionHeaders = document.querySelectorAll('.section-header');
-  
-  sectionHeaders.forEach(header => {
-    const id = header.id;
-    // Trouver les éléments searchable qui appartiennent à cette section
-    // On cherche entre ce header et le prochain
-    let hasMatch = false;
-    
-    if (id === 'jeux') {
-      const reliquesVisible = [...document.querySelectorAll('.reliques-grid .searchable')].some(el => el.style.display !== 'none');
-      const gameGridVisible = [...document.querySelectorAll('.game-grid .searchable')].some(el => el.style.display !== 'none');
-      hasMatch = reliquesVisible || gameGridVisible;
-      // Masquer/afficher la section reliques
-      const reliquesSection = document.querySelector('.reliques-section');
-      if (reliquesSection) reliquesSection.style.display = reliquesVisible ? '' : 'none';
-    } else if (id === 'animes') {
-      hasMatch = [...document.querySelectorAll('#animeGrid .searchable')].some(el => el.style.display !== 'none');
-    } else if (id === 'cinema') {
-      hasMatch = [...document.querySelectorAll('#cinemaGrid .searchable')].some(el => el.style.display !== 'none');
-    } else if (id === 'series') {
-      const seriesGrid = header.nextElementSibling;
-      hasMatch = seriesGrid ? [...seriesGrid.querySelectorAll('.searchable')].some(el => el.style.display !== 'none') : false;
-    } else if (id === 'musique') {
-      hasMatch = false; // musique n'a pas de searchables
-    }
-    
-    header.style.display = hasMatch ? '' : 'none';
-  });
-
-  document.querySelectorAll('.game-year-divider').forEach(divider => {
-    let next = divider.nextElementSibling;
-    let hasVisible = false;
-    while (next && !next.classList.contains('game-year-divider')) {
-      if (next.classList.contains('game-card') && next.style.display !== 'none') {
-        hasVisible = true; break;
-      }
-      next = next.nextElementSibling;
-    }
-    divider.style.display = hasVisible ? '' : 'none';
-  });
-
-  document.querySelectorAll('#cinemaGrid .cat-group').forEach(g => {
-    const hasVisible = [...g.querySelectorAll('.list-item')].some(i => i.style.display !== 'none');
-    g.style.display = hasVisible ? '' : 'none';
-  });
-
-  document.querySelectorAll('.filters').forEach(el => el.style.display = 'none');
-  document.querySelectorAll('.cinema-filter').forEach(b => b.classList.remove('active'));
-  const allBtn = document.querySelector('.cinema-filter[data-filter="all"]');
-  if (allBtn) allBtn.classList.add('active');
-
-  musicSection.style.display = 'none';
-
+  // Cacher crashout, tierlist, chef shini, musique
   const crashHeader = document.getElementById('crashout');
   const crashGrid = crashHeader ? crashHeader.nextElementSibling : null;
   const tierHeader = document.getElementById('tierlists');
   const tierGrid = tierHeader ? tierHeader.nextElementSibling : null;
+  if (crashHeader) crashHeader.style.display = 'none';
+  if (crashGrid) crashGrid.style.display = 'none';
+  if (tierHeader) tierHeader.style.display = 'none';
+  if (tierGrid) tierGrid.style.display = 'none';
+  const chefShini = document.getElementById('chefshini');
+  const chefShiniGrid = chefShini ? chefShini.nextElementSibling : null;
+  if (chefShini) chefShini.style.display = 'none';
+  if (chefShiniGrid) chefShiniGrid.style.display = 'none';
+  musicSection.style.display = 'none';
 
-  // Filtrer les cartes tierlist/crashout
-  let hasCrash = false, hasTier = false;
-  document.querySelectorAll('#crashout ~ .tierlist-grid .searchable, .tierlist-grid').forEach(grid => {});
-  if (crashGrid) {
-    crashGrid.querySelectorAll('.searchable').forEach(el => {
-      const match = (el.dataset.title || '').toLowerCase().includes(q);
-      el.style.display = match ? '' : 'none';
-      if (match) hasCrash = true;
-    });
-  }
-  if (tierGrid) {
-    tierGrid.querySelectorAll('.searchable').forEach(el => {
-      const match = (el.dataset.title || '').toLowerCase().includes(q);
-      el.style.display = match ? '' : 'none';
-      if (match) hasTier = true;
-    });
-  }
-  if (crashHeader) { crashHeader.style.display = hasCrash ? '' : 'none'; if (crashGrid) crashGrid.style.display = hasCrash ? '' : 'none'; }
-  if (tierHeader) { tierHeader.style.display = hasTier ? '' : 'none'; if (tierGrid) tierGrid.style.display = hasTier ? '' : 'none'; }
+  // Cacher tout le contenu sectionné
+  document.querySelectorAll('.section-header, .game-year-divider, .cat-title, .cat-group, .filters, .reliques-section, .reliques-header').forEach(el => el.style.display = 'none');
 
-  const anyVisible = [...document.querySelectorAll('.searchable')].some(el => el.style.display !== 'none');
-  noResults.style.display = anyVisible ? 'none' : 'block';
+  // Grille flat
+  let flatGrid = document.getElementById('searchFlatGrid');
+  if (!flatGrid) {
+    flatGrid = document.createElement('div');
+    flatGrid.id = 'searchFlatGrid';
+    flatGrid.style.cssText = 'display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; padding: 0 0 40px;';
+    document.querySelector('.container').insertBefore(flatGrid, document.querySelector('.section-header'));
+  }
+  flatGrid.innerHTML = '';
+  flatGrid.style.display = 'grid';
+
+  // Définir quelles cartes appartiennent à quelle catégorie
+  const getCat = el => {
+    if (el.classList.contains('game-card')) return 'jeux';
+    if (el.closest('#animeGrid')) return 'animes';
+    if (el.closest('#cinemaGrid')) return 'films';
+    if (el.closest('#seriesGrid')) return 'series';
+    return 'other';
+  };
+
+  let count = 0;
+  document.querySelectorAll('.searchable').forEach(el => {
+    const title = (el.dataset.title || '').toLowerCase();
+    const cat = getCat(el);
+    const catMatch = activeCategory === 'all' || cat === activeCategory;
+    const titleMatch = title.startsWith(q);
+    el.style.display = 'none';
+    if (titleMatch && catMatch) {
+      const clone = el.cloneNode(true);
+      clone.style.display = '';
+      clone.addEventListener('click', () => openFlip(el));
+      flatGrid.appendChild(clone);
+      count++;
+    }
+  });
+
+  noResults.style.display = count === 0 ? 'block' : 'none';
+  document.getElementById('animeNoResults').style.display = 'none';
 });
 
 (function(){
@@ -2165,9 +2277,9 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 
 // COUNTS
 document.getElementById('countGames').textContent = '122';
-document.getElementById('countAnimes').textContent = '30';
-document.getElementById('countMovies').textContent = '130';
-document.getElementById('countSeries').textContent = '3';
+document.getElementById('countAnimes').textContent = '34';
+document.getElementById('countMovies').textContent = '139';
+document.getElementById('countSeries').textContent = '4';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -2355,14 +2467,14 @@ const FAKE_DATA = {
   "Ip Man 2":                        { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
   "Le Mans 66 Ford v Ferrari":       { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   // SCI-FI & DRAME
-  "Oppenheimer Nolan":               { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
-  "Inception Nolan":                 { note: null, date: 'Sept 2023', status: 'termine', comment: 'À venir' },
-  "Interstellar Nolan":              { note: null, date: 'Août 2023', status: 'termine', comment: 'À venir' },
-  "Le Prestige Nolan":               { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
-  "Les Évadés Shawshank Redemption": { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
-  "Parasite Bong Joon-ho":           { note: null, date: 'Juil 2025', status: 'termine', comment: 'À venir' },
-  "Seul sur Mars The Martian":       { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
-  "Seven Se7en":                     { note: null, date: 'Juin 2025', status: 'termine', comment: 'À venir' },
+  "Oppenheimer":               { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
+  "Inception":                 { note: null, date: 'Sept 2023', status: 'termine', comment: 'À venir' },
+  "Interstellar":              { note: null, date: 'Août 2023', status: 'termine', comment: 'À venir' },
+  "Le Prestige":               { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
+  "Les Évadés": { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
+  "Parasite":           { note: null, date: 'Juil 2025', status: 'termine', comment: 'À venir' },
+  "Seul sur Mars":       { note: null, date: 'Avr 2024',  status: 'termine', comment: 'À venir' },
+  "Seven":                     { note: null, date: 'Juin 2025', status: 'termine', comment: 'À venir' },
   "Time Out In Time":                { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   "Memories of Murder":              { note: null, date: 'Nov 2025',  status: 'termine', comment: 'À venir' },
   "Tu ne tueras point":              { note: null, date: 'Nov 2023',  status: 'termine', comment: 'À venir' },
@@ -2391,7 +2503,18 @@ const FAKE_DATA = {
   "Kaiji 2":                         { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
   "Kaiji 3":                         { note: null, date: 'Avr 2023',  status: 'termine', comment: 'À venir' },
   // COMÉDIES
-  "Le Crocodile du Botswanga":       { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
+  "Wall-E":                            { note: null, date: 'Fév 2026',  status: 'termine', comment: 'À venir' },
+  "Dr Stone":                          { note: null, date: 'Mai/Juin 2021', status: 'termine', comment: 'Le React Maudit' },
+  "Inazuma Eleven":                    { note: null, date: 'Jan 2022',  status: 'termine', comment: 'À venir' },
+  "Beyblade Metal Fusion":             { note: null, date: 'Fév 2024',  status: 'termine', comment: 'À venir' },
+  "Inazuma Eleven contre les Ogres":   { note: null, date: 'Fév 2022',  status: 'termine', comment: 'À venir' },
+  "Inazuma Eleven Go":                 { note: null, date: 'Mars 2022', status: 'termine', comment: 'À venir' },
+  "Inazuma Eleven Go le film":         { note: null, date: 'Mars 2022', status: 'termine', comment: 'À venir' },
+  "Inazuma Eleven Go Chrono Stones":   { note: null, date: 'Avr 2022',  status: 'termine', comment: 'À venir' },
+  "One Piece Z":                       { note: null, date: 'Mars 2023', status: 'termine', comment: 'À venir' },
+  "Jumanji 1995":                      { note: null, date: 'Juin 2024', status: 'termine', comment: 'À venir' },
+  "The Bear S1":                       { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
+  "Takopi's Original Sin":             { note: null, date: 'Août 2025', status: 'termine', comment: 'À venir' },
   "Les Saveurs du Palais":           { note: null, date: 'Sept 2023', status: 'termine', comment: 'À venir' },
   "100 Metters sport":               { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   "K-pop Demon Hunters":             { note: null, date: 'Déc 2025',  status: 'termine', comment: 'À venir' },
@@ -2821,7 +2944,7 @@ const PATREON_LINKS = {
   "Jujutsu Kaisen S3": "https://www.patreon.com/collection/1935564?view=expanded",
   "Code Geass S1": "https://www.patreon.com/collection/2028445?view=expanded",
   "Code Geass S2": "https://www.patreon.com/collection/2028445?view=expanded",
-  "Oppenheimer Nolan": "https://www.patreon.com/posts/115241658?collection=881971",
+  "Oppenheimer": "https://www.patreon.com/posts/115241658?collection=881971",
   "Tu ne tueras point": "https://www.patreon.com/posts/116947940?collection=881971",
   "Sinister 1": "https://www.patreon.com/posts/116947942?collection=881971",
   "Les Saveurs du Palais": "https://www.patreon.com/posts/116948569?collection=881971",
@@ -2836,8 +2959,12 @@ const PATREON_LINKS = {
   "Harry Potter Reliques de la Mort 1": "https://www.patreon.com/posts/116948939?collection=881971",
   "Harry Potter Reliques de la Mort 2": "https://www.patreon.com/posts/116948975?collection=881971",
   "Harry Potter Ordre du Phénix": "https://www.patreon.com/posts/116949751?collection=881971",
-  "Star Wars Un Nouvel Espoir": "https://www.patreon.com/posts/119793763?collection=881971",
+  "Star Wars Un Nouvel Espoir": "https://www.patreon.com/posts/react-film-star-119793763?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share",
+  "Star Wars L'Empire Contre-Attaque": "https://www.patreon.com/posts/react-film-star-119793763?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share",
   "Star Wars Le Retour du Jedi": "https://www.patreon.com/posts/119793765?collection=881971",
+  "Wall-E": "https://www.patreon.com/posts/react-film-wall-150876326",
+  "The Bear S1": "https://www.patreon.com/posts/react-bear-1-1-4-148522441?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share",
+  "Takopi's Original Sin": "https://www.patreon.com/posts/react-takopis-137675371?utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=postshare_fan&utm_content=web_share",
   "Star Wars La Menace Fantôme": "https://www.patreon.com/posts/119793767?collection=881971",
   "Star Wars L'Attaque des Clones": "https://www.patreon.com/posts/120225000?collection=881971",
   "Star Wars La Revanche des Sith": "https://www.patreon.com/posts/120225014?collection=881971",
@@ -2845,11 +2972,11 @@ const PATREON_LINKS = {
   "John Wick 2": "https://www.patreon.com/posts/126867116?collection=881971",
   "John Wick 3": "https://www.patreon.com/posts/127386186?collection=881971",
   "John Wick 4": "https://www.patreon.com/posts/128323835?collection=881971",
-  "Seven Se7en": "https://www.patreon.com/posts/133173752?collection=881971",
-  "Parasite Bong Joon-ho": "https://www.patreon.com/posts/133631921?collection=881971",
+  "Seven": "https://www.patreon.com/posts/133173752?collection=881971",
+  "Parasite": "https://www.patreon.com/posts/133631921?collection=881971",
   "Time Out In Time": "https://www.patreon.com/posts/135912483?collection=881971",
-  "Les Évadés Shawshank Redemption": "https://www.patreon.com/posts/136729970?collection=881971",
-  "Le Prestige Nolan": "https://www.patreon.com/posts/137521830?collection=881971",
+  "Les Évadés": "https://www.patreon.com/posts/136729970?collection=881971",
+  "Le Prestige": "https://www.patreon.com/posts/137521830?collection=881971",
   "The Equalizer 1": "https://www.patreon.com/posts/139225685?collection=881971",
   "The Equalizer 2": "https://www.patreon.com/posts/139368973?collection=881971",
   "The Equalizer 3": "https://www.patreon.com/posts/139435050?collection=881971",
@@ -2958,9 +3085,9 @@ const PATREON_LINKS = {
   "The Dark Pictures: Man of Medan": "https://www.patreon.com/posts/121007693?collection=1291693",
   "The Dark Pictures: Little Hope": "https://www.patreon.com/posts/121007688?collection=1291693",
   "Until Dawn": "https://www.patreon.com/posts/121007683?collection=1291693",
-  "Interstellar Nolan": "https://www.patreon.com/posts/114823664?collection=881971",
-  "Seul sur Mars The Martian": "https://www.patreon.com/posts/114440041?collection=881971",
-  "Inception Nolan": "https://www.patreon.com/posts/114823659?collection=881971",
+  "Interstellar": "https://www.patreon.com/posts/114823664?collection=881971",
+  "Seul sur Mars": "https://www.patreon.com/posts/114440041?collection=881971",
+  "Inception": "https://www.patreon.com/posts/114823659?collection=881971",
   "100% Physique S1": "https://www.patreon.com/collection/895728?view=expanded",
   "100% Physique S2": "https://www.patreon.com/collection/895728?view=expanded",
   "Fermat Kitchen": "https://www.patreon.com/collection/895728?view=expanded",
@@ -3111,14 +3238,24 @@ function openFlip(item) {
     'type-origin': 'rgba(220,20,60,0.7)',
   };
   // Pour les cartes origin on override le typeClass
-  const effectiveType = rarityClass === 'rarity-origin' ? 'type-origin' : typeClass;
-  const frontColor = frontColors[effectiveType] || 'rgba(0,212,255,0.4)';
+  const effectiveType = rarityClass === 'rarity-origin' ? 'type-origin' : rarityClass === 'rarity-cursed' ? 'type-cursed' : typeClass;
+  const frontColors2 = { ...frontColors, 'type-cursed': 'rgba(50,0,80,0.8)' };
+  const frontColor = frontColors2[effectiveType] || 'rgba(0,212,255,0.4)';
   flipFront.style.borderColor = frontColor;
-  flipFront.style.boxShadow = `0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px ${frontColor.replace('0.6','0.2').replace('0.5','0.15').replace('0.7','0.25')}`;
+  flipFront.style.boxShadow = rarityClass === 'rarity-cursed'
+    ? `0 30px 80px rgba(0,0,0,1), 0 0 0 2px #000, 0 0 40px rgba(30,0,60,0.6)`
+    : `0 30px 80px rgba(0,0,0,0.8), 0 0 0 1px ${frontColor.replace('0.6','0.2').replace('0.5','0.15').replace('0.7','0.25')}`;
   flipFront.querySelectorAll('.flip-front-particle').forEach(p => p.remove());
   if (rarityClass === 'rarity-origin') {
     for (let i = 0; i < 18; i++) {
       const e = createEmber();
+      e.classList.add('flip-front-particle');
+      flipFront.appendChild(e);
+    }
+  }
+  if (rarityClass === 'rarity-cursed' && window.createCursedParticle) {
+    for (let i = 0; i < 22; i++) {
+      const e = createCursedParticle();
       e.classList.add('flip-front-particle');
       flipFront.appendChild(e);
     }
@@ -3190,9 +3327,9 @@ document.querySelectorAll('.list-item').forEach(item => {
 });
 
 document.getElementById('countGames').textContent = '122';
-document.getElementById('countAnimes').textContent = '30';
-document.getElementById('countMovies').textContent = '130';
-document.getElementById('countSeries').textContent = '3';
+document.getElementById('countAnimes').textContent = '34';
+document.getElementById('countMovies').textContent = '139';
+document.getElementById('countSeries').textContent = '4';
 
 </script>
 
