@@ -475,19 +475,24 @@ nav::after {
 
 /* ── MAUDIT : aura noire ── */
 .list-item.rarity-cursed {
-  border-color: rgba(0,0,0,1);
-  box-shadow: 0 0 0 2px rgba(0,0,0,1), 0 0 25px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(0,0,0,0.5);
+  border: 2px solid rgba(60,0,90,0.9) !important;
+  box-shadow: 0 0 0 1px #000, 0 0 25px rgba(40,0,60,0.95), 0 0 60px rgba(20,0,40,0.8), 0 0 100px rgba(10,0,20,0.6), inset 0 0 30px rgba(0,0,0,0.7);
   animation: auraCursed 2.5s ease-in-out infinite;
 }
 @keyframes auraCursed {
-  0%,100% { box-shadow: 0 0 0 2px #000, 0 0 20px rgba(0,0,0,0.9), 0 0 45px rgba(0,0,0,0.7), inset 0 0 15px rgba(0,0,0,0.4); }
-  50%      { box-shadow: 0 0 0 3px #000, 0 0 40px rgba(0,0,0,1), 0 0 80px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.6); }
+  0%,100% {
+    box-shadow: 0 0 0 1px #000, 0 0 20px rgba(40,0,60,0.9), 0 0 50px rgba(20,0,40,0.7), 0 0 90px rgba(10,0,20,0.5), inset 0 0 25px rgba(0,0,0,0.6);
+    border-color: rgba(60,0,90,0.9);
+  }
+  50% {
+    box-shadow: 0 0 0 2px #000, 0 0 40px rgba(60,0,100,1), 0 0 80px rgba(30,0,60,0.9), 0 0 130px rgba(15,0,30,0.7), inset 0 0 40px rgba(0,0,0,0.8);
+    border-color: rgba(100,0,150,1);
+  }
 }
 .list-item.rarity-cursed:hover {
-  border-color: #000;
-  box-shadow: 0 20px 50px rgba(0,0,0,1), 0 0 0 3px #000, 0 0 60px rgba(0,0,0,1), 0 0 100px rgba(0,0,0,0.8) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,1), 0 0 0 2px rgba(80,0,120,1), 0 0 60px rgba(50,0,80,1), 0 0 120px rgba(30,0,60,0.8) !important;
 }
-.list-item.rarity-cursed .card-label { color: rgba(160,160,160,0.7); }
+.list-item.rarity-cursed .card-label { color: rgba(180,130,220,0.8); }
 
 .game-card.rarity-horror { border-color: var(--border); }
 .game-card.rarity-horror::before { opacity: 0.85; }
@@ -723,7 +728,7 @@ footer::before {
 
 .flip-scene {
   perspective: 1200px;
-  width: 340px; height: 580px;
+  width: 380px; height: 545px;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -738,7 +743,6 @@ footer::before {
 .flip-card {
   width: 100%; height: 100%;
   position: relative;
-  transform-style: preserve-3d;
   transform: rotateY(0deg) scale(0.15);
   opacity: 0;
   transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.25s ease;
@@ -749,16 +753,32 @@ footer::before {
   opacity: 1;
 }
 .flip-card.flipped {
-  transform: rotateY(180deg) scale(1.04);
+  transform: rotateY(0deg) scale(1.04);
   opacity: 1;
 }
 
 .flip-front, .flip-back {
   position: absolute; inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 16px;
   overflow: hidden;
+}
+
+.flip-back {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.25s ease 0.15s, transform 0.25s ease 0.15s;
+  pointer-events: none;
+}
+
+.flip-card.flipped .flip-back {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
+}
+
+.flip-card.flipped .flip-front {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* FACE AVANT */
@@ -788,7 +808,6 @@ footer::before {
 
 /* FACE ARRIÈRE */
 .flip-back {
-  transform: rotateY(180deg);
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 30px 80px rgba(0,0,0,0.8);
   background: #080818;
@@ -804,17 +823,17 @@ footer::before {
   isolation: isolate;
 }
 .flip-back-type {
-  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
   letter-spacing: 4px; text-transform: uppercase;
   opacity: 0.6; color: white;
 }
 .flip-back-title {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
   letter-spacing: 3px; color: white; line-height: 1.1;
 }
 .flip-back-status {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Space Mono', monospace; font-size: 0.55rem;
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
   letter-spacing: 2px; text-transform: uppercase;
   padding: 4px 10px; border-radius: 20px;
   width: fit-content;
@@ -837,15 +856,15 @@ footer::before {
   border-radius: 10px; padding: 10px 12px;
 }
 .flip-back-stat-label {
-  font-family: 'Space Mono', monospace; font-size: 0.48rem;
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
   color: rgba(255,255,255,0.45); letter-spacing: 3px; text-transform: uppercase;
   margin-bottom: 5px;
 }
 .flip-back-stat-value {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px;
 }
 .flip-back-stat-value.cyan  { color: var(--cyan); }
-.flip-back-stat-value.white { color: white; font-size: 1rem; }
+.flip-back-stat-value.white { color: white; font-size: 1.2rem; }
 
 .flip-back-comment {
   background: rgba(10,10,30,0.85);
@@ -853,15 +872,15 @@ footer::before {
   border-left: 3px solid rgba(255,255,255,0.3);
   border-radius: 0 8px 8px 0;
   padding: 10px 12px;
-  font-size: 0.8rem; line-height: 1.6;
+  font-size: 0.95rem; line-height: 1.6;
   color: rgba(255,255,255,0.75); font-style: italic;
 }
 .flip-youtube-btn {
   display: flex; align-items: center; gap: 8px;
   background: rgba(255,0,0,0.08); border: 1px solid rgba(255,0,0,0.3);
-  color: #ffffff; border-radius: 6px; padding: 7px 12px;
+  color: #ffffff; border-radius: 6px; padding: 8px 14px;
   text-decoration: none; font-family: 'Space Mono', monospace;
-  font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase;
+  font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;
   transition: all 0.2s;
 }
 .flip-youtube-btn:hover {
@@ -871,14 +890,24 @@ footer::before {
 }
 .flip-patreon {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 10px 16px;
+  padding: 11px 16px;
   background: rgba(255,66,77,0.12);
   border: 1px solid rgba(255,66,77,0.35); border-radius: 8px;
   color: #ff6b7a; text-decoration: none;
-  font-family: 'Space Mono', monospace; font-size: 0.6rem;
+  font-family: 'Space Mono', monospace; font-size: 0.75rem;
   letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
   transition: all 0.2s;
 }
+#flipYoutubeLinks::-webkit-scrollbar { width: 3px; }
+#flipYoutubeLinks::-webkit-scrollbar-track { background: transparent; }
+#flipYoutubeLinks::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+#flipYoutubeLinks {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+  padding-right: 4px;
+}
+
 .flip-patreon:hover {
   background: rgba(255,66,77,0.22); border-color: rgba(255,66,77,0.7);
   color: white; transform: translateY(-2px);
@@ -986,7 +1015,7 @@ footer::before {
   .filter-btn { font-size:0.55rem; padding:5px 10px; letter-spacing:1px; }
 
   /* FLIP CARD */
-  .flip-scene { width:280px; height:400px; }
+  .flip-scene { width:340px; height:490px; }
   .flip-back-title { font-size:1.3rem; }
   .flip-back-content { padding:16px 14px 14px; gap:8px; }
 
@@ -1006,7 +1035,7 @@ footer::before {
   .hero-stats { gap:14px; }
   .stat-num { font-size:1.8rem; }
   .footer-links { flex-direction:column; align-items:center; }
-  .flip-scene { width:240px; height:345px; }
+  .flip-scene { width:300px; height:430px; }
 }
 
 .hero h1 .word-shinii { display:block; }
@@ -1079,10 +1108,13 @@ footer::before {
           </div>
           <div class="flip-back-comment" id="flipComment"></div>
           <a class="flip-patreon" id="flipPatreon" href="#" target="_blank" style="display:none">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.21 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
             React sur Patreon
           </a>
-          <div id="flipYoutubeLinks" style="display:none; margin-top:8px; flex-direction:column; gap:5px;"></div>
+          <button id="flipEpisodesToggle" style="display:none; width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:6px; color:rgba(255,255,255,0.6); font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; padding:8px 12px; cursor:pointer; text-align:left; transition:all 0.2s;">
+            <span id="flipEpisodesLabel">▶ épisodes</span>
+          </button>
+          <div id="flipYoutubeLinks" style="display:none; flex-direction:column; gap:5px; max-height:0; overflow:hidden; transition:max-height 0.35s ease;"></div>
           <div id="flipReactLost" style="display:none; margin-top:10px; padding:8px 12px; background:rgba(255,45,59,0.07); border:1px solid rgba(255,45,59,0.2); border-radius:6px; font-family:'Space Mono',monospace; font-size:0.55rem; color:#ff6b7a; letter-spacing:2px; text-align:center;">
             ⚠ REACT PERDU
           </div>
@@ -1104,7 +1136,7 @@ footer::before {
 <nav>
   <span class="nav-logo"><img src="floaters/link.gif" alt="S-Gang logo" width="32" height="32" style="height:32px; vertical-align:middle; margin-right:8px;" loading="eager" fetchpriority="high">S-GANG ENCYCLOPÉDIE<img src="floaters/link.gif" alt="" width="32" height="32" style="height:32px; vertical-align:middle; margin-left:8px; transform:scaleX(-1);" loading="eager"></span>
   <div class="nav-links">
-    <a href="#jeux">Jeux</a>
+    <a href="#jeux">Jeu</a>
     
     <a href="#crashout">Émissions</a><a href="#tierlists">Tier Lists</a><a href="#musique">Musique</a><a href="#series">Séries</a>
     <a href="#animes">Animés</a>
@@ -1450,9 +1482,9 @@ footer::before {
     <div class="cat-group" data-category="spiderman">
       <div class="cat-title">Spider-Man</div>
       <div class="list-grid">
-        <div class="list-item searchable" data-title="Spider-Man 1 Sam Raimi"><img class="card-img" src="images/spiderman1.webp" alt="Spider-Man 1 Sam Raimi" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 1</div></div>
-        <div class="list-item searchable" data-title="Spider-Man 2 Sam Raimi"><img class="card-img" src="images/spiderman2.webp" alt="Spider-Man 2 Sam Raimi" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 2</div></div>
-        <div class="list-item searchable" data-title="Spider-Man 3 Sam Raimi"><img class="card-img" src="images/spiderman3.webp" alt="Spider-Man 3 Sam Raimi" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 3</div></div>
+        <div class="list-item searchable" data-title="Spider-Man 1"><img class="card-img" src="images/spiderman1.webp" alt="Spider-Man 1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 1</div></div>
+        <div class="list-item searchable" data-title="Spider-Man 2"><img class="card-img" src="images/spiderman2.webp" alt="Spider-Man 2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 2</div></div>
+        <div class="list-item searchable" data-title="Spider-Man 3"><img class="card-img" src="images/spiderman3.webp" alt="Spider-Man 3" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Spider-Man 3</div></div>
         <div class="list-item searchable" data-title="The Amazing Spider-Man 1"><img class="card-img" src="images/amazingspiderman1.webp" alt="The Amazing Spider-Man 1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Amazing Spider-Man 1</div></div>
         <div class="list-item searchable" data-title="The Amazing Spider-Man 2"><img class="card-img" src="images/amazingspiderman2.webp" alt="The Amazing Spider-Man 2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Amazing Spider-Man 2</div></div>
         <div class="list-item searchable" data-title="Spider-Man New Generation Into the Spider-Verse"><img class="card-img" src="images/spiderverse.webp" alt="Spider-Man New Generation Into the Spider-Verse" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">New Generation</div></div>
@@ -1745,6 +1777,21 @@ footer::before {
   </div>
 </div>
 </div><!-- /musicSection -->
+<!-- ═══ JEU BANNIÈRE ═══ -->
+<div id="jeuBanniere" style="max-width:900px;margin:0 auto;padding:0 48px;">
+<div class="section-header reveal" style="margin-top:60px;">
+  <h2>Qui est-ce ?</h2><div class="section-line"></div><span class="section-tag" style="border-color:rgba(255,215,0,0.4);color:#ffd700;">S-Gang Quiz</span>
+</div>
+
+<div class="reveal" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:16px;padding:20px 20px 30px;border:1px solid rgba(255,215,0,0.2);border-radius:16px;text-align:center;position:relative;overflow:hidden;height:260px;">
+  <img src="floaters/ohoh.gif" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;z-index:0;border-radius:16px;" loading="lazy">
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(4,4,10,0.85) 0%,transparent 55%);z-index:1;border-radius:16px;"></div>
+  <button onclick="openRQ()" style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.6);border-radius:10px;padding:14px 28px;color:#ffd700;cursor:pointer;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;transition:all 0.25s;position:relative;z-index:2;" onmouseover="this.style.background='rgba(255,215,0,0.25)';this.style.transform='translateY(-3px)'" onmouseout="this.style.background='rgba(255,215,0,0.12)';this.style.transform=''">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    Jouer au jeu
+  </button>
+</div>
+</div>
 
 <div id="noResultsOverlay" style="display:none; position:relative; z-index:1; text-align:center; padding:80px 20px;">
   <img src="floaters/pikazzz.gif" alt="" width="140" height="140" style="height:140px; margin-bottom:20px;" loading="lazy">
@@ -1777,7 +1824,7 @@ footer::before {
       </a>
     </div>
   </div>
-  <p class="footer-copy">© 2026 L'ANTRE DE SHINII</p>
+  
 </footer>
 
 <script>
@@ -2002,7 +2049,10 @@ footer::before {
     const isFlipped = card.classList.contains('flipped');
     const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.08s ease';
-    card.style.transform  = `rotateY(${baseRot + rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+    // Pas de tilt sur la face arrière
+    card.style.transform  = isFlipped
+      ? `rotateY(0deg) scale(1.04)`
+      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
 
     if (!isFlipped) {
       const px = ((x / rect.width)  * 100).toFixed(1);
@@ -2025,17 +2075,15 @@ footer::before {
   scene.addEventListener('touchend', () => {
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
-    const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
   }, { passive: true });
   window.addEventListener('mouseup',  () => {
     if (!isPressed) return;
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
-    const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
     shineF.style.opacity  = '0';
     shineB.style.opacity  = '0';
   });
@@ -2056,7 +2104,10 @@ footer::before {
     const isFlipped = card.classList.contains('flipped');
     const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.08s ease';
-    card.style.transform  = `rotateY(${baseRot + rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+    // Pas de tilt sur la face arrière pour éviter le flou
+    card.style.transform  = isFlipped
+      ? `rotateY(0deg) scale(1.04)`
+      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
 
     // Reflet holographique arc-en-ciel sur la face avant
     if (!isFlipped) {
@@ -2080,9 +2131,8 @@ footer::before {
   scene.addEventListener('mouseleave', () => {
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
-    const baseRot   = isFlipped ? 180 : 0;
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(${baseRot}deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
     shineF.style.opacity  = '0';
     shineB.style.opacity  = '0';
   });
@@ -2170,6 +2220,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     document.querySelectorAll('.cat-title').forEach(el => el.style.display = '');
     document.querySelectorAll('.filters').forEach(el => el.style.display = '');
     musicSection.style.display = '';
+    document.getElementById('jeuBanniere').style.display = '';
     document.getElementById('crashout').style.display = '';
     document.getElementById('crashout').nextElementSibling.style.display = '';
     document.getElementById('tierlists').style.display = '';
@@ -2202,6 +2253,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
   if (chefShini) chefShini.style.display = 'none';
   if (chefShiniGrid) chefShiniGrid.style.display = 'none';
   musicSection.style.display = 'none';
+  document.getElementById('jeuBanniere').style.display = 'none';
 
   // Cacher tout le contenu sectionné
   document.querySelectorAll('.section-header, .game-year-divider, .cat-title, .cat-group, .filters, .reliques-section, .reliques-header').forEach(el => el.style.display = 'none');
@@ -2391,9 +2443,9 @@ const FAKE_DATA = {
   "Days of Future Past":             { note: null, date: 'Août 2024', status: 'termine', comment: 'À venir' },
   "X-Men Apocalypse":                { note: null, date: 'Fév 2025',  status: 'termine', comment: 'À venir' },
   // SPIDER-MAN
-  "Spider-Man 1 Sam Raimi":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
-  "Spider-Man 2 Sam Raimi":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
-  "Spider-Man 3 Sam Raimi":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
+  "Spider-Man 1":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
+  "Spider-Man 2":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
+  "Spider-Man 3":          { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
   "The Amazing Spider-Man 1":        { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
   "The Amazing Spider-Man 2":        { note: null, date: 'Juil 2023', status: 'termine', comment: 'À venir' },
   "Spider-Man New Generation Into the Spider-Verse": { note: null, date: 'Mai 2023', status: 'termine', comment: 'À venir' },
@@ -3057,9 +3109,9 @@ const PATREON_LINKS = {
   "Spider-Man No Way Home": "https://www.patreon.com/posts/117009043?collection=881980",
   "The Amazing Spider-Man 1": "https://www.patreon.com/posts/117009004?collection=881980",
   "The Amazing Spider-Man 2": "https://www.patreon.com/posts/117008970?collection=881980",
-  "Spider-Man 3 Sam Raimi": "https://www.patreon.com/posts/117008865?collection=881980",
-  "Spider-Man 2 Sam Raimi": "https://www.patreon.com/posts/117008846?collection=881980",
-  "Spider-Man 1 Sam Raimi": "https://www.patreon.com/posts/117008806?collection=881980",
+  "Spider-Man 3": "https://www.patreon.com/posts/117008865?collection=881980",
+  "Spider-Man 2": "https://www.patreon.com/posts/117008846?collection=881980",
+  "Spider-Man 1": "https://www.patreon.com/posts/117008806?collection=881980",
   "Guardians of the Galaxy": "https://www.patreon.com/posts/117008787?collection=881980",
   "Doctor Strange": "https://www.patreon.com/posts/117008757?collection=881980",
   "Deadpool 1": "https://www.patreon.com/posts/117008723?collection=881980",
@@ -3166,6 +3218,7 @@ function openFlip(item) {
     'rarity-rare':      '◆ ÉDITION DIAMANT',
     'rarity-horror':    '☠ ÉDITION NIGHTMARE',
     'rarity-common':    '⬡ ÉDITION PLATINE',
+    'rarity-cursed':    '☠ MAUDIT',
   };
   const rarityClass = [...item.classList].find(cl => rarityMap[cl]);
   const editionLabel = rarityClass ? rarityMap[rarityClass] : type;
@@ -3197,25 +3250,29 @@ function openFlip(item) {
   const youtubeLinks = YOUTUBE_LINKS[title] || [];
   const youtubeDiv = document.getElementById('flipYoutubeLinks');
 
-  // Adapter la hauteur de la carte selon le nombre de liens
+  // Taille fixe carte TCG — pas d'agrandissement
   const scene = document.getElementById('flipScene');
-  const baseH = 460;
-  const linkH = 26; // hauteur par lien en px
-  const extraH = Math.max(0, youtubeLinks.length - 3) * linkH;
-  const newH = Math.min(baseH + extraH, 700);
-  scene.style.height = newH + 'px';
+  scene.style.height = '460px';
+
+  const episodesToggle = document.getElementById('flipEpisodesToggle');
+  const episodesLabel  = document.getElementById('flipEpisodesLabel');
 
   if (youtubeLinks.length > 0) {
     youtubeDiv.style.display = 'flex';
+    youtubeDiv.style.maxHeight = '150px';
+    youtubeDiv.style.overflowY = 'auto';
+    youtubeDiv.style.marginTop = '5px';
     youtubeDiv.innerHTML = youtubeLinks.map(l =>
       `<a class="flip-youtube-btn" href="${l.url}" target="_blank">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="#ff4444"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         ${l.label}
       </a>`
     ).join('');
+    if (episodesToggle) episodesToggle.style.display = 'none';
   } else {
     youtubeDiv.style.display = 'none';
     youtubeDiv.innerHTML = '';
+    if (episodesToggle) episodesToggle.style.display = 'none';
   }
   if (patreonUrl) {
     patreonBtn.href = patreonUrl;
@@ -3223,7 +3280,21 @@ function openFlip(item) {
     reactLost.style.display = 'none';
   } else {
     patreonBtn.style.display = 'none';
-    reactLost.style.display = (isGame || (isSeries && !isCinema)) ? 'none' : 'block';
+    if (rarityClass === 'rarity-cursed') {
+      reactLost.textContent = 'LE REACT MAUDIT';
+      reactLost.style.background = 'rgba(30,0,50,0.4)';
+      reactLost.style.borderColor = 'rgba(80,0,120,0.5)';
+      reactLost.style.color = '#ffffff';
+      reactLost.style.display = 'block';
+      document.getElementById('flipComment').style.display = 'none';
+    } else {
+      reactLost.textContent = '⚠ REACT PERDU';
+      reactLost.style.background = 'rgba(255,45,59,0.07)';
+      reactLost.style.borderColor = 'rgba(255,45,59,0.2)';
+      reactLost.style.color = '#ff6b7a';
+      reactLost.style.display = (isGame || (isSeries && !isCinema)) ? 'none' : 'block';
+      document.getElementById('flipComment').style.display = '';
+    }
   }
 
   currentParticleColors = particleColors;
@@ -3309,7 +3380,7 @@ document.getElementById('flipCard').addEventListener('click', e => {
   } else {
     card.classList.add('flipped');
     card.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
-    card.style.transform = 'rotateY(180deg) rotateX(0deg) scale(1.04)';
+    card.style.transform = 'rotateY(0deg) scale(1.04)';
     spawnParticles(currentParticleColors);
   }
 });
@@ -3386,5 +3457,369 @@ document.getElementById('countSeries').textContent = '4';
 })();
 </script>
 
+
+<!-- ═══ JEU ROGUELITE ═══ -->
+<style>
+#rqOverlay{position:fixed;inset:0;z-index:9600;background:rgba(0,0,0,0.97);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+#rqOverlay.open{opacity:1;pointer-events:all;}
+#rqOverlay.open .rq-inner{animation:rqSlideIn 0.35s cubic-bezier(0.23,1,0.32,1);}
+@keyframes rqSlideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rqIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes rqShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes rqPop{0%{transform:scale(0.97)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+.rq-opt{width:100%;padding:14px 20px;margin-bottom:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;color:rgba(255,255,255,0.85);font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:1px;cursor:pointer;text-align:left;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
+.rq-opt:hover:not(:disabled){background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);color:white;transform:translateX(4px);}
+.rq-opt.correct{background:rgba(0,255,100,0.08);border-color:rgba(0,255,100,0.4);color:#00ff64;animation:rqPop 0.3s ease;}
+.rq-opt.wrong{background:rgba(220,20,60,0.08);border-color:rgba(220,20,60,0.4);color:#ff3355;animation:rqShake 0.4s ease;}
+.rq-opt:disabled{cursor:default;transform:none;}
+.rq-letter{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0;font-weight:700;}
+.rq-heart{display:inline-block;width:14px;height:14px;border-radius:50%;background:#dc143c;transition:all 0.3s;box-shadow:0 0 8px rgba(220,20,60,0.5);}
+.rq-heart.lost{background:#2a2a2a;box-shadow:none;}
+</style>
+
+<div id="rqOverlay">
+  <div class="rq-inner" style="width:100%;max-width:580px;padding:0 24px;position:relative;">
+    <button onclick="closeRQ()" style="position:absolute;top:-48px;right:24px;background:none;border:none;color:rgba(255,255,255,0.3);font-size:1.5rem;cursor:pointer;transition:color 0.2s;line-height:1;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.3)'">✕</button>
+
+    <!-- Header stats -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);border-radius:12px;padding:14px 16px;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-bottom:4px;">NIVEAU</div>
+        <div id="rqLevel" style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:4px;color:#ffd700;line-height:1;">1</div>
+      </div>
+      <div style="background:rgba(220,20,60,0.06);border:1px solid rgba(220,20,60,0.15);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;align-items:center;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-bottom:8px;">VIES</div>
+        <div id="rqHearts" style="display:flex;gap:8px;align-items:center;"></div>
+      </div>
+      <div style="background:rgba(0,212,255,0.06);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:14px 16px;text-align:right;">
+        <div style="font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-bottom:4px;">RECORD</div>
+        <div id="rqRecord" style="font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:4px;color:#00d4ff;line-height:1;">0</div>
+      </div>
+    </div>
+
+    <!-- Progress bar de feu -->
+    <div style="height:6px;background:rgba(255,255,255,0.05);border-radius:4px;margin-bottom:20px;overflow:visible;position:relative;">
+      <div id="rqProgress" style="height:100%;border-radius:4px;transition:width 0.5s ease, box-shadow 0.5s ease;width:0%;position:relative;"></div>
+    </div>
+
+    <!-- Question card -->
+    <div id="rqCard" style="background:#080812;border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px 26px;margin-bottom:14px;">
+      <div id="rqCat" style="font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:4px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:14px;"></div>
+      <div id="rqQ" style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:600;letter-spacing:0.5px;color:white;line-height:1.5;margin-bottom:22px;"></div>
+      <div id="rqOpts"></div>
+    </div>
+
+    <!-- Feedback -->
+    <div id="rqFeedback" style="display:none;text-align:center;padding:12px;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;margin-bottom:12px;"></div>
+
+    <!-- Record -->
+    <div id="rqBest" style="text-align:center;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:2px;color:rgba(255,255,255,0.18);"></div>
+  </div>
+</div>
+<script>
+const RQ_DATA=[{t:'Dragon Ball Sparking Zero',cat:'jeu',date:'Oct 2024',yr:2024,mo:'Oct'},{t:'Beyond: Two Souls',cat:'jeu',date:'Sep 2025',yr:2025,mo:''},{t:'The Walking Dead: The Final Season',cat:'jeu',date:'Mai 2025',yr:2025,mo:'Mai'},{t:'The Walking Dead: A New Frontier',cat:'jeu',date:'Avr 2025',yr:2025,mo:'Avr'},{t:'Batman: Arkham Knight',cat:'jeu',date:'Août 2025',yr:2025,mo:'Août'},{t:'Batman: Return to Arkham',cat:'jeu',date:'Juin 2025',yr:2025,mo:'Juin'},{t:'MHA: The Strongest Hero',cat:'jeu',date:'Mai 2021',yr:2021,mo:'Mai'},{t:'Spider-Man Remastered',cat:'jeu',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Pokémon HeartGold/SoulSilver',cat:'jeu',date:'Mai 2023',yr:2023,mo:'Mai'},{t:'Zelda: Breath of the Wild',cat:'jeu',date:'Mar 2026',yr:2026,mo:''},{t:'Pokopia',cat:'jeu',date:'Mar 2026',yr:2026,mo:''},{t:'Super Mario Galaxy 2',cat:'jeu',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Super Mario Galaxy',cat:'jeu',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'Mario Kart 8 Deluxe',cat:'jeu',date:'Fév 2025',yr:2025,mo:'Fév'},{t:'Mario Kart World',cat:'jeu',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Outlast',cat:'jeu',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Fortnite',cat:'jeu',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'Inazuma Eleven Victory Road',cat:'jeu',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'VALORANT',cat:'jeu',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'Doomsday: Last Survivors',cat:'jeu',date:'Nov 2025',yr:2025,mo:'Nov'},{t:'Detroit: Become Human',cat:'jeu',date:'Août 2025',yr:2025,mo:'Août'},{t:'Batman: Arkham Asylum',cat:'jeu',date:'Juin 2025',yr:2025,mo:'Juin'},{t:'Batman: Arkham City',cat:'jeu',date:'Août 2025',yr:2025,mo:'Août'},{t:'Little Nightmares II',cat:'jeu',date:'Mai 2025',yr:2025,mo:'Mai'},{t:'Little Nightmares I',cat:'jeu',date:'Mai 2025',yr:2025,mo:'Mai'},{t:'Monster Hunter Wilds',cat:'jeu',date:'Mar 2025',yr:2025,mo:''},{t:'League of Legends',cat:'jeu',date:'Mar 2025',yr:2025,mo:''},{t:'ROBLOX',cat:'jeu',date:'Mar 2025',yr:2025,mo:''},{t:'Red Dead Redemption II',cat:'jeu',date:'Fév 2025',yr:2025,mo:'Fév'},{t:'Heavy Rain',cat:'jeu',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'The Dark Pictures: The Devil in Me',cat:'jeu',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'The Dark Pictures: House of Ashes',cat:'jeu',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'The Dark Pictures: Little Hope',cat:'jeu',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'The Dark Pictures: Man of Medan',cat:'jeu',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'Dofus',cat:'jeu',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'Until Dawn',cat:'jeu',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'The Walking Dead',cat:'jeu',date:'Avr 2025',yr:2025,mo:'Avr'},{t:'ELDEN RING',cat:'jeu',date:'Août 2024',yr:2024,mo:'Août'},{t:'Pokémon Noir 2',cat:'jeu',date:'Déc 2021',yr:2021,mo:'Déc'},{t:'Chained Together',cat:'jeu',date:'Juin 2024',yr:2024,mo:'Juin'},{t:'FFVII Rebirth',cat:'jeu',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Tekken 8',cat:'jeu',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Crisis Core FFVII',cat:'jeu',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Lethal Company',cat:'jeu',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Sekiro: Shadows Die Twice',cat:'jeu',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'MHA: All Justice',cat:'jeu',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Clair Obscur: Expedition 33',cat:'jeu',date:'Sep 2025',yr:2025,mo:''},{t:'Bleach: Rebirth of Souls',cat:'jeu',date:'Mar 2025',yr:2025,mo:''},{t:'DB Xenoverse 2',cat:'jeu',date:'Sep 2025',yr:2025,mo:''},{t:'EA Sports FC 24',cat:'jeu',date:'Oct 2023',yr:2023,mo:'Oct'},{t:'FIFA 23',cat:'jeu',date:'Mar 2022',yr:2022,mo:''},{t:'Dragon Ball Legends',cat:'jeu',date:'Déc 2021',yr:2021,mo:'Déc'},{t:'Marbles on Stream',cat:'jeu',date:'Avr 2021',yr:2021,mo:'Avr'},{t:'Football Manager 2023',cat:'jeu',date:'Jan 2023',yr:2023,mo:'Jan'},{t:'Naruto x Boruto: Storm Connections',cat:'jeu',date:'Nov 2023',yr:2023,mo:'Nov'},{t:'Pokémon Omega Ruby',cat:'jeu',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Black Clover Mobile',cat:'jeu',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Waven',cat:'jeu',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Spider-Man 2',cat:'jeu',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Spider-Man: Miles Morales',cat:'jeu',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'FFVII Remake',cat:'jeu',date:'Juin 2023',yr:2023,mo:'Juin'},{t:'Zelda: Skyward Sword',cat:'jeu',date:'Mai 2023',yr:2023,mo:'Mai'},{t:'DBZ Kakarot',cat:'jeu',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Monster Hunter Rise',cat:'jeu',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Resident Evil 4 Remake',cat:'jeu',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Hogwarts Legacy',cat:'jeu',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'New Super Mario Bros U',cat:'jeu',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'Pokémon Écarlate/Violet',cat:'jeu',date:'Déc 2022',yr:2022,mo:'Déc'},{t:'Rise of Kingdoms',cat:'jeu',date:'Déc 2022',yr:2022,mo:'Déc'},{t:'God of War Ragnarök',cat:'jeu',date:'Nov 2022',yr:2022,mo:'Nov'},{t:'FIFA 22',cat:'jeu',date:'Oct 2022',yr:2022,mo:'Oct'},{t:'Garry\'s Mod',cat:'jeu',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Final Fantasy XVI',cat:'jeu',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Cyberpunk 2077',cat:'jeu',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Fall Guys',cat:'jeu',date:'Août 2022',yr:2022,mo:'Août'},{t:'MultiVersus',cat:'jeu',date:'Août 2022',yr:2022,mo:'Août'},{t:'The Quarry',cat:'jeu',date:'Juil 2022',yr:2022,mo:'Juil'},{t:'Inazuma GO Strikers 2013',cat:'jeu',date:'Juil 2022',yr:2022,mo:'Juil'},{t:'Smash Ultimate',cat:'jeu',date:'Mai 2022',yr:2022,mo:'Mai'},{t:'Pokémon Arceus',cat:'jeu',date:'Fév 2022',yr:2022,mo:'Fév'},{t:'Yu-Gi-Oh Master Duel',cat:'jeu',date:'Fév 2022',yr:2022,mo:'Fév'},{t:'Gartic Phone',cat:'jeu',date:'Jan 2021',yr:2021,mo:'Jan'},{t:'Demon Slayer: Hinokami',cat:'jeu',date:'Mar 2022',yr:2022,mo:''},{t:'Naruto Storm 2',cat:'jeu',date:'Déc 2020',yr:2020,mo:'Déc'},{t:'Naruto Storm 3',cat:'jeu',date:'Jan 2021',yr:2021,mo:'Jan'},{t:'Naruto: Ultimate Ninja Storm',cat:'jeu',date:'Déc 2020',yr:2020,mo:'Déc'},{t:'Super Seducer 3',cat:'jeu',date:'Juin 2021',yr:2021,mo:'Juin'},{t:'Resident Evil 4',cat:'jeu',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Call of Duty: Warzone',cat:'jeu',date:'Mar 2020',yr:2020,mo:''},{t:'Raid: Shadow Legends',cat:'jeu',date:'Jan 2021',yr:2021,mo:'Jan'},{t:'Dragon Ball Z: The Legend',cat:'jeu',date:'Déc 2020',yr:2020,mo:'Déc'},{t:'Pokémon Emerald',cat:'jeu',date:'Jan 2021',yr:2021,mo:'Jan'},{t:'Captain Tsubasa Rise of Champions',cat:'jeu',date:'Sep 2020',yr:2020,mo:''},{t:'One Piece Pirate Warriors 4',cat:'jeu',date:'Avr 2020',yr:2020,mo:'Avr'},{t:'Pokémon Diamant Étincelant',cat:'jeu',date:'Déc 2021',yr:2021,mo:'Déc'},{t:'DBZ Budokai Tenkaichi 3',cat:'jeu',date:'Oct 2021',yr:2021,mo:'Oct'},{t:'ALTF4',cat:'jeu',date:'Sep 2021',yr:2021,mo:''},{t:'Resident Evil Village',cat:'jeu',date:'Août 2021',yr:2021,mo:'Août'},{t:'FIFA 21',cat:'jeu',date:'Juin 2021',yr:2021,mo:'Juin'},{t:'Resident Evil 7',cat:'jeu',date:'Juin 2021',yr:2021,mo:'Juin'},{t:'Ghost of Tsushima',cat:'jeu',date:'Mai 2021',yr:2021,mo:'Mai'},{t:'Rocket League',cat:'jeu',date:'Mai 2021',yr:2021,mo:'Mai'},{t:'God of War',cat:'jeu',date:'Mar 2024',yr:2024,mo:''},{t:'Among Us',cat:'jeu',date:'Fév 2021',yr:2021,mo:'Fév'},{t:'The Last of Us',cat:'jeu',date:'Mar 2021',yr:2021,mo:''},{t:'The Last of Us Part II',cat:'jeu',date:'Mai 2021',yr:2021,mo:'Mai'},{t:'Qui veut gagner des millions',cat:'jeu',date:'Sep 2021',yr:2021,mo:''},{t:'Getting Over It',cat:'jeu',date:'Nov 2021',yr:2021,mo:'Nov'},{t:'Dread Hunger',cat:'jeu',date:'Août 2021',yr:2021,mo:'Août'},{t:'Naruto Storm 4',cat:'jeu',date:'Jan 2022',yr:2022,mo:'Jan'},{t:'AC Valhalla',cat:'jeu',date:'Nov 2020',yr:2020,mo:'Nov'},{t:'Genshin Impact',cat:'jeu',date:'Nov 2020',yr:2020,mo:'Nov'},{t:'Phasmophobia',cat:'jeu',date:'Déc 2020',yr:2020,mo:'Déc'},{t:'Pummel Party',cat:'jeu',date:'Juin 2020',yr:2020,mo:'Juin'},{t:'7 Deadly Sins Grand Cross',cat:'jeu',date:'Avr 2020',yr:2020,mo:'Avr'},{t:'Outlast 2',cat:'jeu',date:'Avr 2020',yr:2020,mo:'Avr'},{t:'FIFA 20',cat:'jeu',date:'Fév 2020',yr:2020,mo:'Fév'},{t:'Code Geass S1',cat:'anime',date:'Mars 2026',yr:2026,mo:'Mars'},{t:'Code Geass S2',cat:'anime',date:'Mars 2026',yr:2026,mo:'Mars'},{t:'Jujutsu Kaisen S3',cat:'anime',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Re Zero S1',cat:'anime',date:'Nov 2025',yr:2025,mo:'Nov'},{t:'Re Zero S2',cat:'anime',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'Re Zero S3',cat:'anime',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'My Hero Academia S7',cat:'anime',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'My Hero Academia S8',cat:'anime',date:'Nov 2025',yr:2025,mo:'Nov'},{t:'Jojo P1 Phantom Blood',cat:'anime',date:'Sept 2024',yr:2024,mo:'Sept'},{t:'Jojo P2 Battle Tendency',cat:'anime',date:'Oct 2024',yr:2024,mo:'Oct'},{t:'Jojo P3 Stardust Crusaders',cat:'anime',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'Jojo P4 Diamond is Unbreakable',cat:'anime',date:'Mars 2025',yr:2025,mo:'Mars'},{t:'Jojo P5 Golden Wind',cat:'anime',date:'Mars 2025',yr:2025,mo:'Mars'},{t:'Jojo P6 Stone Ocean',cat:'anime',date:'Mai 2025',yr:2025,mo:'Mai'},{t:'Du Mouvement de la Terre',cat:'anime',date:'Août 2025',yr:2025,mo:'Août'},{t:'Eighty Six 86',cat:'anime',date:'Juil 2025',yr:2025,mo:'Juil'},{t:'Demon Slayer S3',cat:'anime',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Demon Slayer S4',cat:'anime',date:'Juil 2025',yr:2025,mo:'Juil'},{t:'Death Note',cat:'anime',date:'Août 2025',yr:2025,mo:'Août'},{t:'Arcane S1',cat:'anime',date:'Nov 2024',yr:2024,mo:'Nov'},{t:'Arcane S2',cat:'anime',date:'Nov 2024',yr:2024,mo:'Nov'},{t:'Kaiju No.8',cat:'anime',date:'Juil 2024',yr:2024,mo:'Juil'},{t:'Grand Blue',cat:'anime',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Frieren',cat:'anime',date:'Août 2024',yr:2024,mo:'Août'},{t:'Solo Leveling S1',cat:'anime',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Solo Leveling S2',cat:'anime',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Cyberpunk Edgerunners',cat:'anime',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Wakfu S1',cat:'anime',date:'Oct 2023',yr:2023,mo:'Oct'},{t:'Wakfu S2',cat:'anime',date:'Nov 2023',yr:2023,mo:'Nov'},{t:'Wakfu S3',cat:'anime',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Wakfu S4',cat:'anime',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Wakfu OAV Goultard Ogrest',cat:'anime',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Ranking of Kings',cat:'anime',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Jujutsu Kaisen S2',cat:'anime',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Vinland Saga S2',cat:'anime',date:'Juin 2023',yr:2023,mo:'Juin'},{t:'Blue Lock scans manga',cat:'anime',date:'Mars 2023',yr:2023,mo:'Mars'},{t:'Yu Yu Hakusho YuYu',cat:'anime',date:'Jan 2023',yr:2023,mo:'Jan'},{t:'Fate Stay Night Unlimited Blade Works',cat:'anime',date:'Juin 2022',yr:2022,mo:'Juin'},{t:'Fate Zero',cat:'anime',date:'Juin 2022',yr:2022,mo:'Juin'},{t:'Fate Stay Night Heaven\'s Feel 1',cat:'anime',date:'Juin 2022',yr:2022,mo:'Juin'},{t:'Fate Stay Night Heaven\'s Feel 2',cat:'anime',date:'Juin 2022',yr:2022,mo:'Juin'},{t:'Fate Stay Night Heaven\'s Feel 3',cat:'anime',date:'Juin 2022',yr:2022,mo:'Juin'},{t:'Fullmetal Alchemist Brotherhood',cat:'anime',date:'Août 2022',yr:2022,mo:'Août'},{t:'Classroom of the Elite S1',cat:'anime',date:'Avr 2021',yr:2021,mo:'Avr'},{t:'Classroom of the Elite S2',cat:'anime',date:'Jan 2023',yr:2023,mo:'Jan'},{t:'Dr Stone',cat:'anime',date:'Mai/Juin 2021',yr:2021,mo:'Mai'},{t:'Inazuma Eleven',cat:'anime',date:'Jan 2022',yr:2022,mo:'Jan'},{t:'Inazuma Eleven Go',cat:'anime',date:'Mars 2022',yr:2022,mo:'Mars'},{t:'Inazuma Eleven Go Chrono Stones',cat:'anime',date:'Avr 2022',yr:2022,mo:'Avr'},{t:'Beyblade Metal Fusion',cat:'anime',date:'Fév 2024',yr:2024,mo:'Fév'},{t:'Takopi\'s Original Sin',cat:'anime',date:'Août 2025',yr:2025,mo:'Août'},{t:'Great Teacher Onizuka GTO',cat:'anime',date:'Fév 2021',yr:2021,mo:'Fév'},{t:'Eyeshield 21',cat:'anime',date:'Déc 2020',yr:2020,mo:'Déc'},{t:'Hajime no Ippo Ippo boxe',cat:'anime',date:'Oct 2020',yr:2020,mo:'Oct'},{t:'Black Panther',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Avengers Endgame',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Avengers Infinity War',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Captain America Civil War',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Avengers Age of Ultron',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Avengers 1',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Guardians of the Galaxy',cat:'film',date:'Oct 2023',yr:2023,mo:'Oct'},{t:'Guardians of the Galaxy 2',cat:'film',date:'Oct 2023',yr:2023,mo:'Oct'},{t:'Doctor Strange',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Deadpool 1',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'Deadpool 2',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men Apocalypse',cat:'film',date:'Fév 2025',yr:2025,mo:'Fév'},{t:'Days of Future Past',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men 1',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men 2',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men 3 Affrontement Final',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men Origins Wolverine',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'X-Men Le Commencement',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'Spider-Man 1',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Spider-Man 2',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Spider-Man 3',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'The Amazing Spider-Man 1',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'The Amazing Spider-Man 2',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Spider-Man New Generation Into the Spider-Verse',cat:'film',date:'Mai 2023',yr:2023,mo:'Mai'},{t:'Spider-Man No Way Home',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Zack Snyder Justice League',cat:'film',date:'Août 2023',yr:2023,mo:'Août'},{t:'Batman v Superman',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'The Batman',cat:'film',date:'Août 2023',yr:2023,mo:'Août'},{t:'Batman Begins',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'The Dark Knight',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'The Dark Knight Rises',cat:'film',date:'Juil 2023',yr:2023,mo:'Juil'},{t:'Kick-Ass 1',cat:'film',date:'Juil 2025',yr:2025,mo:'Juil'},{t:'Kick-Ass 2',cat:'film',date:'Juil 2025',yr:2025,mo:'Juil'},{t:'Big Hero 6',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Là-Haut Up Pixar',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Toy Story 1',cat:'film',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Toy Story 2',cat:'film',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Toy Story 3',cat:'film',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Toy Story 4',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Les Indestructibles 1',cat:'film',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Les Indestructibles 2',cat:'film',date:'Jan 2026',yr:2026,mo:'Jan'},{t:'Cars 1',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Cars 2',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Cars 3',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Ratatouille',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Shrek 1',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Shrek 2',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Kung Fu Panda 1',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Kung Fu Panda 2',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Kung Fu Panda 3',cat:'film',date:'Jan 2024',yr:2024,mo:'Jan'},{t:'Le Chat Potté 1',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Le Chat Potté 2',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Dragons 1',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Dragons 2',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Dragons 3',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Les Cinq Légendes Rise of the Guardians',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Madagascar 1',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Madagascar 2',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Madagascar 3',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'L\'Âge de Glace 1',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'L\'Âge de Glace 2',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'L\'Âge de Glace 3',cat:'film',date:'Mai 2024',yr:2024,mo:'Mai'},{t:'Super Mario Bros le film',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Sonic le film 2',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'Sonic le film 3',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Wall-E',cat:'film',date:'Fév 2026',yr:2026,mo:'Fév'},{t:'Star Wars La Menace Fantôme',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Star Wars L\'Attaque des Clones',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Star Wars La Revanche des Sith',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Star Wars Un Nouvel Espoir',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Star Wars L\'Empire Contre-Attaque',cat:'film',date:'Déc 2024',yr:2024,mo:'Déc'},{t:'Star Wars Le Retour du Jedi',cat:'film',date:'Jan 2025',yr:2025,mo:'Jan'},{t:'Harry Potter Coupe de Feu',cat:'film',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'Harry Potter Ordre du Phénix',cat:'film',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'Harry Potter Prince de Sang-Mêlé',cat:'film',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'Harry Potter Reliques de la Mort 1',cat:'film',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'Harry Potter Reliques de la Mort 2',cat:'film',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'John Wick 1',cat:'film',date:'Mars 2025',yr:2025,mo:'Mars'},{t:'John Wick 2',cat:'film',date:'Avr 2025',yr:2025,mo:'Avr'},{t:'John Wick 3',cat:'film',date:'Avr 2025',yr:2025,mo:'Avr'},{t:'The Equalizer 1',cat:'film',date:'Sept 2025',yr:2025,mo:'Sept'},{t:'The Equalizer 2',cat:'film',date:'Sept 2025',yr:2025,mo:'Sept'},{t:'Ip Man 1',cat:'film',date:'Avr 2024',yr:2024,mo:'Avr'},{t:'Ip Man 2',cat:'film',date:'Avr 2024',yr:2024,mo:'Avr'},{t:'Oppenheimer',cat:'film',date:'Avr 2024',yr:2024,mo:'Avr'},{t:'Inception',cat:'film',date:'Sept 2023',yr:2023,mo:'Sept'},{t:'Interstellar',cat:'film',date:'Août 2023',yr:2023,mo:'Août'},{t:'Le Prestige',cat:'film',date:'Août 2025',yr:2025,mo:'Août'},{t:'Les Évadés',cat:'film',date:'Août 2025',yr:2025,mo:'Août'},{t:'Parasite',cat:'film',date:'Juil 2025',yr:2025,mo:'Juil'},{t:'Seul sur Mars',cat:'film',date:'Avr 2024',yr:2024,mo:'Avr'},{t:'Seven',cat:'film',date:'Juin 2025',yr:2025,mo:'Juin'},{t:'Memories of Murder',cat:'film',date:'Nov 2025',yr:2025,mo:'Nov'},{t:'Tu ne tueras point',cat:'film',date:'Nov 2023',yr:2023,mo:'Nov'},{t:'Insidious 1',cat:'film',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'Insidious 2',cat:'film',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'Insidious 3',cat:'film',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'Insidious 4',cat:'film',date:'Oct 2025',yr:2025,mo:'Oct'},{t:'Conjuring 1',cat:'film',date:'Sept 2025',yr:2025,mo:'Sept'},{t:'Conjuring 2',cat:'film',date:'Sept 2025',yr:2025,mo:'Sept'},{t:'Le Tombeau des Lucioles Ghibli',cat:'film',date:'Sept 2024',yr:2024,mo:'Sept'},{t:'Dragon Ball Z Fusion',cat:'film',date:'Juin 2024',yr:2024,mo:'Juin'},{t:'Chainsaw Man Reze',cat:'film',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'Black Clover L\'Épée de l\'Empereur-Mage',cat:'film',date:'Nov 2023',yr:2023,mo:'Nov'},{t:'My Hero Academia World Heroes Mission',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'Pokémon Lucario',cat:'film',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Pokémon L\'ascension de Darkrai',cat:'film',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Pokémon Hoopa',cat:'film',date:'Août 2024',yr:2024,mo:'Août'},{t:'Kaiji 1',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Kaiji 2',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Kaiji 3',cat:'film',date:'Avr 2023',yr:2023,mo:'Avr'},{t:'Inazuma Eleven contre les Ogres',cat:'film',date:'Fév 2022',yr:2022,mo:'Fév'},{t:'Inazuma Eleven Go le film',cat:'film',date:'Mars 2022',yr:2022,mo:'Mars'},{t:'One Piece Z',cat:'film',date:'Mars 2023',yr:2023,mo:'Mars'},{t:'Les Saveurs du Palais',cat:'film',date:'Sept 2023',yr:2023,mo:'Sept'},{t:'K-pop Demon Hunters',cat:'film',date:'Déc 2025',yr:2025,mo:'Déc'},{t:'Jumanji 1995',cat:'film',date:'Juin 2024',yr:2024,mo:'Juin'},{t:'100% Physique S1',cat:'serie',date:'Fév 2023',yr:2023,mo:'Fév'},{t:'100% Physique S2',cat:'serie',date:'Mars 2024',yr:2024,mo:'Mars'},{t:'Fermat Kitchen',cat:'serie',date:'Déc 2023',yr:2023,mo:'Déc'},{t:'Le Choc des Toques S1',cat:'serie',date:'Sept 2025',yr:2025,mo:'Sept'},{t:'Le Choc des Toques S2',cat:'serie',date:'Jan 2026',yr:2026,mo:'Jan'}];
+const CAT_LABEL={jeu:'Jeu vidéo',anime:'Animé',film:'Film',serie:'Série'};
+const CAT_COLOR={jeu:'#00d4ff',anime:'#7c3aed',film:'#ccccdd',serie:'#10b981'};
+const MO_ORD={Jan:1,Fév:2,Mars:3,Avr:4,Mai:5,Juin:6,Juil:7,Août:8,Sept:9,Oct:10,Nov:11,Déc:12};
+let rqLvl=1,rqLives=3,rqRec=parseInt(localStorage.getItem('rq_rec')||'0'),rqDead=false;
+function rqR(a){return a[Math.floor(Math.random()*a.length)];}
+function rqS(a){return[...a].sort(()=>Math.random()-0.5);}
+function verb(c){return c==='jeu'?'joué à':'react';}
+function genQ(lvl){
+  const v=RQ_DATA.filter(i=>i.yr>0);
+  const pools={
+    easy:  ['first','last','same_yr'],
+    med:   ['yr','which','count'],
+    hard:  ['mo','yr_exact']
+  };
+  // Alterner entre easy et med/hard selon le niveau
+  let type;
+  const last = genQ._last || '';
+  if(lvl<=3){
+    // Alterner easy uniquement
+    const avail = pools.easy.filter(t=>t!==last);
+    type = rqR(avail);
+  } else if(lvl<=6){
+    // Alterner easy/med
+    const wasEasy = pools.easy.includes(last);
+    const pool = wasEasy ? pools.med : pools.easy;
+    type = rqR(pool);
+  } else if(lvl<=12){
+    // Mix easy/med, éviter répétition
+    const all = [...pools.easy,...pools.med];
+    type = rqR(all.filter(t=>t!==last));
+  } else if(lvl<=18){
+    // Mix med/hard
+    const all = [...pools.med,...pools.hard];
+    type = rqR(all.filter(t=>t!==last));
+  } else {
+    // Tout, favoriser hard
+    const all = [...pools.med,...pools.hard,...pools.hard];
+    type = rqR(all.filter(t=>t!==last));
+  }
+  genQ._last = type;
+
+  if(type==='which'){
+    const cat=rqR(['jeu','anime','film']);
+    const allCat=v.filter(i=>i.cat===cat);
+    const yrs=[...new Set(allCat.map(i=>i.yr))];
+    // Trouver une année où il y a au moins 1 item de cette catégorie
+    const yr=rqR(yrs);
+    const inYear=allCat.filter(i=>i.yr===yr);
+    const outYear=allCat.filter(i=>i.yr!==yr);
+    if(outYear.length<3)return genQ(lvl);
+    // 1 seul correct, 3 wrong de la même catégorie mais d'autres années
+    const c=rqR(inYear);
+    const w=rqS(outYear).slice(0,3);
+    const opts=rqS([c,...w]);
+    const phrase=cat==='jeu'
+      ? `Parmi ces quatre jeux, lequel Shini a joué en ${yr} ?`
+      : cat==='anime'
+      ? `Parmi ces quatre animés, lequel Shini a react en ${yr} ?`
+      : `Parmi ces quatre films, lequel Shini a react en ${yr} ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:opts.map(o=>o.t),ans:c.t};
+  }
+
+  if(type==='last'){
+    const cat=rqR(['jeu','anime','film']);
+    const pool=v.filter(i=>i.cat===cat);
+    const g=rqS(pool).slice(0,4);
+    if(g.length<4)return genQ(lvl);
+    const last=g.reduce((a,b)=>(a.yr>b.yr||(a.yr===b.yr&&(MO_ORD[a.mo]||0)>(MO_ORD[b.mo]||0)))?a:b);
+    const phrase=cat==='jeu'
+      ? `Parmi ces quatre jeux, lequel Shini a joué en dernier ?`
+      : cat==='anime'
+      ? `Parmi ces quatre animés, lequel Shini a react en dernier ?`
+      : `Parmi ces quatre films, lequel Shini a react en dernier ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:g.map(i=>i.t),ans:last.t};
+  }
+
+  if(type==='same_yr'){
+    const cat=rqR(['jeu','anime','film']);
+    const yrs=[...new Set(v.filter(i=>i.cat===cat).map(i=>i.yr))];
+    const yr=rqR(yrs);
+    const inYear=v.filter(i=>i.cat===cat&&i.yr===yr);
+    if(inYear.length<2)return genQ(lvl);
+    const ref=rqR(inYear);
+    const correct=rqR(inYear.filter(i=>i.t!==ref.t));
+    const wrong=rqS(v.filter(i=>i.cat===cat&&i.yr!==yr)).slice(0,3);
+    if(wrong.length<3)return genQ(lvl);
+    const opts=rqS([correct,...wrong]);
+    const phrase=cat==='jeu'
+      ? `La même année que "${ref.t}", Shini a aussi joué à quel autre jeu ?`
+      : cat==='anime'
+      ? `La même année que "${ref.t}", Shini a aussi react quel autre animé ?`
+      : `La même année que "${ref.t}", Shini a aussi react quel autre film ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:opts.map(o=>o.t),ans:correct.t};
+  }
+
+  if(type==='first'){
+    const cat=rqR(['jeu','anime','film']);
+    const pool=v.filter(i=>i.cat===cat);
+    const g=rqS(pool).slice(0,4);
+    if(g.length<4)return genQ(lvl);
+    const first=g.reduce((a,b)=>(a.yr<b.yr||(a.yr===b.yr&&(MO_ORD[a.mo]||0)<(MO_ORD[b.mo]||0)))?a:b);
+    const phrase=cat==='jeu'
+      ? `Parmi ces quatre jeux, lequel Shini a joué en premier ?`
+      : cat==='anime'
+      ? `Parmi ces quatre animés, lequel Shini a react en premier ?`
+      : `Parmi ces quatre films, lequel Shini a react en premier ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:g.map(i=>i.t),ans:first.t};
+  }
+
+  if(type==='yr'){
+    const i=rqR(v);
+    const yrs=[...new Set(v.map(x=>x.yr))].filter(y=>y!==i.yr);
+    // Difficulté : années proches aux niveaux élevés
+    const nearby=yrs.filter(y=>Math.abs(y-i.yr)<=2);
+    const pool=lvl>8&&nearby.length>=3?nearby:yrs;
+    const opts=rqS([i.yr,...rqS(pool).slice(0,3)]);
+    const phrase=i.cat==='jeu'
+      ? `En quelle année Shini a joué à "${i.t}" pour la première fois ?`
+      : i.cat==='anime'
+      ? `En quelle année Shini a react "${i.t}" ?`
+      : `En quelle année Shini a react le film "${i.t}" ?`;
+    return{col:CAT_COLOR[i.cat],lab:CAT_LABEL[i.cat],q:phrase,opts:opts.map(String),ans:String(i.yr)};
+  }
+
+  if(type==='count'){
+    const cat=rqR(['jeu','anime','film']);
+    const yr=rqR([...new Set(v.filter(i=>i.cat===cat).map(i=>i.yr))]);
+    const correct=v.filter(i=>i.cat===cat&&i.yr===yr).length;
+    const range=lvl>12?1:2; // réponses plus proches aux niveaux élevés
+    const w=rqS([correct-range*2,correct-range,correct+range,correct+range*2].filter(n=>n>0&&n!==correct)).slice(0,3);
+    const phrase=cat==='jeu'
+      ? `Combien de jeux Shini a joué en ${yr} ?`
+      : cat==='anime'
+      ? `Combien d'animés Shini a react en ${yr} ?`
+      : `Combien de films Shini a react en ${yr} ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:rqS([correct,...w]).map(String),ans:String(correct)};
+  }
+
+  if(type==='mo'){
+    const i=rqR(v.filter(x=>x.mo));
+    const mos=Object.keys(MO_ORD);
+    // Difficulté : mois proches aux niveaux élevés
+    const moIdx=MO_ORD[i.mo];
+    const nearby=mos.filter(m=>m!==i.mo&&Math.abs(MO_ORD[m]-moIdx)<=2);
+    const pool=lvl>12&&nearby.length>=3?nearby:mos.filter(m=>m!==i.mo);
+    const opts=rqS([i.mo,...rqS(pool).slice(0,3)]);
+    const phrase=i.cat==='jeu'
+      ? `En quel mois ${i.yr} Shini a joué à "${i.t}" pour la première fois ?`
+      : `En quel mois ${i.yr} Shini a react "${i.t}" ?`;
+    return{col:CAT_COLOR[i.cat],lab:CAT_LABEL[i.cat],q:phrase,opts,ans:i.mo};
+  }
+
+  if(type==='yr_exact'){
+    const cat=rqR(['jeu','anime','film']);
+    const allCat=v.filter(i=>i.cat===cat);
+    const yrs=[...new Set(allCat.map(i=>i.yr))];
+    const yr=rqR(yrs);
+    const inYear=allCat.filter(i=>i.yr===yr);
+    const outYear=allCat.filter(i=>i.yr!==yr);
+    if(inYear.length<3||outYear.length<1)return genQ(lvl);
+    // 3 bons (même année) + 1 intrus (autre année)
+    const intrus=rqR(outYear);
+    const decoys=rqS(inYear).slice(0,3);
+    const opts=rqS([intrus,...decoys]);
+    const phrase=cat==='jeu'
+      ? `Parmi ces quatre jeux, lequel Shini n'a PAS joué en ${yr} ?`
+      : cat==='anime'
+      ? `Parmi ces quatre animés, lequel Shini n'a PAS react en ${yr} ?`
+      : `Parmi ces quatre films, lequel Shini n'a PAS react en ${yr} ?`;
+    return{col:CAT_COLOR[cat],lab:CAT_LABEL[cat],q:phrase,opts:opts.map(o=>o.t),ans:intrus.t};
+  }
+
+  return genQ(lvl);
+}
+function renderH(){document.getElementById('rqHearts').innerHTML=Array.from({length:3},(_,i)=>`<div class="rq-heart${i>=rqLives?' lost':''}"></div>`).join('');}
+function nextQ(){
+  if(rqDead)return;
+  document.getElementById('rqFeedback').style.display='none';
+  document.getElementById('rqLevel').textContent=rqLvl;
+  document.getElementById('rqRecord').textContent=rqRec;
+  renderH();
+  updateFireBar();
+  const q=genQ(rqLvl);
+  // Couleur bordure carte selon catégorie
+  const card=document.getElementById('rqCard');
+  card.style.borderColor=q.col+'33';
+  card.style.boxShadow=`0 0 30px ${q.col}08`;
+  document.getElementById('rqCat').innerHTML=`<span style="color:${q.col}">${q.lab}</span> — Niveau ${rqLvl}`;
+  document.getElementById('rqQ').textContent=q.q;
+  const opts=document.getElementById('rqOpts');opts.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    if(!q.opts[i])return;
+    const b=document.createElement('button');b.className='rq-opt';
+    b.innerHTML=`<span class="rq-letter">${l}</span>${q.opts[i]}`;
+    b.onclick=()=>answer(q.opts[i],q.ans,q.opts,q.col);
+    opts.appendChild(b);
+  });
+  document.getElementById('rqBest').textContent=rqRec>0?`Meilleur niveau : ${rqRec}`:'';
+}
+
+let rqCombo=0;
+function updateFireBar(){
+  const bar=document.getElementById('rqProgress');
+  const pct=Math.min((rqLvl-1)/30*100,100);
+  bar.style.width=pct+'%';
+  // Plus le combo est haut, plus la barre est enflammée
+  if(rqCombo>=8){
+    bar.style.background='linear-gradient(to right,#ff0000,#ff4400,#ff8800,#ffcc00,#ffffff)';
+    bar.style.boxShadow='0 0 12px #ff4400, 0 0 24px #ff220066, 0 0 4px #fff';
+    bar.style.height='8px';
+  } else if(rqCombo>=5){
+    bar.style.background='linear-gradient(to right,#cc2200,#ff4400,#ff8800,#ffcc00)';
+    bar.style.boxShadow='0 0 10px #ff4400, 0 0 20px #ff220044';
+    bar.style.height='7px';
+  } else if(rqCombo>=3){
+    bar.style.background='linear-gradient(to right,#ff4400,#ff8800,#ffcc00)';
+    bar.style.boxShadow='0 0 8px #ff8800, 0 0 16px #ff440033';
+    bar.style.height='6px';
+  } else if(rqCombo>=1){
+    bar.style.background='linear-gradient(to right,#ff8800,#ffcc00,#ffd700)';
+    bar.style.boxShadow='0 0 6px #ff880055';
+    bar.style.height='6px';
+  } else {
+    bar.style.background='linear-gradient(to right,#ffd700,#ff8800)';
+    bar.style.boxShadow='none';
+    bar.style.height='6px';
+  }
+}
+
+function spawnParticles(color, win){
+  const overlay=document.getElementById('rqOverlay');
+  const count=win?12:6;
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    const size=win?4+Math.random()*5:3+Math.random()*4;
+    const x=20+Math.random()*60;
+    const vy=-(60+Math.random()*80);
+    const vx=(Math.random()-0.5)*60;
+    p.style.cssText=`position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:${color};left:${x}%;bottom:30%;pointer-events:none;z-index:10;opacity:0.9;box-shadow:0 0 ${size*3}px ${color};transition:none;`;
+    overlay.appendChild(p);
+    const start=performance.now();
+    const dur=600+Math.random()*400;
+    function anim(t){
+      const prog=(t-start)/dur;
+      if(prog>=1){p.remove();return;}
+      const py=prog*vy;
+      const px=prog*vx;
+      p.style.transform=`translate(${px}px,${py}px)`;
+      p.style.opacity=String(0.9*(1-prog));
+      requestAnimationFrame(anim);
+    }
+    setTimeout(()=>requestAnimationFrame(anim),i*30);
+  }
+}
+
+function flashScreen(){}
+
+function answer(choice,correct,opts,catColor){
+  document.querySelectorAll('.rq-opt').forEach(b=>{
+    b.disabled=true;
+    const txt=b.textContent.slice(1).trim();
+    if(txt===correct)b.classList.add('correct');
+    else if(txt===choice&&choice!==correct)b.classList.add('wrong');
+  });
+  const win=choice===correct;
+  const fb=document.getElementById('rqFeedback');
+  fb.style.display='block';
+  fb.style.background=win?'rgba(0,255,100,0.08)':'rgba(220,20,60,0.08)';
+  fb.style.border=win?'1px solid rgba(0,255,100,0.25)':'1px solid rgba(220,20,60,0.25)';
+  fb.style.color=win?'#00ff64':'#ff3355';
+  if(win){
+    rqCombo++;
+    rqLvl++;
+    if(rqLvl-1>rqRec){rqRec=rqLvl-1;localStorage.setItem('rq_rec',rqRec);}
+    fb.textContent='Bonne réponse !';
+    spawnParticles(catColor||'#ffd700',true);
+    setTimeout(nextQ,900);
+  } else {
+    rqCombo=0;
+    rqLives--;
+    renderH();
+    fb.textContent=`C'était : ${correct}`;
+    if(rqLives<=0){rqDead=true;setTimeout(showGO,1200);}
+    else setTimeout(nextQ,1400);
+  }
+}
+function showGO(){
+  const reached=rqLvl-1;
+  document.getElementById('rqLevel').textContent=reached;
+  document.getElementById('rqQ').textContent=`Game Over — tu as atteint le niveau ${reached}`;
+  document.getElementById('rqOpts').innerHTML='';
+  document.getElementById('rqCat').innerHTML=`<span style="color:#ffd700">PARTIE TERMINÉE</span>`;
+  const b=document.createElement('button');b.className='rq-opt';
+  b.style.cssText='justify-content:center;background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.4);color:#ffd700;';
+  b.textContent='Rejouer';b.onclick=startRQ;
+  document.getElementById('rqOpts').appendChild(b);
+  document.getElementById('rqFeedback').style.display='none';
+  document.getElementById('rqBest').textContent=`Meilleur niveau : ${rqRec}`;
+}
+function startRQ(){rqLvl=1;rqLives=3;rqDead=false;rqCombo=0;nextQ();}
+function openRQ(){document.getElementById('rqOverlay').classList.add('open');document.body.style.overflow='hidden';if(!window._rqStarted){window._rqStarted=true;startRQ();}}
+function closeRQ(){document.getElementById('rqOverlay').classList.remove('open');document.body.style.overflow='';}
+</script>
 </body>
 </html>
