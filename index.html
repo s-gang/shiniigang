@@ -511,7 +511,7 @@ nav::after {
   background:var(--card2); transition:transform 0.4s;
   position:absolute; inset:0;
 }
-.game-card:hover .game-img { transform:scale(1.04); }
+.game-card:hover .game-img { transform:scale(1); }
 .game-img-placeholder {
   position:absolute; inset:0;
   width:100%; height:100%;
@@ -753,7 +753,7 @@ footer::before {
   opacity: 1;
 }
 .flip-card.flipped {
-  transform: rotateY(0deg) scale(1.04);
+  transform: rotateY(0deg) scale(1);
   opacity: 1;
 }
 
@@ -765,14 +765,12 @@ footer::before {
 
 .flip-back {
   opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.25s ease 0.15s, transform 0.25s ease 0.15s;
+  transition: opacity 0.25s ease 0.15s;
   pointer-events: none;
 }
 
 .flip-card.flipped .flip-back {
   opacity: 1;
-  transform: scale(1);
   pointer-events: all;
 }
 
@@ -1553,6 +1551,7 @@ footer::before {
         <div class="list-item searchable" data-title="Sonic le film 2"><img class="card-img" src="images/sonic2.webp" alt="Sonic le film 2" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Sonic 2</div></div>
         <div class="list-item searchable" data-title="Sonic le film 3"><img class="card-img" src="images/sonic3.webp" alt="Sonic le film 3" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Sonic 3</div></div>
         <div class="list-item searchable" data-title="Wall-E"><img class="card-img" src="images/walle.webp" alt="Wall-E" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Wall-E</div></div>
+        <div class="list-item searchable" data-title="Moi Moche et Méchant 1"><img class="card-img" src="images/moimoche.webp" alt="Moi Moche et Méchant 1" width="120" height="180" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" loading="lazy"><div class="card-no-img" style="display:none">🎬</div><div class="card-label">Moi Moche et Méchant 1</div></div>
       </div>
     </div>
 
@@ -2047,8 +2046,8 @@ footer::before {
     card.style.transition = 'transform 0.08s ease';
     // Pas de tilt sur la face arrière
     card.style.transform  = isFlipped
-      ? `rotateY(0deg) scale(1.04)`
-      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+      ? `rotateY(0deg) scale(1)`
+      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1)`;
 
     if (!isFlipped) {
       const px = ((x / rect.width)  * 100).toFixed(1);
@@ -2072,14 +2071,14 @@ footer::before {
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1)`;
   }, { passive: true });
   window.addEventListener('mouseup',  () => {
     if (!isPressed) return;
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1)`;
     shineF.style.opacity  = '0';
     shineB.style.opacity  = '0';
   });
@@ -2102,8 +2101,8 @@ footer::before {
     card.style.transition = 'transform 0.08s ease';
     // Pas de tilt sur la face arrière pour éviter le flou
     card.style.transform  = isFlipped
-      ? `rotateY(0deg) scale(1.04)`
-      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.04)`;
+      ? `rotateY(0deg) scale(1)`
+      : `rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1)`;
 
     // Reflet holographique arc-en-ciel sur la face avant
     if (!isFlipped) {
@@ -2128,7 +2127,7 @@ footer::before {
     isPressed = false;
     const isFlipped = card.classList.contains('flipped');
     card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1.04)`;
+    card.style.transform  = `rotateY(0deg) rotateX(0deg) scale(1)`;
     shineF.style.opacity  = '0';
     shineB.style.opacity  = '0';
   });
@@ -2279,7 +2278,9 @@ document.getElementById('globalSearch').addEventListener('input', function() {
     const title = (el.dataset.title || '').toLowerCase();
     const cat = getCat(el);
     const catMatch = activeCategory === 'all' || cat === activeCategory;
-    const titleMatch = title.includes(q);
+    const titleNorm = title.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const qNorm = q.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const titleMatch = titleNorm.startsWith(qNorm);
     el.style.display = 'none';
     if (titleMatch && catMatch) {
       const clone = el.cloneNode(true);
@@ -2326,7 +2327,7 @@ document.getElementById('globalSearch').addEventListener('input', function() {
 // COUNTS
 document.getElementById('countGames').textContent = '122';
 document.getElementById('countAnimes').textContent = '34';
-document.getElementById('countMovies').textContent = '139';
+document.getElementById('countMovies').textContent = '140';
 document.getElementById('countSeries').textContent = '4';
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -2566,6 +2567,7 @@ const FAKE_DATA = {
   "Les Saveurs du Palais":           { note: null, date: 'Sept 2023', status: 'termine', comment: 'À venir' },
   "100 Metters sport":               { note: null, date: 'À venir',   status: 'termine', comment: 'À venir' },
   "K-pop Demon Hunters":             { note: null, date: 'Déc 2025',  status: 'termine', comment: 'À venir' },
+  "Moi Moche et Méchant 1":          { note: null, date: 'Mars 2026', status: 'termine', comment: 'À venir' },
   // JEUX
   "Fortnite":                              { note: null, date: 'Déc 2025', status: 'termine', comment: 'À venir' },
   "Bleach: Brave Souls":                   { note: null, date: 'Hors Saison', status: 'termine', comment: 'À venir' },
@@ -3372,11 +3374,11 @@ document.getElementById('flipCard').addEventListener('click', e => {
   if (card.classList.contains('flipped')) {
     card.classList.remove('flipped');
     card.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
-    card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1.04)';
+    card.style.transform = 'rotateY(0deg) rotateX(0deg) scale(1)';
   } else {
     card.classList.add('flipped');
     card.style.transition = 'transform 0.9s cubic-bezier(0.23, 1, 0.32, 1)';
-    card.style.transform = 'rotateY(0deg) scale(1.04)';
+    card.style.transform = 'rotateY(0deg) scale(1)';
     spawnParticles(currentParticleColors);
   }
 });
@@ -3395,7 +3397,7 @@ document.querySelectorAll('.list-item').forEach(item => {
 
 document.getElementById('countGames').textContent = '122';
 document.getElementById('countAnimes').textContent = '34';
-document.getElementById('countMovies').textContent = '139';
+document.getElementById('countMovies').textContent = '140';
 document.getElementById('countSeries').textContent = '4';
 
 </script>
